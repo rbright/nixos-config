@@ -94,6 +94,26 @@ in
         # Enable three-finger drag
         TrackpadThreeFingerDrag = true;
       };
+
+      LaunchServices = {
+        # Disable "Downloaded from Internet" warnings
+        LSQuarantine = false;
+      };
     };
+
+    activationScripts.postActivation.text = ''
+      # Disable crash reporter
+      defaults write com.apple.CrashReporter DialogType none
+
+      # Enable firewall with logging and stealth mode
+      echo "Configuring firewall..."
+      /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+      /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+      /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+      # Prevent automatic whitelisting of built-in and signed software
+      /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
+      /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off
+    '';
   };
 }
