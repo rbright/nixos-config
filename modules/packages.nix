@@ -15,8 +15,6 @@ with pkgs;
   git-lfs
   jq
   mkcert
-  nil
-  nixfmt-rfc-style
   nushell
   starship
   stow
@@ -25,20 +23,25 @@ with pkgs;
   yq
   zoxide
 
-  # Text Editing
-  hadolint
-  neovim
-  shellcheck
-
   # GPG
   gnupg
   gnutls
   pinentry_mac
 
-  # Language Tools
+  # Development Tools
+  atlas
+  cocoapods
+  fastlane
   go
-  watchman
+  golangci-lint
+  hadolint
+  natscli
+  neovim
   ngrok
+  nil
+  nixfmt-rfc-style
+  shellcheck
+  watchman
 
   # Kubernetes
   kubectl
@@ -52,12 +55,4 @@ with pkgs;
   terraform
   awscli2
   google-cloud-sdk
-
-  # Data Management
-  atlas
-  natscli
-
-  # Mobile Development
-  cocoapods
-  fastlane
 ]
