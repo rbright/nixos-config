@@ -38,26 +38,6 @@
         "type": "github"
       }
     },
-    "disko": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1739353546,
-        "narHash": "sha256-YTqXhBZvCdZLMBupWlCDvRFaTEhaHa2/Xc/p1sUdSZU=",
-        "owner": "nix-community",
-        "repo": "disko",
-        "rev": "26ade1005191e0602a78b0f141970648445bafd9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "disko",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -95,11 +75,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1739485005,
-        "narHash": "sha256-PUT0FLq7f3yxsKSk2WDccsiyu75niQe6FPMgGM7Ts8M=",
+        "lastModified": 1739505555,
+        "narHash": "sha256-ZsKIalMz/AzZlXc2GDbWah7c24/Fnxj/qWPHXw31kn4=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "b4a7bf6ac40d6a560e726590f45684947bb56d9b",
+        "rev": "4fe54efe84c124b29aa57a6db98ed71ecddd86fa",
         "type": "github"
       },
       "original": {
@@ -111,11 +91,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1739487554,
-        "narHash": "sha256-mHgrhnSYVdXFW2rzUUu1DRhVO6tuRod1BiQCq8K60yU=",
+        "lastModified": 1739504865,
+        "narHash": "sha256-6RK+0iD6IeskaYdimPB1Q8arU5dyzqA5VSFcQpHDCXg=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "14d25292bd0b13360e289db622baa9575ec25cb5",
+        "rev": "1b0665eee8b9b918a4086a47cc0f263f2d4cd7c9",
         "type": "github"
       },
       "original": {
@@ -209,11 +189,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1739214665,
-        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
+        "lastModified": 1739446958,
+        "narHash": "sha256-+/bYK3DbPxMIvSL4zArkMX0LQvS7rzBKXnDXLfKyRVc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
+        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
         "type": "github"
       },
       "original": {
@@ -226,7 +206,6 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
-        "disko": "disko",
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",

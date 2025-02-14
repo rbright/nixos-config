@@ -1,19 +1,27 @@
 { config, pkgs, ... }:
 
-let user = "rbright"; in
+let
+  user = "rbright";
+in
 
 {
   imports = [
-    ../../modules/darwin/home-manager.nix
-    ../../modules/shared
+    ../modules/home-manager.nix
+    ../modules
   ];
 
   nix = {
     enable = false;
     package = pkgs.nix;
     settings = {
-      trusted-users = [ "@admin" "${user}" ];
-      substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
+      trusted-users = [
+        "@admin"
+        "${user}"
+      ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
       trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     };
 
@@ -24,9 +32,12 @@ let user = "rbright"; in
 
   system.checks.verifyNixPath = false;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages =
+    with pkgs;
+    [
 
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+    ]
+    ++ (import ../modules/packages.nix { inherit pkgs; });
 
   system = {
     stateVersion = 5;

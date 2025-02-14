@@ -1,13 +1,17 @@
-{ config, pkgs, lib, home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   user = "rbright";
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
-   ./dock
+    ./dock
   ];
 
   # It me
@@ -20,8 +24,12 @@ in
 
   homebrew = {
     enable = true;
-    casks = pkgs.callPackage ./casks.nix {};
-    # onActivation.cleanup = "uninstall";
+    casks = pkgs.callPackage ./casks.nix { };
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+      upgrade = true;
+    };
 
     # These app IDs are from using the mas CLI app
     # mas = mac app store
@@ -41,18 +49,24 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
-      home = {
-        enableNixpkgsReleaseCheck = false;
-        packages = pkgs.callPackage ./packages.nix {};
-        file = lib.mkMerge [
-          sharedFiles
-          additionalFiles
-        ];
-        stateVersion = "24.11";
+    users.${user} =
+      {
+        pkgs,
+        config,
+        lib,
+        ...
+      }:
+      {
+        home = {
+          enableNixpkgsReleaseCheck = false;
+          packages = pkgs.callPackage ./packages.nix { };
+          file = lib.mkMerge [
+            additionalFiles
+          ];
+          stateVersion = "24.11";
+        };
+        programs = { };
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
-    };
   };
 
   # Fully declarative dock using the latest from Nix Store
