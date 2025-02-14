@@ -69,12 +69,12 @@ in
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }
     {
-      path = "${config.users.users.${user}.home}/.local/share/";
+      path = "${config.users.users.${user}.home}/My Drive";
       section = "others";
-      options = "--sort name --view grid --display folder";
+      options = "--sort name --view grid --display stack";
     }
     {
-      path = "${config.users.users.${user}.home}/.local/share/downloads";
+      path = "${config.users.users.${user}.home}/Downloads";
       section = "others";
       options = "--sort name --view grid --display stack";
     }
