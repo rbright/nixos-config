@@ -4,6 +4,18 @@ This repository contains NixOS configuration files.
 
 ## Available Commands
 
+### Bootstrap System
+
+```sh
+./bootstrap.zsh
+```
+
+This command initializes a new macOS system by:
+- Installing Xcode CLI Tools
+- Installing NixOS via the Determinate Systems installer
+
+Note: This command should be run first on a new macOS system before other commands.
+
 ### Build Configuration
 
 ```sh
