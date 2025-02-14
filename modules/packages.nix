@@ -29,18 +29,23 @@ with pkgs;
   pinentry_mac
 
   # Development Tools
+  android-tools
   atlas
   cocoapods
   fastlane
   go
   golangci-lint
   hadolint
+  just
   natscli
   neovim
   ngrok
   nil
   nixfmt-rfc-style
+  pnpm
+  podman
   shellcheck
+  uv
   watchman
 
   # Kubernetes

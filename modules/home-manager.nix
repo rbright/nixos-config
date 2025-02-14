@@ -39,7 +39,6 @@ in
       "Icon Set Creator" = 939343785;
       "Notability" = 360593530;
       "Pixelmator Pro" = 1289583905;
-      "Todoist" = 585829637;
       "Xcode" = 497799835;
     };
   };
