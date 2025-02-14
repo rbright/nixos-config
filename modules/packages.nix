@@ -10,6 +10,7 @@ with pkgs;
   btop
   carapace
   direnv
+  fd
   fish
   fzf
   gh
@@ -30,25 +31,41 @@ with pkgs;
   gnutls
   pinentry_mac
 
-  # Development Tools
-  android-tools
-  atlas
-  cocoapods
-  fastlane
-  go
-  golangci-lint
-  hadolint
-  just
-  natscli
+  # Text Editing
   neovim
+  shellcheck
+
+  # Development Tools
+  just
   ngrok
+
+  # Nix Development
   nil
   nixfmt-rfc-style
+
+  # Go Development
+  go
+  golangci-lint
+
+  # Node.js Development
+  nodejs_22
   pnpm
-  podman
-  shellcheck
-  uv
   watchman
+
+  # Python Development
+  uv
+
+  # Mobile Development
+  android-tools
+  cocoapods
+  fastlane
+
+  # Data Management Tools
+  atlas
+  natscli
+
+  # Container Development
+  hadolint
 
   # Kubernetes
   kubectl

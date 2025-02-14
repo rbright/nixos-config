@@ -16,7 +16,6 @@ _:
   "figma"
   "imageoptim"
   "ollama"
-  "podman-desktop"
   "postman"
   "proxyman"
   "tableplus"
