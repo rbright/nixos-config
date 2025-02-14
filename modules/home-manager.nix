@@ -76,7 +76,7 @@ in
     { path = "/Applications/Linear.app/"; }
     { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Cursor.app/"; }
-    { path = "/Applications/Warp.app/"; }
+    { path = "/Applications/Ghostty.app/"; }
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }
     {
