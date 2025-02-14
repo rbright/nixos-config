@@ -2,16 +2,18 @@
 
 with pkgs;
 [
+  # macOS
+  dockutil
+  mas
+
   # Terminal
   btop
-  dockutil
   fish
   fzf
   gh
   git
   git-lfs
   jq
-  mas
   mkcert
   nil
   nixfmt-rfc-style
