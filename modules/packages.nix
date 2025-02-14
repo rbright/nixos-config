@@ -11,7 +11,6 @@ with pkgs;
   carapace
   direnv
   fd
-  fish
   fzf
   gh
   git
