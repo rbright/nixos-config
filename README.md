@@ -16,6 +16,17 @@ This command initializes a new macOS system by:
 
 Note: This command should be run first on a new macOS system before other commands.
 
+### Update Packages
+
+```sh
+nix flake update
+```
+
+This command updates the `flake.lock` file with the latest versions of all dependencies. This is useful when you want to:
+- Update all packages to their latest versions from nixpkgs
+- Get the latest updates from other flake inputs
+- Update your system before rebuilding
+
 ### Build Configuration
 
 ```sh
