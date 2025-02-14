@@ -8,6 +8,8 @@ with pkgs;
 
   # Terminal
   btop
+  carapace
+  direnv
   fish
   fzf
   gh
