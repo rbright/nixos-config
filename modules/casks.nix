@@ -13,6 +13,7 @@ _:
   "android-studio"
   "cursor"
   "dash"
+  "homebrew/cask/docker"
   "figma"
   "imageoptim"
   "ollama"
