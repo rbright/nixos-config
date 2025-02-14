@@ -42,35 +42,58 @@ in
   system = {
     stateVersion = 5;
 
-    # defaults = {
-    #   NSGlobalDomain = {
-    #     AppleShowAllExtensions = true;
-    #     ApplePressAndHoldEnabled = false;
+    defaults = {
+      NSGlobalDomain = {
+        # Show all filename extensions
+        AppleShowAllExtensions = true;
 
-    #     KeyRepeat = 2; # Values: 120, 90, 60, 30, 12, 6, 2
-    #     InitialKeyRepeat = 15; # Values: 120, 94, 68, 35, 25, 15
+        # Enable key repeat for all apps
+        ApplePressAndHoldEnabled = false;
 
-    #     "com.apple.mouse.tapBehavior" = 1;
-    #     "com.apple.sound.beep.volume" = 0.0;
-    #     "com.apple.sound.beep.feedback" = 0;
-    #   };
+        # Set key repeat to fastest rate
+        KeyRepeat = 2; # Values: 120, 90, 60, 30, 12, 6, 2
+        InitialKeyRepeat = 15; # Values: 120, 94, 68, 35, 25, 15
 
-    #   dock = {
-    #     autohide = false;
-    #     show-recents = false;
-    #     launchanim = true;
-    #     orientation = "bottom";
-    #     tilesize = 48;
-    #   };
+        # "com.apple.mouse.tapBehavior" = 1;
+        # "com.apple.sound.beep.feedback" = 0;
+        # "com.apple.sound.beep.volume" = 0.0;
+      };
 
-    #   finder = {
-    #     _FXShowPosixPathInTitle = false;
-    #   };
+      dock = {
+        # Hide dock when inactive
+        autohide = true;
 
-    #   trackpad = {
-    #     Clicking = true;
-    #     TrackpadThreeFingerDrag = true;
-    #   };
-    # };
+        # Remove delay when hiding dock
+        autohide-delay = 0.0;
+
+        # Reduce delay when showing dock
+        autohide-time-modifier = 0.2;
+
+        # Hide recent applications
+        show-recents = false;
+
+        # Enable launch animation
+        launchanim = true;
+
+        orientation = "bottom";
+        tilesize = 48;
+      };
+
+      finder = {
+        # Hide full path in Finder title bar
+        _FXShowPosixPathInTitle = false;
+
+        # Hide hidden files
+        AppleShowAllFiles = false;
+      };
+
+      trackpad = {
+        # Enable tap to click
+        Clicking = true;
+
+        # Enable three-finger drag
+        TrackpadThreeFingerDrag = true;
+      };
+    };
   };
 }
