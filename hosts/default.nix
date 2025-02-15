@@ -53,6 +53,20 @@ in
     ]
     ++ (import ../modules/packages.nix { inherit pkgs; });
 
+  ##############################################################################
+  # Fonts
+  ##############################################################################
+
+  fonts.packages = with pkgs; [
+    fira-code
+    fira-code-nerdfont
+    fira-code-symbols
+    inter
+    lato
+    montserrat
+    quicksand
+  ];
+
   system = {
     stateVersion = 5;
 
