@@ -67,8 +67,51 @@ in
     quicksand
   ];
 
+  ############################################################################
+  # Networking
+  ############################################################################
+
+  networking = {
+    # Set friendly name for the system
+    computerName = "Ryan's MacBook Pro";
+
+    # Set system hostname
+    hostName = "lambda";
+
+    # Set network services to configure
+    knownNetworkServices = [
+      "USB 10/100/1000 LAN"
+      "Wi-Fi"
+      "Thunderbolt Bridge"
+    ];
+
+    # Set DNS servers
+    dns = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
+
+    # Enable Wake-on-LAN
+    wakeOnLan = {
+      enable = true;
+    };
+  };
+
+  ##############################################################################
+  # System Settings
+  ##############################################################################
+
   system = {
     stateVersion = 5;
+
+    ############################################################################
+    # Startup
+    ############################################################################
+
+    startup = {
+      # Disable startup chime
+      chime = false;
+    };
 
     ############################################################################
     # Keyboard
@@ -85,15 +128,6 @@ in
       # Don't swap modifiers keys
       swapLeftCommandAndLeftAlt = false;
       swapLeftCtrlAndFn = false;
-    };
-
-    ############################################################################
-    # Startup
-    ############################################################################
-
-    startup = {
-      # Disable startup chime
-      chime = false;
     };
 
     ############################################################################
@@ -573,6 +607,12 @@ in
         # Don't automatically install macOS updates
         AutomaticallyInstallMacOSUpdates = false;
       };
+
+      ##########################################################################
+      # Custom System Preferences
+      ##########################################################################
+
+      CustomSystemPreferences = { };
 
       ##########################################################################
       # Custom User Preferences
