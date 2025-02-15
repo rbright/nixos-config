@@ -633,6 +633,21 @@ in
         NSGlobalDomain.WebKitDeveloperExtras = true;
 
         ########################################################################
+        # Apple Music
+        ########################################################################
+
+        # Download Dolby Atmos
+        "com.apple.Music".downloadDolbyAtmos = 1;
+
+        # Enable Lossless Audio with ALAC up to 24-bit / 48 kHz
+        "com.apple.Music".losslessEnabled = 1;
+        "com.apple.Music".preferredDownloadAudioQuality = 15;
+        "com.apple.Music".preferredStreamPlaybackAudioQuality = 15;
+
+        # Disable playback notifications
+        "com.apple.Music".userWantsPlaybackNotifications = 0;
+
+        ########################################################################
         # Finder
         ########################################################################
 
