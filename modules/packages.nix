@@ -57,6 +57,10 @@ with pkgs;
   # Python Development
   uv
 
+  # Rust Development
+  cargo
+  rustc
+
   # Mobile Development
   android-tools
   cocoapods
