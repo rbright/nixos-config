@@ -46,6 +46,9 @@ with pkgs;
   go
   golangci-lint
 
+  # Lua Development
+  luajitPackages.luarocks
+
   # Node.js Development
   nodejs_22
   pnpm
@@ -59,11 +62,11 @@ with pkgs;
   cocoapods
   fastlane
 
-  # Data Management Tools
+  # Data Management
   atlas
   natscli
 
-  # Container Development
+  # Containers
   hadolint
 
   # Kubernetes
