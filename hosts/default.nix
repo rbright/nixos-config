@@ -658,6 +658,34 @@ in
         "com.apple.finder".WarnOnEmptyTrash = false;
 
         ########################################################################
+        # TextEdit
+        ########################################################################
+
+        # Don't check spelling while typing
+        "com.apple.TextEdit".CheckSpellingWhileTyping = 0;
+
+        # Don't correct spelling automatically
+        "com.apple.TextEdit".CorrectSpellingAutomatically = 0;
+
+        # Disable rich text
+        "com.apple.TextEdit".RichText = 0;
+
+        # Disable smart copy paste
+        "com.apple.TextEdit".SmartCopyPaste = 0;
+
+        # Disable smart dashes
+        "com.apple.TextEdit".SmartDashes = 0;
+
+        # Disable smart quotes
+        "com.apple.TextEdit".SmartQuotes = 0;
+
+        # Disable smart substitutions in rich text only
+        "com.apple.TextEdit".SmartSubstitutionsEnabledInRichTextOnly = 0;
+
+        # Disable text replacement
+        "com.apple.TextEdit".TextReplacement = 0;
+
+        ########################################################################
         # Login Window
         ########################################################################
 
