@@ -14,7 +14,7 @@ in
     ./dock
   ];
 
-  # It me
+  # Setup the user
   users.users.${user} = {
     name = "${user}";
     home = "/Users/${user}";
@@ -24,13 +24,18 @@ in
 
   homebrew = {
     enable = true;
+
+    # Install Homebrew Casks
     casks = pkgs.callPackage ./casks.nix { };
+
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
       upgrade = true;
     };
 
+    # Install application from the Mac App Store
+    #
     # These app IDs are from using the mas CLI app
     # https://github.com/mas-cli/mas
     masApps = {
@@ -66,8 +71,10 @@ in
       };
   };
 
-  # Fully declarative dock using the latest from Nix Store
+  # Enable the Dock
   local.dock.enable = true;
+
+  # Setup persistent Dock entries
   local.dock.entries = [
     { path = "/Applications/ChatGPT.app/"; }
     { path = "/Applications/Brave Browser.app/"; }
@@ -90,5 +97,4 @@ in
       options = "--sort name --view grid --display stack";
     }
   ];
-
 }
