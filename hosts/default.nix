@@ -176,14 +176,14 @@ in
         NSAutomaticSpellingCorrectionEnabled = false;
 
         # Don't Fn keys as standard function keys
-        "com.apple.keyboard.fnState" = true;
+        "com.apple.keyboard.fnState" = false;
 
         ########################################################################
         # Trackpad
         ########################################################################
 
         # Set tracking speed
-        "com.apple.trackpad.scaling" = 0.6;
+        "com.apple.trackpad.scaling" = 0.6875;
 
         # Disable force click
         "com.apple.trackpad.forceClick" = false;
@@ -220,7 +220,7 @@ in
         # Animate opening and closing windows
         NSAutomaticWindowAnimationsEnabled = true;
 
-        # Jump to the spot that’s clicked on the scroll bar
+        # Jump to the spot that's clicked on the scroll bar
         AppleScrollerPagingBehavior = true;
 
         # Enable smooth scrolling
@@ -228,6 +228,16 @@ in
 
         # Enable moving window by holding anywhere on the window
         NSWindowShouldDragOnGesture = true;
+
+        ########################################################################
+        # General > Language & Region
+        ########################################################################
+
+        # Set temperature unit to Fahrenheit
+        AppleTemperatureUnit = "Fahrenheit";
+
+        # Force 24-hour time
+        AppleICUForce24HourTime = true;
 
         ########################################################################
         # Miscellaneous
@@ -243,9 +253,6 @@ in
         # Enable full keyboard access
         AppleKeyboardUIMode = 3;
 
-        # Force 24-hour time
-        AppleICUForce24HourTime = true;
-
         # Use dark mode
         AppleInterfaceStyle = "Dark";
         AppleInterfaceStyleSwitchesAutomatically = false;
@@ -255,9 +262,6 @@ in
 
         # Hide hidden files
         AppleShowAllFiles = false;
-
-        # Set temperature unit to Fahrenheit
-        AppleTemperatureUnit = "Fahrenheit";
 
         # Don't automatically terminate apps when they are idle
         NSDisableAutomaticTermination = true;
@@ -476,24 +480,6 @@ in
       };
 
       ##########################################################################
-      # Keyboard
-      ##########################################################################
-
-      hitoolbox = {
-        # Do nothing with the Fn key
-        AppleFnUsageType = "Do Nothing";
-      };
-
-      ##########################################################################
-      # Mouse
-      ##########################################################################
-
-      # Disable mouse acceleration
-      ".GlobalPreferences" = {
-        "com.apple.mouse.scaling" = 0.4;
-      };
-
-      ##########################################################################
       # Trackpad
       ##########################################################################
 
@@ -629,8 +615,94 @@ in
       ##########################################################################
 
       CustomUserPreferences = {
-        # Add a context menu item for showing the Web Inspector in web views
-        NSGlobalDomain.WebKitDeveloperExtras = true;
+
+        ########################################################################
+        # General > Language & Region
+        ########################################################################
+
+        # Set supported languages
+        NSGlobalDomain.AppleLanguages = [ "en-US" ];
+
+        # Set supported languages
+        NSGlobalDomain.AppleLocale = "en-US";
+
+        # Set the first day of the week to Monday
+        NSGlobalDomain.AppleFirstWeekday = {
+          gregorian = 2;
+        };
+
+        # Set the date format to "MM/dd/yyyy"
+        NSGlobalDomain.AppleICUDateFormatStrings = {
+          "1" = "y-MM-dd";
+        };
+
+        ########################################################################
+        # Keyboard
+        ########################################################################
+
+        # Do nothing with the Fn key
+        "com.apple.hitoolbox".AppleFnUsageType = 0;
+
+        # Disable dictation
+        "com.apple.hitoolbox".AppleDictationAutoEnable = 0;
+
+        ########################################################################
+        # Mouse
+        ########################################################################
+
+        # Set mouse tracking speed
+        NSGlobalDomain."com.apple.mouse.scaling" = 0.5;
+
+        # Disable mouse acceleration
+        NSGlobalDomain."com.apple.mouse.linear" = 1;
+
+        # Set double-click speed
+        NSGlobalDomain."com.apple.mouse.doubleClickThreshold" = 0.5;
+
+        # Set scrolling speed
+        NSGlobalDomain."com.apple.scrollwheel.scaling" = 0.75;
+
+        ########################################################################
+        # Finder
+        ########################################################################
+
+        # Empty trash securely
+        "com.apple.finder".EmptyTrashSecurely = true;
+
+        # Don't warn when emptying trash
+        "com.apple.finder".WarnOnEmptyTrash = false;
+
+        ########################################################################
+        # Login Window
+        ########################################################################
+
+        # Don't reopen windows when logging back in
+        "com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = 0;
+        "com.apple.loginwindow".TALLogoutSavesState = 0;
+
+        ########################################################################
+        # Software Update
+        ########################################################################
+
+        # Enable auto-update for apps
+        "com.apple.commerce".AutoUpdate = true;
+
+        # Check for software updates daily, not just once per week
+        "com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
+        "com.apple.SoftwareUpdate".ScheduleFrequency = 1;
+
+        # Download new updates when available
+        "com.apple.SoftwareUpdate".AutomaticDownload = 1;
+
+        # Install System data files & security updates
+        "com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
+
+        ########################################################################
+        # App Store
+        ########################################################################
+
+        # Don't autoplay video
+        "com.apple.AppStore".UserSetAutoPlayVideoSetting = 0;
 
         ########################################################################
         # Apple Music
@@ -648,14 +720,113 @@ in
         "com.apple.Music".userWantsPlaybackNotifications = 0;
 
         ########################################################################
-        # Finder
+        # Crash Reporter
         ########################################################################
 
-        # Empty trash securely
-        "com.apple.finder".EmptyTrashSecurely = true;
+        # Disable crash reporter
+        "com.apple.CrashReporter".DialogType = "none";
 
-        # Don't warn when emptying trash
-        "com.apple.finder".WarnOnEmptyTrash = false;
+        ########################################################################
+        # Image Capture
+        ########################################################################
+
+        # Prevent Photos from opening automatically when devices are plugged in
+        "com.apple.ImageCapture".disableHotPlug = true;
+
+        ########################################################################
+        # Spotlight
+        ########################################################################
+
+        "com.apple.Spotlight".orderedItems = [
+          {
+            enabled = 0;
+            name = "APPLICATIONS";
+          }
+          {
+            enabled = 0;
+            name = "BOOKMARKS";
+          }
+          {
+            enabled = 0;
+            name = "MENU_EXPRESSION";
+          }
+          {
+            enabled = 0;
+            name = "CONTACT";
+          }
+          {
+            enabled = 0;
+            name = "MENU_CONVERSION";
+          }
+          {
+            enabled = 0;
+            name = "MENU_DEFINITION";
+          }
+          {
+            enabled = 0;
+            name = "SOURCE";
+          }
+          {
+            enabled = 0;
+            name = "DOCUMENTS";
+          }
+          {
+            enabled = 0;
+            name = "EVENT_TODO";
+          }
+          {
+            enabled = 0;
+            name = "DIRECTORIES";
+          }
+          {
+            enabled = 0;
+            name = "FONTS";
+          }
+          {
+            enabled = 0;
+            name = "IMAGES";
+          }
+          {
+            enabled = 0;
+            name = "MESSAGES";
+          }
+          {
+            enabled = 0;
+            name = "MOVIES";
+          }
+          {
+            enabled = 0;
+            name = "MUSIC";
+          }
+          {
+            enabled = 0;
+            name = "MENU_OTHER";
+          }
+          {
+            enabled = 0;
+            name = "PDF";
+          }
+          {
+            enabled = 0;
+            name = "PRESENTATIONS";
+          }
+          {
+            enabled = 0;
+            name = "MENU_SPOTLIGHT_SUGGESTIONS";
+          }
+          {
+            enabled = 0;
+            name = "SPREADSHEETS";
+          }
+          {
+            enabled = 0;
+            name = "SYSTEM_PREFS";
+          }
+          {
+            enabled = 0;
+            name = "TIPS";
+          }
+        ];
 
         ########################################################################
         # TextEdit
@@ -686,36 +857,11 @@ in
         "com.apple.TextEdit".TextReplacement = 0;
 
         ########################################################################
-        # Login Window
-        ########################################################################
-
-        # Don't reopen windows when logging back in
-        "com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = false;
-        "com.apple.loginwindow".TALLogoutSavesState = 0;
-
-        ########################################################################
-        # Software Update
-        ########################################################################
-
-        # Enable auto-update for apps
-        "com.apple.commerce".AutoUpdate = true;
-
-        # Check for software updates daily, not just once per week
-        "com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
-        "com.apple.SoftwareUpdate".ScheduleFrequency = 1;
-
-        # Download new updates when available
-        "com.apple.SoftwareUpdate".AutomaticDownload = 1;
-
-        # Install System data files & security updates
-        "com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
-
-        ########################################################################
         # Miscellaneous
         ########################################################################
 
-        # Disable crash reporter
-        "com.apple.CrashReporter".DialogType = "none";
+        # Add a context menu item for showing the Web Inspector in web views
+        NSGlobalDomain.WebKitDeveloperExtras = true;
 
         # Avoid creating .DS_Store files on network or USB volumes
         "com.apple.desktopservices".DSDontWriteNetworkStores = true;
@@ -723,9 +869,6 @@ in
 
         # Automatically quit printer app once the print jobs complete
         "com.apple.print.PrintingPrefs".QuitWhenFinished = true;
-
-        # Prevent Photos from opening automatically when devices are plugged in
-        "com.apple.ImageCapture".disableHotPlug = true;
       };
     };
 
