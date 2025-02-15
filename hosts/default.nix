@@ -1,3 +1,9 @@
+################################################################################
+# macOS Host Configuration
+#
+# Configuration options at https://daiderd.com/nix-darwin/manual/index.html
+################################################################################
+
 { config, pkgs, ... }:
 
 let
@@ -9,8 +15,6 @@ in
     ../modules/home-manager.nix
     ../modules
   ];
-
-  # Configuration options at https://daiderd.com/nix-darwin/manual/index.html
 
   nix = {
     enable = false;
@@ -232,6 +236,12 @@ in
         # Enable swiping left or right with two fingers to navigate
         AppleEnableSwipeNavigateWithScrolls = true;
         AppleEnableMouseSwipeNavigateWithScrolls = true;
+
+        # Set font smoothing level
+        AppleFontSmoothing = 2;
+
+        # Enable full keyboard access
+        AppleKeyboardUIMode = 3;
 
         # Force 24-hour time
         AppleICUForce24HourTime = true;
@@ -619,44 +629,60 @@ in
       ##########################################################################
 
       CustomUserPreferences = {
-        NSGlobalDomain = {
-          # Add a context menu item for showing the Web Inspector in web views
-          WebKitDeveloperExtras = true;
-        };
+        # Add a context menu item for showing the Web Inspector in web views
+        NSGlobalDomain.WebKitDeveloperExtras = true;
+
+        ########################################################################
+        # Finder
+        ########################################################################
+
+        # Empty trash securely
+        "com.apple.finder".EmptyTrashSecurely = true;
+
+        # Don't warn when emptying trash
+        "com.apple.finder".WarnOnEmptyTrash = false;
+
+        ########################################################################
+        # Login Window
+        ########################################################################
+
+        # Don't reopen windows when logging back in
+        "com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = false;
+        "com.apple.loginwindow".TALLogoutSavesState = 0;
+
+        ########################################################################
+        # Software Update
+        ########################################################################
 
         # Enable auto-update for apps
         "com.apple.commerce".AutoUpdate = true;
 
+        # Check for software updates daily, not just once per week
+        "com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
+        "com.apple.SoftwareUpdate".ScheduleFrequency = 1;
+
+        # Download new updates when available
+        "com.apple.SoftwareUpdate".AutomaticDownload = 1;
+
+        # Install System data files & security updates
+        "com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
+
+        ########################################################################
+        # Miscellaneous
+        ########################################################################
+
+        # Disable crash reporter
+        "com.apple.CrashReporter".DialogType = "none";
+
         # Avoid creating .DS_Store files on network or USB volumes
-        "com.apple.desktopservices" = {
-          DSDontWriteNetworkStores = true;
-          DSDontWriteUSBStores = true;
-        };
+        "com.apple.desktopservices".DSDontWriteNetworkStores = true;
+        "com.apple.desktopservices".DSDontWriteUSBStores = true;
 
         # Automatically quit printer app once the print jobs complete
-        "com.apple.print.PrintingPrefs" = {
-          "Quit When Finished" = true;
-        };
+        "com.apple.print.PrintingPrefs".QuitWhenFinished = true;
 
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
-
-        "com.apple.SoftwareUpdate" = {
-          # Check for software updates daily, not just once per week
-          AutomaticCheckEnabled = true;
-          ScheduleFrequency = 1;
-
-          # Download new updates when available
-          AutomaticDownload = 1;
-
-          # Install System data files & security updates
-          CriticalUpdateInstall = 1;
-        };
-
-        # Disable crash reporter
-        "com.apple.CrashReporter" = {
-          DialogType = "none";
-        };
       };
     };
 
