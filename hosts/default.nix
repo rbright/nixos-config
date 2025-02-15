@@ -10,6 +10,8 @@ in
     ../modules
   ];
 
+  # Configuration options at https://daiderd.com/nix-darwin/manual/index.html
+
   nix = {
     enable = false;
     package = pkgs.nix;
@@ -32,6 +34,18 @@ in
 
   system.checks.verifyNixPath = false;
 
+  ##############################################################################
+  # Shells
+  ##############################################################################
+
+  environment.shells = [
+    "/Users/rbright/.nix-profile/bin/nu"
+  ];
+
+  ##############################################################################
+  # Packages
+  ##############################################################################
+
   environment.systemPackages =
     with pkgs;
     [
@@ -39,7 +53,6 @@ in
     ]
     ++ (import ../modules/packages.nix { inherit pkgs; });
 
-  # Configuration options at https://daiderd.com/nix-darwin/manual/index.html
   system = {
     stateVersion = 5;
 
