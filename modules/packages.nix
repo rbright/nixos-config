@@ -42,6 +42,14 @@ with pkgs;
   nil
   nixfmt-rfc-style
 
+  # Nushell Development
+  nushellPlugins.formats
+  nushellPlugins.gstat
+  nushellPlugins.net
+  nushellPlugins.polars
+  nushellPlugins.query
+  nushellPlugins.units
+
   # Go Development
   go
   golangci-lint
