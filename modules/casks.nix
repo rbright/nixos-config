@@ -7,7 +7,6 @@ _:
 
   # Terminal
   "ghostty"
-  "warp"
 
   # Development Tools
   "android-studio"
@@ -21,7 +20,6 @@ _:
   "proxyman"
   "tableplus"
   "tower"
-  "windsurf"
   "zed"
   "zulu@17"
 
