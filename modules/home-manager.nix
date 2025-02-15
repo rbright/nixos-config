@@ -14,6 +14,10 @@ in
     ./dock
   ];
 
+  ##############################################################################
+  # Users
+  ##############################################################################
+
   # Setup the user
   users.users.${user} = {
     name = "${user}";
@@ -22,17 +26,26 @@ in
     shell = pkgs.zsh;
   };
 
+  ##############################################################################
+  # Homebrew
+  ##############################################################################
+
   homebrew = {
     enable = true;
 
+    onActivation = {
+      # Don't automate update Homebrew and its formulae
+      autoUpdate = false;
+
+      # Uninstall formulae that are no longer present in the generated Brewfile
+      cleanup = "uninstall";
+
+      # Don't upgrade outdated formulae and Mac App Store apps
+      upgrade = false;
+    };
+
     # Install Homebrew Casks
     casks = pkgs.callPackage ./casks.nix { };
-
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "uninstall";
-      upgrade = true;
-    };
 
     # Install application from the Mac App Store
     #
@@ -48,7 +61,10 @@ in
     };
   };
 
-  # Enable home-manager
+  ##############################################################################
+  # Home Manager
+  ##############################################################################
+
   home-manager = {
     useGlobalPkgs = true;
     users.${user} =
@@ -70,6 +86,10 @@ in
         programs = { };
       };
   };
+
+  ##############################################################################
+  # Dock
+  ##############################################################################
 
   # Enable the Dock
   local.dock.enable = true;
