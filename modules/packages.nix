@@ -56,6 +56,7 @@ with pkgs;
   golangci-lint
 
   # Lua Development
+  lua-language-server
   luajitPackages.luarocks
 
   # Node.js Development
