@@ -34,6 +34,7 @@ with pkgs;
   # Text Editing
   neovim
   shellcheck
+  tree-sitter
 
   # Development Tools
   just
