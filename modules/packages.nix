@@ -18,6 +18,7 @@ with pkgs;
   jq
   mkcert
   nushell
+  ripgrep
   starship
   stow
   wget

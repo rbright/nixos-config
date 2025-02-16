@@ -209,7 +209,7 @@ in
         ########################################################################
 
         # Show scrollbars automatically based on mouse or trackpad
-        AppleShowScrollBars = "Automatic";
+        AppleShowScrollBars = "WhenScrolling";
 
         # Switch to a workspace that has a window of the application open
         AppleSpacesSwitchOnActivate = true;
