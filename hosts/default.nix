@@ -63,11 +63,11 @@ in
 
   fonts.packages = with pkgs; [
     fira-code
-    fira-code-nerdfont
     fira-code-symbols
     inter
     lato
     montserrat
+    nerd-fonts.fira-code
     quicksand
   ];
 
