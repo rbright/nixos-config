@@ -22,6 +22,7 @@ with pkgs;
   ripgrep
   starship
   stow
+  tmux
   wget
   woff2
   yq
