@@ -7,6 +7,11 @@ with pkgs;
   dockutil
   mas
 
+  # GPG
+  gnupg
+  gnutls
+  pinentry_mac
+
   # Terminal
   btop
   carapace
@@ -28,12 +33,8 @@ with pkgs;
   yq
   zoxide
 
-  # GPG
-  gnupg
-  gnutls
-  pinentry_mac
-
   # Text Editing
+  hadolint
   neovim
   shellcheck
   tree-sitter
@@ -46,7 +47,7 @@ with pkgs;
   nil
   nixfmt-rfc-style
 
-  # Nushell Development
+  # Nushell
   nushellPlugins.formats
   nushellPlugins.gstat
   nushellPlugins.net
@@ -82,9 +83,6 @@ with pkgs;
   # Data Management
   atlas
   natscli
-
-  # Containers
-  hadolint
 
   # Kubernetes
   kubectl

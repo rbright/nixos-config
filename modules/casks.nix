@@ -35,7 +35,6 @@ _:
   "obsidian"
   "openvpn-connect"
   "raycast"
-  "rectangle-pro"
   "superwhisper"
   "todoist"
 
