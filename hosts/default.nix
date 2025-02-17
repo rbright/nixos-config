@@ -175,8 +175,8 @@ in
         # Disable automatic spelling correction
         NSAutomaticSpellingCorrectionEnabled = false;
 
-        # Don't Fn keys as standard function keys
-        "com.apple.keyboard.fnState" = false;
+        # Use Fn keys as standard function keys
+        "com.apple.keyboard.fnState" = true;
 
         ########################################################################
         # Trackpad
