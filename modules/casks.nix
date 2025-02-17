@@ -25,6 +25,7 @@ _:
 
   # Productivity Tools
   "chatgpt"
+  "cleanshot"
   "fantastical"
   "freedom"
   "google-drive"
