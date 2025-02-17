@@ -3,6 +3,7 @@
 with pkgs;
 [
   # macOS
+  aerospace
   dockutil
   mas
 
