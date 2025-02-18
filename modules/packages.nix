@@ -62,6 +62,7 @@ with pkgs;
   # Lua Development
   lua-language-server
   luajitPackages.luarocks
+  stylua
 
   # Node.js Development
   nodejs_22
@@ -69,11 +70,19 @@ with pkgs;
   watchman
 
   # Python Development
+  ruff
   uv
 
   # Rust Development
   cargo
   rustc
+
+  # SQL Development
+  sqlfluff
+
+  # TypeScript Development
+  eslint_d
+  prettierd
 
   # Mobile Development
   android-tools
