@@ -6,8 +6,8 @@ print -P "%F{yellow}Initializing macOS bootstrap%f"
 print -P "%F{blue}Installing Xcode CLI Tools%f"
 xcode-select --install
 
-# NixOS
-print -P "%F{blue}Installing NixOS%f"
+# Nix
+print -P "%F{blue}Installing Nix%f"
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
 print -P "%F{yellow}Completed macOS bootstrap%f"
