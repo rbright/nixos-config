@@ -92,6 +92,7 @@ with pkgs;
   # Data Management
   atlas
   natscli
+  postgresql
 
   # Kubernetes
   kubectl
