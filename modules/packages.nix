@@ -31,6 +31,7 @@ with pkgs;
   wget
   woff2
   yq
+  xh
   zoxide
 
   # Text Editing
