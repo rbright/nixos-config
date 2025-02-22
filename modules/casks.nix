@@ -40,7 +40,6 @@ _:
 
   # Communication Tools
   "clay"
-  "discord"
   "mimestream"
   "slack"
   "zoom"
