@@ -55,7 +55,6 @@ in
       "DaisyDisk" = 411643860;
       "Harvest" = 506189836;
       "Icon Set Creator" = 939343785;
-      "Notability" = 360593530;
       "Pixelmator Pro" = 1289583905;
       "Xcode" = 497799835;
     };
