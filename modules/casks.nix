@@ -33,7 +33,6 @@ _:
   "microsoft-excel"
   "notion"
   "obsidian"
-  "openvpn-connect"
   "raycast"
   "superwhisper"
   "todoist"
@@ -52,6 +51,5 @@ _:
   "1password"
   "bartender"
   "gpg-suite"
-  "readwise-ibooks"
   "vnc-viewer"
 ]
