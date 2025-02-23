@@ -24,6 +24,7 @@ _:
   "zulu@17"
 
   # Productivity Tools
+  "calibre"
   "chatgpt"
   "cleanshot"
   "fantastical"
