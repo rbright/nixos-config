@@ -16,27 +16,56 @@ in
     ../modules
   ];
 
-  nix = {
-    enable = false;
-    package = pkgs.nix;
-    settings = {
-      trusted-users = [
-        "@admin"
-        "${user}"
-      ];
-      substituters = [
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
-      ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-    };
+  ##############################################################################
+  # Nix
+  ##############################################################################
 
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+  nix.enable = false;
+  nix.package = pkgs.nix;
+
+  nix.settings = {
+    trusted-users = [
+      "@admin"
+      "${user}"
+    ];
+    substituters = [
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org"
+    ];
+    trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
 
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   system.checks.verifyNixPath = false;
+  system.stateVersion = 5;
+
+  ##############################################################################
+  # Startup
+  ##############################################################################
+
+  system.startup.chime = false;
+
+  ##############################################################################
+  # Launch Services
+  ##############################################################################
+
+  system.defaults.LaunchServices.LSQuarantine = false;
+
+  ##############################################################################
+  # Launch Services
+  ##############################################################################
+
+  ##############################################################################
+  # Activation Scripts
+  ##############################################################################
+
+  system.activationScripts.postUserActivation.text = ''
+    # Avoid logout/login cycle to apply settings
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  '';
 
   ##############################################################################
   # Shells
@@ -47,7 +76,7 @@ in
   ];
 
   ##############################################################################
-  # Packages
+  # System Packages
   ##############################################################################
 
   environment.systemPackages =
@@ -56,6 +85,76 @@ in
 
     ]
     ++ (import ../modules/packages.nix { inherit pkgs; });
+
+  ##########################################################################
+  # Login Window
+  ##########################################################################
+
+  # Disable guest account
+  system.defaults.loginwindow.GuestEnabled = false;
+
+  # Show list of users on the login screen
+  system.defaults.loginwindow.SHOWFULLNAME = true;
+
+  # Allow Restart, Shutdown, and Sleep while logged out
+  system.defaults.loginwindow.RestartDisabled = false;
+  system.defaults.loginwindow.ShutDownDisabled = false;
+  system.defaults.loginwindow.SleepDisabled = false;
+
+  # Allow Restart and Shutdown while logged in
+  system.defaults.loginwindow.RestartDisabledWhileLoggedIn = false;
+  system.defaults.loginwindow.ShutDownDisabledWhileLoggedIn = false;
+
+  # Don't reopen windows when logging back in
+  system.defaults.CustomUserPreferences."com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = 0;
+  system.defaults.CustomUserPreferences."com.apple.loginwindow".TALLogoutSavesState = 0;
+
+  ##############################################################################
+  # Networking
+  ##############################################################################
+
+  # Set friendly name for the system
+  networking.computerName = "Ryan's MacBook Pro";
+
+  # Set system hostname
+  networking.hostName = "lambda";
+
+  # Set network services to configure
+  networking.knownNetworkServices = [
+    "USB 10/100/1000 LAN"
+    "Wi-Fi"
+    "Thunderbolt Bridge"
+  ];
+
+  # Set DNS servers
+  networking.dns = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
+
+  # Enable Wake-on-LAN
+  networking.wakeOnLan = {
+    enable = true;
+  };
+
+  ##############################################################################
+  # Networking > Firewall
+  ##############################################################################
+
+  # Don't automatically allow signed apps to accept incoming requests
+  system.defaults.alf.allowsignedenabled = 0;
+
+  # Don't automatically allow signed downloads to accept incoming requests
+  system.defaults.alf.allowdownloadsignedenabled = 0;
+
+  # Enable internal firewall
+  system.defaults.alf.globalstate = 1;
+
+  # Enable logging of requests made to the firewall
+  system.defaults.alf.loggingenabled = 1;
+
+  # Drop incoming ICMP requests
+  system.defaults.alf.stealthenabled = 1;
 
   ##############################################################################
   # Fonts
@@ -71,814 +170,620 @@ in
     quicksand
   ];
 
-  ############################################################################
-  # Networking
-  ############################################################################
+  ##############################################################################
+  # Software Update
+  ##############################################################################
 
-  networking = {
-    # Set friendly name for the system
-    computerName = "Ryan's MacBook Pro";
+  # Don't automatically install macOS updates
+  system.defaults.SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
 
-    # Set system hostname
-    hostName = "lambda";
+  # Enable auto-update for apps
+  system.defaults.CustomUserPreferences."com.apple.commerce".AutoUpdate = true;
 
-    # Set network services to configure
-    knownNetworkServices = [
-      "USB 10/100/1000 LAN"
-      "Wi-Fi"
-      "Thunderbolt Bridge"
-    ];
+  # Check for software updates daily, not just once per week
+  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
+  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".ScheduleFrequency = 1;
 
-    # Set DNS servers
-    dns = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
+  # Download new updates when available
+  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".AutomaticDownload = 1;
 
-    # Enable Wake-on-LAN
-    wakeOnLan = {
-      enable = true;
-    };
+  # Install System data files & security updates
+  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
+
+  ##############################################################################
+  # General > Language & Region
+  ##############################################################################
+
+  # Set temperature unit to Fahrenheit
+  system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Fahrenheit";
+
+  # Force 24-hour time
+  system.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
+
+  # Set supported languages
+  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleLanguages = [ "en-US" ];
+
+  # Set supported languages
+  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleLocale = "en-US";
+
+  # Set the first day of the week to Monday
+  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleFirstWeekday = {
+    gregorian = 2;
+  };
+
+  # Set the date format to "MM/dd/yyyy"
+  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleICUDateFormatStrings = {
+    "1" = "y-MM-dd";
   };
 
   ##############################################################################
-  # System Settings
+  # Control Center
   ##############################################################################
 
-  system = {
-    stateVersion = 5;
+  # Disable controls in menu bar
+  system.defaults.controlcenter.AirDrop = false;
+  system.defaults.controlcenter.BatteryShowPercentage = false;
+  system.defaults.controlcenter.Bluetooth = false;
+  system.defaults.controlcenter.Display = false;
+  system.defaults.controlcenter.FocusModes = false;
+  system.defaults.controlcenter.NowPlaying = false;
+  system.defaults.controlcenter.Sound = false;
 
-    ############################################################################
-    # Startup
-    ############################################################################
+  ##############################################################################
+  # Menu Clock
+  ##############################################################################
 
-    startup = {
-      # Disable startup chime
-      chime = false;
-    };
+  # Show 24-hour clock
+  system.defaults.menuExtraClock.Show24Hour = true;
 
-    ############################################################################
-    # Keyboard
-    ############################################################################
+  # Don't show date, day of month, or day of week
+  system.defaults.menuExtraClock.ShowDate = 2;
+  system.defaults.menuExtraClock.ShowDayOfMonth = false;
+  system.defaults.menuExtraClock.ShowDayOfWeek = false;
 
-    keyboard = {
-      # Disable key mapping
-      enableKeyMapping = false;
+  # Don't flash date separators or show seconds
+  system.defaults.menuExtraClock.FlashDateSeparators = false;
+  system.defaults.menuExtraClock.ShowSeconds = false;
 
-      # Don't remap Caps Lock
-      remapCapsLockToControl = false;
-      remapCapsLockToEscape = false;
+  ##############################################################################
+  # Desktop
+  ##############################################################################
 
-      # Don't swap modifiers keys
-      swapLeftCommandAndLeftAlt = false;
-      swapLeftCtrlAndFn = false;
-    };
+  # Hide icons on desktop
+  system.defaults.WindowManager.StandardHideDesktopIcons = true;
 
-    ############################################################################
-    # Defaults
-    ############################################################################
+  # Hide items in Stage Manager
+  system.defaults.WindowManager.HideDesktop = true;
 
-    defaults = {
+  # Click wallpaper to reveal desktop in Stage Manager
+  system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
 
-      ##########################################################################
-      # Global Settings
-      ##########################################################################
+  # Disable Stage Manager
+  system.defaults.WindowManager.GloballyEnabled = false;
 
-      NSGlobalDomain = {
+  # Show windows from an application all at once in Stage Manager
+  system.defaults.WindowManager.AppWindowGroupingBehavior = true;
 
-        ########################################################################
-        # Keyboard
-        ########################################################################
+  # Show widgets on desktop
+  system.defaults.WindowManager.StandardHideWidgets = false;
 
-        # Enable key repeat for all apps
-        ApplePressAndHoldEnabled = false;
+  # Hide widgets in Stage Manager
+  system.defaults.WindowManager.StageManagerHideWidgets = true;
 
-        # Set key repeat to fastest rate
-        InitialKeyRepeat = 15;
-        KeyRepeat = 2;
+  # Disable dragging windows to screen edges to tile
+  system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
 
-        # Disable automatic capitalization
-        NSAutomaticCapitalizationEnabled = false;
+  # Disable dragging windows to menu bar to fill screen
+  system.defaults.WindowManager.EnableTopTilingByEdgeDrag = false;
 
-        # Disable automatic dash substitution
-        NSAutomaticDashSubstitutionEnabled = false;
+  # Disable holding alt to tile windows
+  system.defaults.WindowManager.EnableTilingOptionAccelerator = false;
 
-        # Disable automatic inline prediction
-        NSAutomaticInlinePredictionEnabled = false;
+  # Disable margin for tiled windows
+  system.defaults.WindowManager.EnableTiledWindowMargins = false;
 
-        # Disable automatic period substitution
-        NSAutomaticPeriodSubstitutionEnabled = false;
+  # Use separate Spaces for each display
+  system.defaults.spaces.spans-displays = false;
 
-        # Disable smart quote substitution
-        NSAutomaticQuoteSubstitutionEnabled = false;
+  ##############################################################################
+  # Dock
+  ##############################################################################
 
-        # Disable automatic spelling correction
-        NSAutomaticSpellingCorrectionEnabled = false;
+  # Hide dock when inactive
+  system.defaults.dock.autohide = true;
 
-        # Use Fn keys as standard function keys
-        "com.apple.keyboard.fnState" = true;
+  # Remove delay when hiding dock
+  system.defaults.dock.autohide-delay = 0.0;
 
-        ########################################################################
-        # Trackpad
-        ########################################################################
+  # Reduce delay when showing dock
+  system.defaults.dock.autohide-time-modifier = 0.2;
 
-        # Set tracking speed
-        "com.apple.trackpad.scaling" = 0.6875;
+  # Don't show Dashboard as a Space
+  system.defaults.dock.dashboard-in-overlay = true;
 
-        # Disable force click
-        "com.apple.trackpad.forceClick" = false;
+  # Set speed of Mission Control animations
+  system.defaults.dock.expose-animation-duration = 0.2;
 
-        # Enable secondary click
-        "com.apple.trackpad.enableSecondaryClick" = true;
+  # Don't group windows by application in Mission Control's Exposé
+  system.defaults.dock.expose-group-apps = false;
 
-        # Disable natural scrolling
-        "com.apple.swipescrolldirection" = false;
+  # Set the size of the magnified Dock icons
+  system.defaults.dock.largesize = 64;
 
-        ########################################################################
-        # Sound
-        ########################################################################
+  # Enable launch animation
+  system.defaults.dock.launchanim = true;
 
-        # Disable sound feedback when volume is changed
-        "com.apple.sound.beep.feedback" = 0;
+  # Don't magnify Dock icons
+  system.defaults.dock.magnification = false;
 
-        # Set alert volume to 50%
-        "com.apple.sound.beep.volume" = 0.6065307;
+  # Set the animation effect for the dock
+  system.defaults.dock.mineffect = "scale";
 
-        ########################################################################
-        # Windows
-        ########################################################################
+  # Don't minimize windows into their application icons
+  system.defaults.dock.minimize-to-application = false;
 
-        # Show scrollbars automatically based on mouse or trackpad
-        AppleShowScrollBars = "WhenScrolling";
+  # Enable highlight hover aeffect for grid view of a stack
+  system.defaults.dock.mouse-over-hilite-stack = true;
 
-        # Switch to a workspace that has a window of the application open
-        AppleSpacesSwitchOnActivate = true;
+  # Don't automatically rearrange spaces based on most recent use
+  system.defaults.dock.mru-spaces = false;
 
-        # Use fullscreen tabs
-        AppleWindowTabbingMode = "fullscreen";
+  # Show dock on bottom
+  system.defaults.dock.orientation = "bottom";
 
-        # Animate opening and closing windows
-        NSAutomaticWindowAnimationsEnabled = true;
+  # Scroll up on a Dock icon to show all opened windows for an app
+  system.defaults.dock.scroll-to-open = true;
 
-        # Jump to the spot that's clicked on the scroll bar
-        AppleScrollerPagingBehavior = true;
+  # Show process indicators
+  system.defaults.dock.show-process-indicators = true;
 
-        # Enable smooth scrolling
-        NSScrollAnimationEnabled = true;
+  # Hide recent applications
+  system.defaults.dock.show-recents = false;
 
-        # Enable moving window by holding anywhere on the window
-        NSWindowShouldDragOnGesture = true;
+  # Don't make icons of hidden applications translucent
+  system.defaults.dock.showhidden = false;
 
-        ########################################################################
-        # General > Language & Region
-        ########################################################################
+  # Disable slow-motion minimize effect
+  system.defaults.dock.slow-motion-allowed = false;
 
-        # Set temperature unit to Fahrenheit
-        AppleTemperatureUnit = "Fahrenheit";
+  # Show dynamic icons
+  system.defaults.dock.static-only = false;
 
-        # Force 24-hour time
-        AppleICUForce24HourTime = true;
+  # Set tile size
+  system.defaults.dock.tilesize = 48;
 
-        ########################################################################
-        # Miscellaneous
-        ########################################################################
+  ##############################################################################
+  # Screen Saver
+  ##############################################################################
 
-        # Enable swiping left or right with two fingers to navigate
-        AppleEnableSwipeNavigateWithScrolls = true;
-        AppleEnableMouseSwipeNavigateWithScrolls = true;
+  system.defaults.screensaver.askForPassword = true;
 
-        # Set font smoothing level
-        AppleFontSmoothing = 2;
+  ##############################################################################
+  # Sound
+  ##############################################################################
 
-        # Enable full keyboard access
-        AppleKeyboardUIMode = 3;
+  # Disable sound feedback when volume is changed
+  system.defaults.NSGlobalDomain."com.apple.sound.beep.feedback" = 0;
 
-        # Use dark mode
-        AppleInterfaceStyle = "Dark";
-        AppleInterfaceStyleSwitchesAutomatically = false;
+  # Set alert volume to 50%
+  system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
 
-        # Show all filename extensions
-        AppleShowAllExtensions = true;
+  ##############################################################################
+  # Keyboard
+  ##############################################################################
 
-        # Hide hidden files
-        AppleShowAllFiles = false;
+  # Disable key mapping
+  system.keyboard.enableKeyMapping = false;
 
-        # Don't automatically terminate apps when they are idle
-        NSDisableAutomaticTermination = true;
+  # Don't remap Caps Lock
+  system.keyboard.remapCapsLockToControl = false;
+  system.keyboard.remapCapsLockToEscape = false;
 
-        # Save new documents to iCloud
-        NSDocumentSaveNewDocumentsToCloud = true;
-      };
+  # Don't swap modifiers keys
+  system.keyboard.swapLeftCommandAndLeftAlt = false;
+  system.keyboard.swapLeftCtrlAndFn = false;
 
-      ##########################################################################
-      # Network
-      ##########################################################################
+  # Enable key repeat for all apps
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
-      alf = {
-        # Don't automatically allow signed apps to accept incoming requests
-        allowsignedenabled = 0;
+  # Set key repeat to fastest rate
+  system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
+  system.defaults.NSGlobalDomain.KeyRepeat = 2;
 
-        # Don't automatically allow signed downloads to accept incoming requests
-        allowdownloadsignedenabled = 0;
+  # Use Fn keys as standard function keys
+  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
 
-        # Enable internal firewall
-        globalstate = 1;
+  # Do nothing with the Fn key
+  system.defaults.CustomUserPreferences."com.apple.hitoolbox".AppleFnUsageType = 0;
 
-        # Enable logging of requests made to the firewall
-        loggingenabled = 1;
+  # Disable dictation
+  system.defaults.CustomUserPreferences."com.apple.hitoolbox".AppleDictationAutoEnable = 0;
 
-        # Drop incoming ICMP requests
-        stealthenabled = 1;
-      };
+  # Disable automatic capitalization
+  system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
 
-      ##########################################################################
-      # Control Center
-      ##########################################################################
+  # Disable automatic dash substitution
+  system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
 
-      controlcenter = {
-        # Disable controls in menu bar
-        AirDrop = false;
-        Bluetooth = false;
-        Display = false;
-        FocusModes = false;
-        NowPlaying = false;
-        Sound = false;
+  # Disable automatic inline prediction
+  system.defaults.NSGlobalDomain.NSAutomaticInlinePredictionEnabled = false;
 
-        # Don't show Battery Percentage in menu bar
-        BatteryShowPercentage = false;
-      };
+  # Disable automatic period substitution
+  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
 
-      ##########################################################################
-      # Desktop
-      ##########################################################################
+  # Disable smart quote substitution
+  system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
 
-      WindowManager = {
-        # Hide icons on desktop
-        StandardHideDesktopIcons = true;
+  # Disable automatic spelling correction
+  system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
 
-        # Hide items in Stage Manager
-        HideDesktop = true;
+  ##############################################################################
+  # Mouse
+  ##############################################################################
 
-        # Click wallpaper to reveal desktop in Stage Manager
-        EnableStandardClickToShowDesktop = false;
+  # Set mouse tracking speed
+  system.defaults.CustomUserPreferences.NSGlobalDomain."com.apple.mouse.scaling" = 0.5;
 
-        # Disable Stage Manager
-        GloballyEnabled = false;
+  # Disable mouse acceleration
+  system.defaults.CustomUserPreferences.NSGlobalDomain."com.apple.mouse.linear" = 1;
 
-        # Show windows from an application all at once in Stage Manager
-        AppWindowGroupingBehavior = true;
+  # Set double-click speed
+  system.defaults.CustomUserPreferences.NSGlobalDomain."com.apple.mouse.doubleClickThreshold" = 0.5;
 
-        # Show widgets on desktop
-        StandardHideWidgets = false;
+  # Set scrolling speed
+  system.defaults.CustomUserPreferences.NSGlobalDomain."com.apple.scrollwheel.scaling" = 0.75;
 
-        # Hide widgets in Stage Manager
-        StageManagerHideWidgets = true;
+  ##############################################################################
+  # Trackpad
+  ##############################################################################
 
-        # Disable dragging windows to screen edges to tile
-        EnableTilingByEdgeDrag = false;
+  # Set tracking speed
+  system.defaults.NSGlobalDomain."com.apple.trackpad.scaling" = 0.6875;
 
-        # Disable dragging windows to menu bar to fill screen
-        EnableTopTilingByEdgeDrag = false;
+  # Set tap sensitivity to Medium
+  system.defaults.trackpad.FirstClickThreshold = 1;
+  system.defaults.trackpad.SecondClickThreshold = 1;
 
-        # Disable holding alt to tile windows
-        EnableTilingOptionAccelerator = false;
+  # Disable force click
+  system.defaults.NSGlobalDomain."com.apple.trackpad.forceClick" = false;
 
-        # Disable margin for tiled windows
-        EnableTiledWindowMargins = false;
-      };
+  # Use three-finger tap for Look up & data detectors
+  system.defaults.trackpad.TrackpadThreeFingerTapGesture = 2;
 
-      spaces = {
-        # Use separate Spaces for each display
-        spans-displays = false;
-      };
+  # Enable secondary click
+  system.defaults.NSGlobalDomain."com.apple.trackpad.enableSecondaryClick" = true;
 
-      ##########################################################################
-      # Dock
-      ##########################################################################
+  # Enable tap to click
+  system.defaults.trackpad.Clicking = true;
 
-      dock = {
-        # Hide dock when inactive
-        autohide = true;
+  # Enable right-click
+  system.defaults.trackpad.TrackpadRightClick = true;
 
-        # Remove delay when hiding dock
-        autohide-delay = 0.0;
+  # Disable natural scrolling
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
 
-        # Reduce delay when showing dock
-        autohide-time-modifier = 0.2;
+  # Enable silent clicking
+  system.defaults.trackpad.ActuationStrength = 0;
 
-        # Don't show Dashboard as a Space
-        dashboard-in-overlay = true;
+  # Disable tap-to-drag
+  system.defaults.trackpad.Dragging = false;
 
-        # Set speed of Mission Control animations
-        expose-animation-duration = 0.2;
+  # Disable three-finger drag
+  system.defaults.trackpad.TrackpadThreeFingerDrag = false;
 
-        # Don't group windows by application in Mission Control's Exposé
-        expose-group-apps = false;
+  ##############################################################################
+  # Windows
+  ##############################################################################
 
-        # Set the size of the magnified Dock icons
-        largesize = 64;
+  # Show scrollbars automatically based on mouse or trackpad
+  system.defaults.NSGlobalDomain.AppleShowScrollBars = "WhenScrolling";
 
-        # Enable launch animation
-        launchanim = true;
+  # Switch to a workspace that has a window of the application open
+  system.defaults.NSGlobalDomain.AppleSpacesSwitchOnActivate = true;
 
-        # Don't magnify Dock icons
-        magnification = false;
+  # Use fullscreen tabs
+  system.defaults.NSGlobalDomain.AppleWindowTabbingMode = "fullscreen";
 
-        # Set the animation effect for the dock
-        mineffect = "scale";
+  # Animate opening and closing windows
+  system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = true;
 
-        # Don't minimize windows into their application icons
-        minimize-to-application = false;
+  # Jump to the spot that's clicked on the scroll bar
+  system.defaults.NSGlobalDomain.AppleScrollerPagingBehavior = true;
 
-        # Enable highlight hover aeffect for grid view of a stack
-        mouse-over-hilite-stack = true;
+  # Enable smooth scrolling
+  system.defaults.NSGlobalDomain.NSScrollAnimationEnabled = true;
 
-        # Don't automatically rearrange spaces based on most recent use
-        mru-spaces = false;
+  # Enable moving window by holding anywhere on the window
+  system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
 
-        # Show dock on bottom
-        orientation = "bottom";
+  ##############################################################################
+  # Finder
+  ##############################################################################
 
-        # Scroll up on a Dock icon to show all opened windows for an app
-        scroll-to-open = true;
+  # Show all filename extensions
+  system.defaults.finder.AppleShowAllExtensions = true;
 
-        # Show process indicators
-        show-process-indicators = false;
+  # Hide hidden files
+  system.defaults.finder.AppleShowAllFiles = false;
 
-        # Hide recent applications
-        show-recents = false;
+  # Search current folder when performing a search
+  system.defaults.finder.FXDefaultSearchScope = "SCcf";
 
-        # Don't make icons of hidden applications translucent
-        showhidden = false;
+  # Disable warning when changing file extensions
+  system.defaults.finder.FXEnableExtensionChangeWarning = false;
 
-        # Disable slow-motion minimize effect
-        slow-motion-allowed = false;
+  # Use Column View as the default Finder view
+  system.defaults.finder.FXPreferredViewStyle = "clmv";
 
-        # Show dynamic icons
-        static-only = false;
+  # Remove old trash items after 30 days
+  system.defaults.finder.FXRemoveOldTrashItems = true;
 
-        # Set tile size
-        tilesize = 48;
-      };
+  # Open new windows in the Downloads folder
+  system.defaults.finder.NewWindowTarget = "Other";
+  system.defaults.finder.NewWindowTargetPath = "file:///Users/rbright/Downloads";
 
-      ##########################################################################
-      # Finder
-      ##########################################################################
+  # Don't show the Quit Finder menu item
+  system.defaults.finder.QuitMenuItem = false;
 
-      finder = {
-        # Show all filename extensions
-        AppleShowAllExtensions = true;
+  # Show external hard drives on desktop
+  system.defaults.finder.ShowExternalHardDrivesOnDesktop = false;
 
-        # Hide hidden files
-        AppleShowAllFiles = false;
+  # Show hard drives on desktop
+  system.defaults.finder.ShowHardDrivesOnDesktop = false;
 
-        # Search current folder when performing a search
-        FXDefaultSearchScope = "SCcf";
+  # Show mounted servers on desktop
+  system.defaults.finder.ShowMountedServersOnDesktop = false;
 
-        # Disable warning when changing file extensions
-        FXEnableExtensionChangeWarning = false;
+  # Show removable media on desktop
+  system.defaults.finder.ShowRemovableMediaOnDesktop = false;
 
-        # Use Column View as the default Finder view
-        FXPreferredViewStyle = "clmv";
+  # Show path breadcrumbs in Finder windows
+  system.defaults.finder.ShowPathbar = true;
 
-        # Remove old trash items after 30 days
-        FXRemoveOldTrashItems = true;
+  # Show the status bar in Finder windows
+  system.defaults.finder.ShowStatusBar = true;
 
-        # Open new windows in the Downloads folder
-        NewWindowTarget = "Other";
-        NewWindowTargetPath = "file:///Users/rbright/Downloads";
+  # Hide full path in Finder title bar
+  system.defaults.finder._FXShowPosixPathInTitle = false;
 
-        # Don't show the Quit Finder menu item
-        QuitMenuItem = false;
+  # Sort folders first
+  system.defaults.finder._FXSortFoldersFirst = true;
 
-        # Show external hard drives on desktop
-        ShowExternalHardDrivesOnDesktop = false;
+  # Don't sort folders first on desktop
+  system.defaults.finder._FXSortFoldersFirstOnDesktop = false;
 
-        # Show hard drives on desktop
-        ShowHardDrivesOnDesktop = false;
+  # Empty trash securely
+  system.defaults.CustomUserPreferences."com.apple.finder".EmptyTrashSecurely = true;
 
-        # Show mounted servers on desktop
-        ShowMountedServersOnDesktop = false;
+  # Don't warn when emptying trash
+  system.defaults.CustomUserPreferences."com.apple.finder".WarnOnEmptyTrash = false;
 
-        # Show removable media on desktop
-        ShowRemovableMediaOnDesktop = false;
+  ##############################################################################
+  # Applications > Activity Monitor
+  ##############################################################################
 
-        # Show path breadcrumbs in Finder windows
-        ShowPathbar = true;
+  # Sort descending by CPU usage
+  system.defaults.ActivityMonitor.SortColumn = "CPUUsage";
+  system.defaults.ActivityMonitor.SortDirection = 0;
 
-        # Show the status bar in Finder windows
-        ShowStatusBar = true;
+  ##############################################################################
+  # Applications > App Store
+  ##############################################################################
 
-        # Hide full path in Finder title bar
-        _FXShowPosixPathInTitle = false;
+  # Don't autoplay video
+  system.defaults.CustomUserPreferences."com.apple.AppStore".UserSetAutoPlayVideoSetting = 0;
 
-        # Sort folders first
-        _FXSortFoldersFirst = true;
+  ##############################################################################
+  # Applications > Apple Music
+  ##############################################################################
 
-        # Don't sort folders first on desktop
-        _FXSortFoldersFirstOnDesktop = false;
-      };
+  # Download Dolby Atmos
+  system.defaults.CustomUserPreferences."com.apple.Music".downloadDolbyAtmos = 1;
 
-      ##########################################################################
-      # Trackpad
-      ##########################################################################
+  # Enable Lossless Audio with ALAC up to 24-bit / 48 kHz
+  system.defaults.CustomUserPreferences."com.apple.Music".losslessEnabled = 1;
+  system.defaults.CustomUserPreferences."com.apple.Music".preferredDownloadAudioQuality = 15;
+  system.defaults.CustomUserPreferences."com.apple.Music".preferredStreamPlaybackAudioQuality = 15;
 
-      trackpad = {
-        # Enable silent clicking
-        ActuationStrength = 0;
+  # Disable playback notifications
+  system.defaults.CustomUserPreferences."com.apple.Music".userWantsPlaybackNotifications = 0;
 
-        # Enable tap to click
-        Clicking = true;
+  ##############################################################################
+  # Miscellaneous
+  ##############################################################################
 
-        # Disable tap-to-drag
-        Dragging = false;
+  # Enable swiping left or right with two fingers to navigate
+  system.defaults.NSGlobalDomain.AppleEnableSwipeNavigateWithScrolls = true;
+  system.defaults.NSGlobalDomain.AppleEnableMouseSwipeNavigateWithScrolls = true;
 
-        # Set tap sensitivity to Medium
-        FirstClickThreshold = 1;
-        SecondClickThreshold = 1;
+  # Set font smoothing level
+  system.defaults.NSGlobalDomain.AppleFontSmoothing = 2;
 
-        # Enable right-click on trackpad
-        TrackpadRightClick = true;
+  # Enable full keyboard access
+  system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
 
-        # Disable three-finger drag
-        TrackpadThreeFingerDrag = false;
+  # Use dark mode
+  system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
+  system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
 
-        # Use three-finger tap for Look up & data detectors
-        TrackpadThreeFingerTapGesture = 2;
-      };
+  # Show all filename extensions
+  system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
 
-      ##########################################################################
-      # Menu Clock
-      ##########################################################################
+  # Hide hidden files
+  system.defaults.NSGlobalDomain.AppleShowAllFiles = false;
 
-      menuExtraClock = {
-        # Show 24-hour clock
-        Show24Hour = true;
+  # Don't automatically terminate apps when they are idle
+  system.defaults.NSGlobalDomain.NSDisableAutomaticTermination = true;
 
-        # Don't show date, day of month, or day of week
-        ShowDate = 2;
-        ShowDayOfMonth = false;
-        ShowDayOfWeek = false;
+  # Save new documents to iCloud
+  system.defaults.NSGlobalDomain.NSDocumentSaveNewDocumentsToCloud = true;
 
-        # Don't flash date separators or show seconds
-        FlashDateSeparators = false;
-        ShowSeconds = false;
-      };
+  # Add a context menu item for showing the Web Inspector in web views
+  system.defaults.CustomUserPreferences.NSGlobalDomain.WebKitDeveloperExtras = true;
 
-      ##########################################################################
-      # Launch Services
-      ##########################################################################
+  # Avoid creating .DS_Store files on network or USB volumes
+  system.defaults.CustomUserPreferences."com.apple.desktopservices".DSDontWriteNetworkStores = true;
+  system.defaults.CustomUserPreferences."com.apple.desktopservices".DSDontWriteUSBStores = true;
 
-      LaunchServices = {
-        # Disable "Downloaded from Internet" warnings
-        LSQuarantine = false;
-      };
+  # Automatically quit printer app once the print jobs complete
+  system.defaults.CustomUserPreferences."com.apple.print.PrintingPrefs".QuitWhenFinished = true;
 
-      ##########################################################################
-      # Login Window
-      ##########################################################################
+  ##############################################################################
+  # Applications > Crash Reporter
+  ##############################################################################
 
-      loginwindow = {
-        # Disable guest account
-        GuestEnabled = false;
+  # Disable crash reporter
+  system.defaults.CustomUserPreferences."com.apple.CrashReporter".DialogType = "none";
 
-        # Show list of users on the login screen
-        SHOWFULLNAME = true;
+  ##############################################################################
+  # Applications > Image Capture
+  ##############################################################################
 
-        # Allow Restart, Shutdown, and Sleep while logged out
-        RestartDisabled = false;
-        ShutDownDisabled = false;
-        SleepDisabled = false;
+  # Prevent Photos from opening automatically when devices are plugged in
+  system.defaults.CustomUserPreferences."com.apple.ImageCapture".disableHotPlug = true;
 
-        # Allow Restart and Shutdown while logged in
-        RestartDisabledWhileLoggedIn = false;
-        ShutDownDisabledWhileLoggedIn = false;
-      };
+  ##############################################################################
+  # Applications > Screen Capture
+  ##############################################################################
 
-      ##########################################################################
-      # Activity Monitor
-      ##########################################################################
+  # Disable drop shadow border around screenshots
+  system.defaults.screencapture.disable-shadow = true;
 
-      ActivityMonitor = {
-        # Sort descending by CPU usage
-        SortColumn = "CPUUsage";
-        SortDirection = 0;
-      };
-
-      ##########################################################################
-      # Screen Capture
-      ##########################################################################
-
-      screencapture = {
-        # Disable drop shadow border around screenshots
-        disable-shadow = true;
-
-        # Include date and time in screenshot filenames
-        include-date = true;
-
-        # Set location of screenshots
-        location = "~/My Drive/Screenshots";
-
-        # Show thumbnail after screenshot before saving
-        show-thumbnail = true;
-
-        # Save screenshots as PNG files
-        target = "file";
-        type = "png";
-      };
-
-      ##########################################################################
-      # Screen Saver
-      ##########################################################################
-
-      screensaver = {
-        askForPassword = true;
-      };
-
-      ##########################################################################
-      # Software Update
-      ##########################################################################
-
-      SoftwareUpdate = {
-        # Don't automatically install macOS updates
-        AutomaticallyInstallMacOSUpdates = false;
-      };
-
-      ##########################################################################
-      # Custom System Preferences
-      ##########################################################################
-
-      CustomSystemPreferences = { };
-
-      ##########################################################################
-      # Custom User Preferences
-      ##########################################################################
-
-      CustomUserPreferences = {
-
-        ########################################################################
-        # General > Language & Region
-        ########################################################################
-
-        # Set supported languages
-        NSGlobalDomain.AppleLanguages = [ "en-US" ];
-
-        # Set supported languages
-        NSGlobalDomain.AppleLocale = "en-US";
-
-        # Set the first day of the week to Monday
-        NSGlobalDomain.AppleFirstWeekday = {
-          gregorian = 2;
-        };
-
-        # Set the date format to "MM/dd/yyyy"
-        NSGlobalDomain.AppleICUDateFormatStrings = {
-          "1" = "y-MM-dd";
-        };
-
-        ########################################################################
-        # Keyboard
-        ########################################################################
-
-        # Do nothing with the Fn key
-        "com.apple.hitoolbox".AppleFnUsageType = 0;
-
-        # Disable dictation
-        "com.apple.hitoolbox".AppleDictationAutoEnable = 0;
-
-        ########################################################################
-        # Mouse
-        ########################################################################
-
-        # Set mouse tracking speed
-        NSGlobalDomain."com.apple.mouse.scaling" = 0.5;
-
-        # Disable mouse acceleration
-        NSGlobalDomain."com.apple.mouse.linear" = 1;
-
-        # Set double-click speed
-        NSGlobalDomain."com.apple.mouse.doubleClickThreshold" = 0.5;
-
-        # Set scrolling speed
-        NSGlobalDomain."com.apple.scrollwheel.scaling" = 0.75;
-
-        ########################################################################
-        # Finder
-        ########################################################################
-
-        # Empty trash securely
-        "com.apple.finder".EmptyTrashSecurely = true;
-
-        # Don't warn when emptying trash
-        "com.apple.finder".WarnOnEmptyTrash = false;
-
-        ########################################################################
-        # Login Window
-        ########################################################################
-
-        # Don't reopen windows when logging back in
-        "com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = 0;
-        "com.apple.loginwindow".TALLogoutSavesState = 0;
-
-        ########################################################################
-        # Software Update
-        ########################################################################
-
-        # Enable auto-update for apps
-        "com.apple.commerce".AutoUpdate = true;
-
-        # Check for software updates daily, not just once per week
-        "com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
-        "com.apple.SoftwareUpdate".ScheduleFrequency = 1;
-
-        # Download new updates when available
-        "com.apple.SoftwareUpdate".AutomaticDownload = 1;
-
-        # Install System data files & security updates
-        "com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
-
-        ########################################################################
-        # App Store
-        ########################################################################
-
-        # Don't autoplay video
-        "com.apple.AppStore".UserSetAutoPlayVideoSetting = 0;
-
-        ########################################################################
-        # Apple Music
-        ########################################################################
-
-        # Download Dolby Atmos
-        "com.apple.Music".downloadDolbyAtmos = 1;
-
-        # Enable Lossless Audio with ALAC up to 24-bit / 48 kHz
-        "com.apple.Music".losslessEnabled = 1;
-        "com.apple.Music".preferredDownloadAudioQuality = 15;
-        "com.apple.Music".preferredStreamPlaybackAudioQuality = 15;
-
-        # Disable playback notifications
-        "com.apple.Music".userWantsPlaybackNotifications = 0;
-
-        ########################################################################
-        # Crash Reporter
-        ########################################################################
-
-        # Disable crash reporter
-        "com.apple.CrashReporter".DialogType = "none";
-
-        ########################################################################
-        # Image Capture
-        ########################################################################
-
-        # Prevent Photos from opening automatically when devices are plugged in
-        "com.apple.ImageCapture".disableHotPlug = true;
-
-        ########################################################################
-        # Spotlight
-        ########################################################################
-
-        "com.apple.Spotlight".orderedItems = [
-          {
-            enabled = 0;
-            name = "APPLICATIONS";
-          }
-          {
-            enabled = 0;
-            name = "BOOKMARKS";
-          }
-          {
-            enabled = 0;
-            name = "MENU_EXPRESSION";
-          }
-          {
-            enabled = 0;
-            name = "CONTACT";
-          }
-          {
-            enabled = 0;
-            name = "MENU_CONVERSION";
-          }
-          {
-            enabled = 0;
-            name = "MENU_DEFINITION";
-          }
-          {
-            enabled = 0;
-            name = "SOURCE";
-          }
-          {
-            enabled = 0;
-            name = "DOCUMENTS";
-          }
-          {
-            enabled = 0;
-            name = "EVENT_TODO";
-          }
-          {
-            enabled = 0;
-            name = "DIRECTORIES";
-          }
-          {
-            enabled = 0;
-            name = "FONTS";
-          }
-          {
-            enabled = 0;
-            name = "IMAGES";
-          }
-          {
-            enabled = 0;
-            name = "MESSAGES";
-          }
-          {
-            enabled = 0;
-            name = "MOVIES";
-          }
-          {
-            enabled = 0;
-            name = "MUSIC";
-          }
-          {
-            enabled = 0;
-            name = "MENU_OTHER";
-          }
-          {
-            enabled = 0;
-            name = "PDF";
-          }
-          {
-            enabled = 0;
-            name = "PRESENTATIONS";
-          }
-          {
-            enabled = 0;
-            name = "MENU_SPOTLIGHT_SUGGESTIONS";
-          }
-          {
-            enabled = 0;
-            name = "SPREADSHEETS";
-          }
-          {
-            enabled = 0;
-            name = "SYSTEM_PREFS";
-          }
-          {
-            enabled = 0;
-            name = "TIPS";
-          }
-        ];
-
-        ########################################################################
-        # TextEdit
-        ########################################################################
-
-        # Don't check spelling while typing
-        "com.apple.TextEdit".CheckSpellingWhileTyping = 0;
-
-        # Don't correct spelling automatically
-        "com.apple.TextEdit".CorrectSpellingAutomatically = 0;
-
-        # Disable rich text
-        "com.apple.TextEdit".RichText = 0;
-
-        # Disable smart copy paste
-        "com.apple.TextEdit".SmartCopyPaste = 0;
-
-        # Disable smart dashes
-        "com.apple.TextEdit".SmartDashes = 0;
-
-        # Disable smart quotes
-        "com.apple.TextEdit".SmartQuotes = 0;
-
-        # Disable smart substitutions in rich text only
-        "com.apple.TextEdit".SmartSubstitutionsEnabledInRichTextOnly = 0;
-
-        # Disable text replacement
-        "com.apple.TextEdit".TextReplacement = 0;
-
-        ########################################################################
-        # Miscellaneous
-        ########################################################################
-
-        # Add a context menu item for showing the Web Inspector in web views
-        NSGlobalDomain.WebKitDeveloperExtras = true;
-
-        # Avoid creating .DS_Store files on network or USB volumes
-        "com.apple.desktopservices".DSDontWriteNetworkStores = true;
-        "com.apple.desktopservices".DSDontWriteUSBStores = true;
-
-        # Automatically quit printer app once the print jobs complete
-        "com.apple.print.PrintingPrefs".QuitWhenFinished = true;
-      };
-    };
-
-    ############################################################################
-    # Activation Scripts
-    ############################################################################
-
-    activationScripts.postUserActivation.text = ''
-      # Avoid logout/login cycle to apply settings
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    '';
-  };
+  # Include date and time in screenshot filenames
+  system.defaults.screencapture.include-date = true;
+
+  # Set location of screenshots
+  system.defaults.screencapture.location = "~/My Drive/Screenshots";
+
+  # Show thumbnail after screenshot before saving
+  system.defaults.screencapture.show-thumbnail = true;
+
+  # Save screenshots as PNG files
+  system.defaults.screencapture.target = "file";
+  system.defaults.screencapture.type = "png";
+
+  ##############################################################################
+  # Applications > Spotlight
+  ##############################################################################
+
+  # Disable Spotlight
+  system.defaults.CustomUserPreferences."com.apple.Spotlight".orderedItems = [
+    {
+      enabled = 0;
+      name = "APPLICATIONS";
+    }
+    {
+      enabled = 0;
+      name = "BOOKMARKS";
+    }
+    {
+      enabled = 0;
+      name = "MENU_EXPRESSION";
+    }
+    {
+      enabled = 0;
+      name = "CONTACT";
+    }
+    {
+      enabled = 0;
+      name = "MENU_CONVERSION";
+    }
+    {
+      enabled = 0;
+      name = "MENU_DEFINITION";
+    }
+    {
+      enabled = 0;
+      name = "SOURCE";
+    }
+    {
+      enabled = 0;
+      name = "DOCUMENTS";
+    }
+    {
+      enabled = 0;
+      name = "EVENT_TODO";
+    }
+    {
+      enabled = 0;
+      name = "DIRECTORIES";
+    }
+    {
+      enabled = 0;
+      name = "FONTS";
+    }
+    {
+      enabled = 0;
+      name = "IMAGES";
+    }
+    {
+      enabled = 0;
+      name = "MESSAGES";
+    }
+    {
+      enabled = 0;
+      name = "MOVIES";
+    }
+    {
+      enabled = 0;
+      name = "MUSIC";
+    }
+    {
+      enabled = 0;
+      name = "MENU_OTHER";
+    }
+    {
+      enabled = 0;
+      name = "PDF";
+    }
+    {
+      enabled = 0;
+      name = "PRESENTATIONS";
+    }
+    {
+      enabled = 0;
+      name = "MENU_SPOTLIGHT_SUGGESTIONS";
+    }
+    {
+      enabled = 0;
+      name = "SPREADSHEETS";
+    }
+    {
+      enabled = 0;
+      name = "SYSTEM_PREFS";
+    }
+    {
+      enabled = 0;
+      name = "TIPS";
+    }
+  ];
+
+  ##############################################################################
+  # Applications > TextEdit
+  ##############################################################################
+
+  # Don't check spelling while typing
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".CheckSpellingWhileTyping = 0;
+
+  # Don't correct spelling automatically
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".CorrectSpellingAutomatically = 0;
+
+  # Disable rich text
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".RichText = 0;
+
+  # Disable smart copy paste
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".SmartCopyPaste = 0;
+
+  # Disable smart dashes
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".SmartDashes = 0;
+
+  # Disable smart quotes
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".SmartQuotes = 0;
+
+  # Disable smart substitutions in rich text only
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".SmartSubstitutionsEnabledInRichTextOnly =
+    0;
+
+  # Disable text replacement
+  system.defaults.CustomUserPreferences."com.apple.TextEdit".TextReplacement = 0;
 }
