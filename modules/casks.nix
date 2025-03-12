@@ -15,7 +15,6 @@ _:
   "homebrew/cask/docker"
   "figma"
   "imageoptim"
-  "ollama"
   "postman"
   "proxyman"
   "tableplus"
@@ -29,7 +28,6 @@ _:
   "cleanshot"
   "elgato-camera-hub"
   "fantastical"
-  "freedom"
   "google-drive"
   "logitech-g-hub"
   "loom"
@@ -41,8 +39,8 @@ _:
   "todoist"
 
   # Communication Tools
-  "clay"
   "mimestream"
+  "proton-mail"
   "slack"
   "zoom"
 
@@ -54,5 +52,6 @@ _:
   "1password"
   "bartender"
   "gpg-suite"
+  "protonvpn"
   "vnc-viewer"
 ]

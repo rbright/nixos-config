@@ -98,6 +98,7 @@ in
     { path = "/Applications/Fantastical.app/"; }
     { path = "/Applications/Todoist.app/"; }
     { path = "/Applications/Linear.app/"; }
+    { path = "/Applications/Proton Mail.app/"; }
     { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Cursor.app/"; }
     { path = "/Applications/Ghostty.app/"; }
