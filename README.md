@@ -21,10 +21,10 @@ This task initializes a new macOS system by:
 
 Note: This task should be run first on a new macOS system before other tasks.
 
-### Update Nix Packages
+### Update Flake Packages
 
 ```sh
-just nix-update
+just flake-update
 ```
 
 This task updates `flake.lock` file with the latest versions of all dependencies. This is useful when you want to:

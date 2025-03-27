@@ -15,7 +15,7 @@ bootstrap:
 
 # Update nix flake
 [group('nix')]
-nix-update:
+flake-update:
     nix flake update
 
 # Build nix configuration
