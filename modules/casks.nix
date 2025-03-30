@@ -51,6 +51,7 @@ _:
 
   # Utilities
   "1password"
+  "balenaetcher"
   "bartender"
   "gpg-suite"
   "protonvpn"
