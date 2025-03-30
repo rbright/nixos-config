@@ -19,6 +19,7 @@ _:
   "proxyman"
   "tableplus"
   "tower"
+  "visual-studio-code"
   "zed"
   "zulu@17"
 

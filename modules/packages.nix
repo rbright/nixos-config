@@ -21,6 +21,7 @@ with pkgs;
   gh
   git
   git-lfs
+  htop
   jq
   mkcert
   nushell
