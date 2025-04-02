@@ -111,4 +111,5 @@ with pkgs;
 
   # IT Automation
   ansible
+  ansible-lint
 ]
