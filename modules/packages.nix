@@ -108,4 +108,7 @@ with pkgs;
   terraform
   awscli2
   google-cloud-sdk
+
+  # IT Automation
+  ansible
 ]
