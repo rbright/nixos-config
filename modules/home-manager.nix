@@ -101,7 +101,6 @@ in
     { path = "/Applications/Proton Mail.app/"; }
     { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Cursor.app/"; }
-    { path = "/Applications/Visual Studio Code.app/"; }
     { path = "/Applications/Ghostty.app/"; }
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }

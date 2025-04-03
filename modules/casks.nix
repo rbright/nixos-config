@@ -20,6 +20,7 @@ _:
   "tableplus"
   "tower"
   "visual-studio-code"
+  "windsurf"
   "zed"
   "zulu@17"
 
@@ -32,7 +33,6 @@ _:
   "google-drive"
   "logitech-g-hub"
   "loom"
-  "microsoft-excel"
   "notion"
   "obsidian"
   "raycast"
