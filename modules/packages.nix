@@ -33,6 +33,7 @@ with pkgs;
   woff2
   yq
   xh
+  xz
   zoxide
 
   # Text Editing
