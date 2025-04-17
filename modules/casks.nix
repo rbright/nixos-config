@@ -41,7 +41,6 @@ _:
 
   # Communication Tools
   "mimestream"
-  "proton-mail"
   "slack"
   "zoom"
 
