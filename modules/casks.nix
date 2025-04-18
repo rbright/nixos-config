@@ -52,6 +52,7 @@ _:
   "balenaetcher"
   "bartender"
   "gpg-suite"
+  "openmtp"
   "protonvpn"
   "vnc-viewer"
 ]
