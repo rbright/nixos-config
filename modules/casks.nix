@@ -20,7 +20,6 @@ _:
   "tableplus"
   "tower"
   "visual-studio-code"
-  "windsurf"
   "zed"
   "zulu@17"
 
