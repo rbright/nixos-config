@@ -43,6 +43,7 @@ with pkgs;
   tree-sitter
 
   # Development Tools
+  auth0-cli
   just
   ngrok
 

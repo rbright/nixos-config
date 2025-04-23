@@ -29,13 +29,13 @@
   outputs =
     {
       self,
+      nixpkgs,
+      home-manager,
       darwin,
       nix-homebrew,
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
-      home-manager,
-      nixpkgs,
     }@inputs:
     let
       user = "rbright";
