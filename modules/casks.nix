@@ -25,7 +25,6 @@ _:
 
   # Productivity Tools
   "calibre"
-  "chatgpt"
   "cleanshot"
   "elgato-camera-hub"
   "fantastical"

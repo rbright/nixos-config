@@ -93,7 +93,6 @@ in
 
   # Setup persistent Dock entries
   local.dock.entries = [
-    { path = "/Applications/ChatGPT.app/"; }
     { path = "/Applications/Brave Browser.app/"; }
     { path = "/Applications/Fantastical.app/"; }
     { path = "/Applications/Todoist.app/"; }
