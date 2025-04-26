@@ -51,6 +51,7 @@ in
   # These app IDs are from using the mas CLI app
   # https://github.com/mas-cli/mas
   homebrew.masApps = {
+    "Amphetamine" = 937984704;
     "DaisyDisk" = 411643860;
     "Harvest" = 506189836;
     "Icon Set Creator" = 939343785;
