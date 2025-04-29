@@ -15,30 +15,30 @@ bootstrap:
 
 # Update nix flake
 [group('nix')]
-flake-update:
+update:
     nix flake update
 
 # Build nix configuration
 [group('nix')]
-nix-build:
+build:
     nix run .#build
 
 # Install nix configuration
 [group('nix')]
-nix-install:
+install:
     nix run .#build-switch
 
 # Rollback to a previous generation
 [group('nix')]
-nix-rollback:
+rollback:
     nix run .#rollback
 
 # List old generations
 [group('nix')]
-nix-list:
+list-gen:
     nix-env --list-generations
 
 # Clean up old generations
 [group('nix')]
-nix-clean:
+clean:
     sudo nix-collect-garbage --delete-old
