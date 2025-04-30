@@ -54,6 +54,7 @@ _:
   "bartender"
   "gpg-suite"
   "openmtp"
+  "proton-pass"
   "protonvpn"
   "vnc-viewer"
 ]
