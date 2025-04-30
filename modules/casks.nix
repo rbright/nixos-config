@@ -41,6 +41,7 @@ _:
   # Communication Tools
   "mimestream"
   "slack"
+  "thunderbird"
   "zoom"
 
   # Finance Tools
