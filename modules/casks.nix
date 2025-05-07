@@ -52,6 +52,7 @@ _:
   "balenaetcher"
   "bartender"
   "gpg-suite"
+  "localsend"
   "openmtp"
   "proton-pass"
   "protonvpn"
