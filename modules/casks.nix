@@ -19,8 +19,6 @@ _:
   "proxyman"
   "tableplus"
   "tower"
-  "visual-studio-code"
-  "zed"
   "zulu@17"
 
   # Productivity Tools
@@ -31,7 +29,6 @@ _:
   "google-drive"
   "logitech-g-hub"
   "loom"
-  "notion"
   "obsidian"
   "raycast"
   "superwhisper"
