@@ -43,6 +43,9 @@ in
     upgrade = false;
   };
 
+  # Ensure nix-darwin respects the declarative taps from nix-homebrew
+  homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
+
   # Install Homebrew Casks
   homebrew.casks = pkgs.callPackage ./casks.nix { };
 
