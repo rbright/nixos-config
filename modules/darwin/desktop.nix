@@ -34,6 +34,6 @@ _:
   # Disable margin for tiled windows
   system.defaults.WindowManager.EnableTiledWindowMargins = false;
 
-  # Use separate Spaces for each display
-  system.defaults.spaces.spans-displays = false;
+  # Don't use separate spaces for each display
+  system.defaults.spaces.spans-displays = true;
 }
