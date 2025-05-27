@@ -24,7 +24,7 @@ Note: This task should be run first on a new macOS system before other tasks.
 ### Update Flake Packages
 
 ```sh
-just flake-update
+just update
 ```
 
 This task updates `flake.lock` file with the latest versions of all dependencies. This is useful when you want to:
@@ -36,7 +36,7 @@ This task updates `flake.lock` file with the latest versions of all dependencies
 ### Build Configuration
 
 ```sh
-just nix-build
+just build
 ```
 
 This task builds the Nix configuration but does not apply it. This is useful for:
@@ -48,7 +48,7 @@ This task builds the Nix configuration but does not apply it. This is useful for
 ### Install Configuration
 
 ```sh
-just nix-install
+just install
 ```
 
 This task builds the Nix configuration and then switches the system to use it. This will:
@@ -57,12 +57,12 @@ This task builds the Nix configuration and then switches the system to use it. T
 - Apply all changes to your system
 - Switch to the new Nix configuration immediately
 
-Note: The `nix-install` tasks requires appropriate permissions (usually root/sudo) to apply system changes.
+Note: The `install` task requires appropriate permissions (usually root/sudo) to apply system changes.
 
 ### Rollback Configuration
 
 ```sh
-just nix-rollback
+just rollback
 ```
 
 This task rolls back to a previous system configuration. Use this if you encounter issues with the current configuration.
@@ -70,7 +70,7 @@ This task rolls back to a previous system configuration. Use this if you encount
 ### List Generations
 
 ```sh
-just nix-list
+just list
 ```
 
 This task lists all available system generations, showing when they were created and their status.
@@ -78,7 +78,7 @@ This task lists all available system generations, showing when they were created
 ### Clean Old Generations
 
 ```sh
-just nix-clean
+just clean
 ```
 
 This task cleans up old system generations to free up disk space. It requires sudo privileges to remove old generations.

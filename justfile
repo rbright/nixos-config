@@ -13,10 +13,15 @@ default:
 bootstrap:
     ./bootstrap.zsh
 
-# Update nix flake
+# Update all nix flakes
 [group('nix')]
 update:
     nix flake update
+
+# Update a specific nix flake
+[group('nix')]
+update-flake flake:
+    nix flake update {{flake}}
 
 # Build nix configuration
 [group('nix')]
@@ -35,7 +40,7 @@ rollback:
 
 # List old generations
 [group('nix')]
-list-gen:
+list:
     nix-env --list-generations
 
 # Clean up old generations
