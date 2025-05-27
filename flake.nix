@@ -107,7 +107,7 @@
                 };
               };
             }
-            ./hosts
+            ./hosts/darwin
           ];
         }
       );
