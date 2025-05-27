@@ -8,7 +8,7 @@
     # Core
     ./control-center.nix
     ./desktop.nix
-    ./dock.nix
+    ./dock
     ./finder.nix
     ./fonts.nix
     ./keyboard.nix
