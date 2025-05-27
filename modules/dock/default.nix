@@ -17,12 +17,14 @@ in
   options = {
     local.dock.enable = mkOption {
       description = "Enable dock";
+      type = types.bool;
       default = stdenv.isDarwin;
-      example = false;
+      example = true;
     };
 
     local.dock.entries = mkOption {
       description = "Entries on the Dock";
+      readOnly = true;
       type =
         with types;
         listOf (submodule {
@@ -38,7 +40,12 @@ in
             };
           };
         });
-      readOnly = true;
+    };
+
+    local.dock.user = mkOption {
+      description = "User for which the Dock settings should apply";
+      type = types.str;
+      default = config.system.primaryUser;
     };
   };
 
@@ -78,21 +85,23 @@ in
       wantURIs = concatMapStrings (entry: "${entryURI entry.path}\n") cfg.entries;
       createEntries = concatMapStrings (
         entry:
-        "sudo -u ${user} ${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
+        "${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
       ) cfg.entries;
     in
     {
       system.activationScripts.postActivation.text = ''
-        echo >&2 "Setting up the Dock..."
-        haveURIs="$(sudo -u ${user} ${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
+        echo >&2 "Setting up the Dock for ${cfg.user}..."
+        su ${cfg.user} -s /bin/sh <<'USERBLOCK'
+        haveURIs="$(${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
         if ! diff -wu <(echo -n "$haveURIs") <(echo -n '${wantURIs}') >&2 ; then
           echo >&2 "Resetting Dock."
-          sudo -u ${user} ${dockutil}/bin/dockutil --no-restart --remove all
-          sudo -u ${user} ${createEntries}
-          sudo -u ${user} killall Dock
+          ${dockutil}/bin/dockutil --no-restart --remove all
+          ${createEntries}
+          killall Dock
         else
           echo >&2 "Dock setup complete."
         fi
+        USERBLOCK
       '';
     }
   );
