@@ -44,7 +44,7 @@ in
   system.primaryUser = user;
   system.stateVersion = 5;
 
-  system.activationScripts.postUserActivation.text = ''
+  system.activationScripts.postActivation.text = ''
     # Avoid logout/login cycle to apply settings
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
