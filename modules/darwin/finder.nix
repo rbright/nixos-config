@@ -1,4 +1,5 @@
 {
+  config,
   user,
   ...
 }:
@@ -24,7 +25,7 @@
 
   # Open new windows in the Downloads folder
   system.defaults.finder.NewWindowTarget = "Other";
-  system.defaults.finder.NewWindowTargetPath = "file:///Users/${user}/Downloads";
+  system.defaults.finder.NewWindowTargetPath = "file:///${config.users.users.${user}.home}/Downloads";
 
   # Don't show the Quit Finder menu item
   system.defaults.finder.QuitMenuItem = false;

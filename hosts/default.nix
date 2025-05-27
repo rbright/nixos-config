@@ -57,16 +57,24 @@
   # NOTE: This should not be changed
   system.stateVersion = 5;
 
+  # Setup the user
+  users.users.${user} = {
+    name = "${user}";
+    home = "/Users/${user}";
+    isHidden = false;
+    shell = pkgs.zsh;
+  };
+
+  # Set the system shells
+  environment.shells = [
+    "${config.users.users.${user}.home}/.nix-profile/bin/nu"
+  ];
+
   # Activate settings after activation
   system.activationScripts.postActivation.text = ''
     # Avoid logout/login cycle to apply settings
     sudo -u ${user} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
-
-  # Set the system shells
-  environment.shells = [
-    "/Users/${user}/.nix-profile/bin/nu"
-  ];
 
   # Set the system packages
   environment.systemPackages =
