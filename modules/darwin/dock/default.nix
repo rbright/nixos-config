@@ -1,6 +1,41 @@
-_:
+{
+  config,
+  user,
+  ...
+}:
 
 {
+  imports = [
+    ./entries
+  ];
+
+  # Enable the Dock
+  local.dock.enable = true;
+
+  # Setup persistent Dock entries
+  local.dock.entries = [
+    { path = "/Applications/Brave Browser.app/"; }
+    { path = "/Applications/Fantastical.app/"; }
+    { path = "/Applications/Todoist.app/"; }
+    { path = "/Applications/Linear.app/"; }
+    { path = "/Applications/Mimestream.app/"; }
+    { path = "/Applications/Obsidian.app/"; }
+    { path = "/Applications/Cursor.app/"; }
+    { path = "/Applications/Ghostty.app/"; }
+    { path = "/Applications/Tower.app/"; }
+    { path = "/Applications/TablePlus.app/"; }
+    {
+      path = "${config.users.users.${user}.home}/My Drive";
+      section = "others";
+      options = "--sort name --view grid --display stack";
+    }
+    {
+      path = "${config.users.users.${user}.home}/Downloads";
+      section = "others";
+      options = "--sort name --view grid --display stack";
+    }
+  ];
+
   # Hide dock when inactive
   system.defaults.dock.autohide = true;
 
