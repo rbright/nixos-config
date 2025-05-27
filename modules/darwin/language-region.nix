@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Set temperature unit to Fahrenheit

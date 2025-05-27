@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Disable "Downloaded from Internet" warnings

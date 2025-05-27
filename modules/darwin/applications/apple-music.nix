@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Download Dolby Atmos

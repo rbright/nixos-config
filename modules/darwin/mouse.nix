@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Set mouse tracking speed

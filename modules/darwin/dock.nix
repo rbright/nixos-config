@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Hide dock when inactive

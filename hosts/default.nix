@@ -4,7 +4,11 @@
 # Configuration options at https://daiderd.com/nix-darwin/manual/index.html
 ################################################################################
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 let
   user = "rbright";
@@ -46,11 +50,11 @@ in
 
   system.activationScripts.postActivation.text = ''
     # Avoid logout/login cycle to apply settings
-    sudo -u rbright /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    sudo -u ${user} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
 
   environment.shells = [
-    "/Users/rbright/.nix-profile/bin/nu"
+    "/Users/${user}/.nix-profile/bin/nu"
   ];
 
   environment.systemPackages =

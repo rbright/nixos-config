@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Disable drop shadow border around screenshots

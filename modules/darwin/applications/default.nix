@@ -1,5 +1,4 @@
-# Import all modules
-{ config, pkgs, ... }:
+_:
 
 {
   imports = [

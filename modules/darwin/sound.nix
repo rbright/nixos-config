@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Disable sound feedback when volume is changed

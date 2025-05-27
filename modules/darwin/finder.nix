@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Show all filename extensions

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Don't automatically install macOS updates

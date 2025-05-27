@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Show scrollbars automatically based on mouse or trackpad

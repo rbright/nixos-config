@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Hide icons on desktop

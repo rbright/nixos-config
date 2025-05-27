@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Enable swiping left or right with two fingers to navigate

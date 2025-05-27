@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Don't check spelling while typing

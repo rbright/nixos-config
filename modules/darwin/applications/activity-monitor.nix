@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 {
   # Sort descending by CPU usage
