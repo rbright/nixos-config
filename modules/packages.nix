@@ -7,6 +7,7 @@ with pkgs;
   dockutil
   mas
   sketchybar
+  skhd
 
   # GPG
   gnupg
