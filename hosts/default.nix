@@ -27,7 +27,7 @@ in
   nix.settings = {
     trusted-users = [
       "@admin"
-      "${user}"
+      user
     ];
     substituters = [
       "https://nix-community.cachix.org"
@@ -41,6 +41,7 @@ in
   '';
 
   system.checks.verifyNixPath = false;
+  system.primaryUser = user;
   system.stateVersion = 5;
 
   system.activationScripts.postUserActivation.text = ''
