@@ -8,8 +8,8 @@ with pkgs;
   # macOS
   aerospace
   dockutil
+  ice-bar
   mas
-  sketchybar
   skhd
 
   # GPG
