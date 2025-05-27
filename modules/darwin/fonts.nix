@@ -8,6 +8,7 @@
     lato
     montserrat
     nerd-fonts.fira-code
+    nerd-fonts.hack
     quicksand
   ];
 }
