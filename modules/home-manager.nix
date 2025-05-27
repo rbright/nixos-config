@@ -24,5 +24,7 @@ in
       home.file = lib.mkMerge [ additionalFiles ];
       home.packages = pkgs.callPackage ./packages.nix { };
       home.stateVersion = "24.11";
+
+      services.skhd.enable = true;
     };
 }
