@@ -1,4 +1,3 @@
-# Import all modules
 { config, pkgs, ... }:
 
 {
@@ -26,5 +25,8 @@
 
     # Applications
     ./applications
+
+    # Homebrew
+    ./homebrew
   ];
 }
