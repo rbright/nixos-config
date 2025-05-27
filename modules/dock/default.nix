@@ -10,6 +10,7 @@
 with lib;
 let
   cfg = config.local.dock;
+  user = "rbright";
   inherit (pkgs) stdenv dockutil;
 in
 {
@@ -77,18 +78,18 @@ in
       wantURIs = concatMapStrings (entry: "${entryURI entry.path}\n") cfg.entries;
       createEntries = concatMapStrings (
         entry:
-        "${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
+        "sudo -u ${user} ${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
       ) cfg.entries;
     in
     {
       system.activationScripts.postActivation.text = ''
         echo >&2 "Setting up the Dock..."
-        haveURIs="$(${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
+        haveURIs="$(sudo -u ${user} ${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
         if ! diff -wu <(echo -n "$haveURIs") <(echo -n '${wantURIs}') >&2 ; then
           echo >&2 "Resetting Dock."
-          ${dockutil}/bin/dockutil --no-restart --remove all
-          ${createEntries}
-          killall Dock
+          sudo -u ${user} ${dockutil}/bin/dockutil --no-restart --remove all
+          sudo -u ${user} ${createEntries}
+          sudo -u ${user} killall Dock
         else
           echo >&2 "Dock setup complete."
         fi

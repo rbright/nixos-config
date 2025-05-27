@@ -46,7 +46,7 @@ in
 
   system.activationScripts.postActivation.text = ''
     # Avoid logout/login cycle to apply settings
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    sudo -u rbright /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
 
   environment.shells = [
