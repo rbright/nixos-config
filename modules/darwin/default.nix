@@ -1,16 +1,14 @@
-{
-  pkgs,
-  ...
-}:
+_:
 
 {
   imports = [
-    # Core
+    ./applications
     ./control-center.nix
     ./desktop.nix
     ./dock
     ./finder.nix
     ./fonts.nix
+    ./homebrew
     ./keyboard.nix
     ./language-region.nix
     ./launch-services.nix
@@ -25,11 +23,5 @@
     ./startup.nix
     ./trackpad.nix
     ./windows.nix
-
-    # Applications
-    ./applications
-
-    # Homebrew
-    ./homebrew
   ];
 }
