@@ -6,6 +6,7 @@ with pkgs;
   aerospace
   dockutil
   mas
+  sketchybar
 
   # GPG
   gnupg
