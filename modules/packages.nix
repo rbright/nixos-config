@@ -5,6 +5,10 @@
 
 with pkgs;
 [
+  ##############################################################################
+  # Core
+  ##############################################################################
+
   # macOS
   aerospace
   dockutil
@@ -28,6 +32,7 @@ with pkgs;
   git-lfs
   htop
   jq
+  just
   mkcert
   nushell
   ripgrep
@@ -41,18 +46,26 @@ with pkgs;
   xz
   zoxide
 
+  ##############################################################################
+  # Software Development
+  ##############################################################################
+
   # Text Editing
   hadolint
   neovim
   shellcheck
   tree-sitter
 
-  # Development Tools
-  auth0-cli
-  just
-  ngrok
+  # Go
+  go
+  golangci-lint
 
-  # Nix Development
+  # Lua
+  lua-language-server
+  luajitPackages.luarocks
+  stylua
+
+  # Nix
   nil
   nixfmt-rfc-style
 
@@ -64,59 +77,63 @@ with pkgs;
   nushellPlugins.query
   nushellPlugins.units
 
-  # Go Development
-  go
-  golangci-lint
-
-  # Lua Development
-  lua-language-server
-  luajitPackages.luarocks
-  stylua
-
-  # Node.js Development
+  # Node.js
   nodejs_22
   pnpm
   watchman
 
-  # Python Development
+  # Python
   ruff
   uv
 
-  # Rust Development
+  # Rust
   cargo
   rustc
 
-  # SQL Development
+  # SQL
   sqlfluff
 
-  # TypeScript Development
+  # TypeScript
   eslint_d
   prettierd
 
-  # Mobile Development
+  ##############################################################################
+  # Development Tools
+  ##############################################################################
+
+  # Web Application
+  auth0-cli
+  ngrok
+
+  # Mobile Application
   android-tools
   cocoapods
   fastlane
 
-  # Data Management
+  # Data
   atlas
-  natscli
   postgresql
 
+  # Messaging
+  natscli
+
+  ##############################################################################
+  # Infrastructure
+  ##############################################################################
+
+  # Cloud
+  terraform
+  opentofu
+  google-cloud-sdk
+
   # Kubernetes
-  kubectl
   k3d
+  kubectl
   kubernetes-helm
   chart-testing
   tilt
 
-  # Cloud Infrastructure
-  opentofu
-  terraform
-  awscli2
-  google-cloud-sdk
-
-  # IT Automation
+  # Automation
   ansible
   ansible-lint
 ]
