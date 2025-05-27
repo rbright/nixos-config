@@ -12,6 +12,7 @@ with pkgs;
   # macOS
   aerospace
   dockutil
+  espanso
   ice-bar
   mas
   skhd
