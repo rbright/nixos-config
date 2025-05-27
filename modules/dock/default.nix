@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 
@@ -10,7 +11,6 @@
 with lib;
 let
   cfg = config.local.dock;
-  user = "rbright";
   inherit (pkgs) stdenv dockutil;
 in
 {

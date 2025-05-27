@@ -1,4 +1,7 @@
-_:
+{
+  user,
+  ...
+}:
 
 {
   # Show all filename extensions
@@ -21,7 +24,7 @@ _:
 
   # Open new windows in the Downloads folder
   system.defaults.finder.NewWindowTarget = "Other";
-  system.defaults.finder.NewWindowTargetPath = "file:///Users/rbright/Downloads";
+  system.defaults.finder.NewWindowTargetPath = "file:///Users/${user}/Downloads";
 
   # Don't show the Quit Finder menu item
   system.defaults.finder.QuitMenuItem = false;

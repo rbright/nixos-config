@@ -7,12 +7,10 @@
 {
   config,
   pkgs,
+  user,
   ...
 }:
 
-let
-  user = "rbright";
-in
 {
   imports = [
     ../modules/darwin

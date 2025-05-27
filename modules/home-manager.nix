@@ -2,11 +2,11 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 
 let
-  user = "rbright";
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
