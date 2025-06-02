@@ -46,6 +46,7 @@ _:
   # Utilities
   "1password"
   "balenaetcher"
+  "cyberduck"
   "gpg-suite"
   "localsend"
   "openmtp"
