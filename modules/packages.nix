@@ -85,7 +85,6 @@ with pkgs;
 
   # Python
   ruff
-  uv
 
   # Rust
   cargo
