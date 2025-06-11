@@ -19,6 +19,7 @@ _:
   "proxyman"
   "tableplus"
   "tower"
+  "zed"
   "zulu@17"
 
   # Productivity Tools
