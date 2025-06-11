@@ -16,14 +16,15 @@
   local.dock.entries = [
     { path = "/Applications/Brave Browser.app/"; }
     { path = "/Applications/Fantastical.app/"; }
+    { path = "/Applications/Mimestream.app/"; }
     { path = "/Applications/Todoist.app/"; }
     { path = "/Applications/Linear.app/"; }
-    { path = "/Applications/Mimestream.app/"; }
     { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Cursor.app/"; }
     { path = "/Applications/Ghostty.app/"; }
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }
+    { path = "/Users/rbright/Applications/Brave Browser Apps.localized/Excalidraw.app/"; }
     {
       path = "${config.users.users.${user}.home}/My Drive";
       section = "others";
