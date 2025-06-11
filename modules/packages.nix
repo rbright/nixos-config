@@ -22,15 +22,18 @@ with pkgs;
   gnutls
   pinentry_mac
 
+  # Git
+  gh
+  git
+  git-lfs
+  graphite-cli
+
   # Terminal
   btop
   carapace
   direnv
   fd
   fzf
-  gh
-  git
-  git-lfs
   htop
   jq
   just
