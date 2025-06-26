@@ -10,136 +10,136 @@ with pkgs;
   ##############################################################################
 
   # macOS
-  aerospace
-  dockutil
-  espanso
-  ice-bar
-  mas
-  skhd
+  aerospace # Tiling window manager for macOS
+  dockutil # Command-line utility for managing the Dock
+  espanso # Text expander and snippet manager
+  ice-bar # Menu bar management tool
+  mas # Mac App Store command-line interface
+  skhd # Hotkey daemon for macOS
 
   # GPG
-  gnupg
-  gnutls
-  pinentry_mac
+  gnupg # GNU Privacy Guard for encryption and signing
+  gnutls # GNU Transport Layer Security library
+  pinentry_mac # PIN entry dialog for GPG on macOS
 
   # Git
-  gh
-  git
-  git-lfs
-  graphite-cli
+  gh # GitHub CLI tool
+  git # Distributed version control system
+  git-lfs # Git Large File Storage extension
+  graphite-cli # Stacked diffs workflow for Git
 
   # Terminal
-  bat
-  btop
-  carapace
-  direnv
-  eza
-  fd
-  fzf
-  htop
-  jq
-  just
-  mkcert
-  nushell
-  ripgrep
-  starship
-  stow
-  tmux
-  wget
-  woff2
-  yq
-  xh
-  xz
-  zoxide
+  bat # Cat clone with syntax highlighting
+  btop # Resource monitor with modern interface
+  carapace # Multi-shell completion framework
+  direnv # Environment variable management per directory
+  eza # Modern replacement for ls
+  fd # Fast and user-friendly alternative to find
+  fzf # Command-line fuzzy finder
+  htop # Interactive process viewer
+  jq # JSON processor and query tool
+  just # Command runner and build tool
+  mkcert # Local HTTPS certificate generator
+  nushell # Modern shell with structured data
+  ripgrep # Fast text search tool (grep alternative)
+  starship # Cross-shell customizable prompt
+  stow # Symlink farm manager for dotfiles
+  tmux # Terminal multiplexer
+  wget # Network downloader
+  woff2 # Web font compression utilities
+  yq # YAML processor (jq for YAML)
+  xh # HTTP client (curl/HTTPie alternative)
+  xz # Compression utilities
+  zoxide # Smart cd command with frecency algorithm
 
   ##############################################################################
   # Software Development
   ##############################################################################
 
   # Text Editing
-  hadolint
-  neovim
-  shellcheck
-  tree-sitter
+  hadolint # Dockerfile linter
+  neovim # Modern Vim-based text editor
+  shellcheck # Shell script static analysis tool
+  tree-sitter # Parsing framework for syntax highlighting
 
   # Go
-  go
-  golangci-lint
+  go # Go programming language compiler and tools
+  golangci-lint # Fast Go linters runner
 
   # Lua
-  lua-language-server
-  luajitPackages.luarocks
-  stylua
+  lua-language-server # Language server for Lua
+  luajitPackages.luarocks # Package manager for Lua
+  stylua # Lua code formatter
 
   # Nix
-  nil
-  nixfmt-rfc-style
+  nil # Nix language server
+  nixfmt-rfc-style # Nix code formatter following RFC style
 
   # Nushell
-  nushellPlugins.formats
-  nushellPlugins.gstat
-  nushellPlugins.net
-  nushellPlugins.polars
-  nushellPlugins.query
-  nushellPlugins.units
+  nushellPlugins.formats # Data format conversion plugin
+  nushellPlugins.gstat # Git statistics plugin
+  nushellPlugins.net # Network utilities plugin
+  nushellPlugins.polars # DataFrame processing plugin
+  nushellPlugins.query # Web scraping and querying plugin
+  nushellPlugins.units # Unit conversion plugin
 
   # Node.js
-  nodejs_22
-  pnpm
-  watchman
+  nodejs_22 # Node.js JavaScript runtime (version 22)
+  pnpm # Fast, disk space efficient package manager
+  watchman # File watching service for development
 
   # Python
-  ruff
+  ruff # Fast Python linter and formatter
 
   # Rust
-  cargo
-  rustc
+  cargo # Rust package manager and build system
+  rustc # Rust programming language compiler
 
   # SQL
-  sqlfluff
+  sqlfluff # SQL linter and formatter
 
   # TypeScript
-  eslint_d
-  prettierd
+  eslint_d # ESLint daemon for faster linting
+  prettierd # Prettier daemon for faster code formatting
 
   ##############################################################################
   # Development Tools
   ##############################################################################
 
   # Web Application
-  auth0-cli
-  ngrok
+  auth0-cli # Command-line tool for Auth0 identity platform
+  ngrok # Secure tunnels to localhost for development
 
   # Mobile Application
-  android-tools
-  cocoapods
-  fastlane
+  android-tools # Android SDK platform tools (adb, fastboot)
+  cocoapods # Dependency manager for Swift and Objective-C
+  fastlane # Mobile app automation and deployment
 
   # Data
-  atlas
-  postgresql
+  atlas # Database schema migration tool
+  postgresql # Object-relational database system
 
   # Messaging
-  natscli
+  natscli # Command-line client for NATS messaging system
 
   ##############################################################################
   # Infrastructure
   ##############################################################################
 
   # Cloud
-  google-cloud-sdk
-  opentofu
-  pulumi
-  terraform
+  google-cloud-sdk # Google Cloud Platform command-line tools
+  opentofu # Open-source Terraform alternative
+  pulumi # Infrastructure as Code with multiple languages
+  terraform # Infrastructure as Code tool
 
   # Kubernetes
-  k3d
-  kubectl
-  kubernetes-helm
-  chart-testing
-  tilt
+  k3d # Lightweight Kubernetes cluster manager
+  kubectl # Kubernetes command-line tool
+  kubernetes-helm # Kubernetes package manager
+  chart-testing # Helm chart testing tool
+  tilt # Multi-service development environment
 
   # Automation
-  ansible
-  ansible-lint
+  ansible # Infrastructure automation and configuration management
+  ansible-lint # Linter for Ansible playbooks
 ]
