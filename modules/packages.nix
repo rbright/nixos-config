@@ -125,9 +125,10 @@ with pkgs;
   ##############################################################################
 
   # Cloud
-  terraform
-  opentofu
   google-cloud-sdk
+  opentofu
+  pulumi
+  terraform
 
   # Kubernetes
   k3d
