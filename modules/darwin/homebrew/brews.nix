@@ -1,5 +1,4 @@
 _:
 
 [
-  "claude-squad"
 ]
