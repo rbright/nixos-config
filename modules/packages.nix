@@ -29,9 +29,11 @@ with pkgs;
   graphite-cli
 
   # Terminal
+  bat
   btop
   carapace
   direnv
+  eza
   fd
   fzf
   htop
