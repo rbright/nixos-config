@@ -18,6 +18,7 @@ _:
     ./mouse.nix
     ./networking.nix
     ./screen-saver.nix
+    ./security.nix
     ./software-update.nix
     ./sound.nix
     ./startup.nix
