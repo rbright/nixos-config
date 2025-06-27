@@ -39,6 +39,7 @@ with pkgs;
   htop # Interactive process viewer
   jq # JSON processor and query tool
   just # Command runner and build tool
+  macmon # Monitor macOS system resources
   mkcert # Local HTTPS certificate generator
   nushell # Modern shell with structured data
   ripgrep # Fast text search tool (grep alternative)
