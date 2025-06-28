@@ -53,9 +53,6 @@ with pkgs;
   xz # Compression utilities
   zoxide # Smart cd command with frecency algorithm
 
-  # Virtualization
-  qemu # Generic and open source machine emulator and virtualizer
-
   ##############################################################################
   # Software Development
   ##############################################################################
