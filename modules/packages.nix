@@ -57,6 +57,9 @@ with pkgs;
   # Software Development
   ##############################################################################
 
+  # AI Assistants
+  opencode # AI-powered coding assistant
+
   # Text Editing
   hadolint # Dockerfile linter
   neovim # Modern Vim-based text editor
