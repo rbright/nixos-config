@@ -13,6 +13,7 @@ _:
   "cursor" # AI-powered code editor
   "dash" # API documentation browser and code snippet manager
   "docker" # Containerization platform desktop app
+  "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
   "ollama" # LLM runtime
