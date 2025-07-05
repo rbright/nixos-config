@@ -139,6 +139,9 @@ with pkgs;
   pulumi # Infrastructure as Code with multiple languages
   terraform # Infrastructure as Code tool
 
+  # Containerization
+  docker # Containerization platform desktop app
+
   # Kubernetes
   k3d # Lightweight Kubernetes cluster manager
   kubectl # Kubernetes command-line tool
