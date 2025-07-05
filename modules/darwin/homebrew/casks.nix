@@ -15,7 +15,6 @@ _:
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
-  "ollama" # LLM runtime
   "postman" # API development and testing platform
   "proxyman" # Web debugging proxy for macOS
   "tableplus" # Modern database management tool
