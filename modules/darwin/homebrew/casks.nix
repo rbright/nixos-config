@@ -35,7 +35,7 @@ _:
   "obsidian" # Knowledge management and note-taking app
   "raycast" # Productivity launcher and command palette
   "superwhisper" # AI-powered voice transcription tool
-  "todoist" # Task management and productivity app
+  "todoist-app" # Task management and productivity app
 
   # Communication Tools
   "mimestream" # Native email client for Gmail
