@@ -38,6 +38,7 @@
     "Harvest" = 506189836;
     "Icon Set Creator" = 939343785;
     "Pixelmator Pro" = 1289583905;
+    "Todoist" = 585829637;
     "Xcode" = 497799835;
   };
 }
