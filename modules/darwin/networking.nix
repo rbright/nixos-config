@@ -33,18 +33,18 @@ _:
   # Firewall
   ##############################################################################
 
-  # Don't automatically allow signed apps to accept incoming requests
-  system.defaults.alf.allowsignedenabled = 0;
-
-  # Don't automatically allow signed downloads to accept incoming requests
-  system.defaults.alf.allowdownloadsignedenabled = 0;
-
   # Enable internal firewall
-  system.defaults.alf.globalstate = 1;
+  networking.applicationFirewall.enable = true;
 
-  # Enable logging of requests made to the firewall
-  system.defaults.alf.loggingenabled = 1;
+  # Allow incoming requests
+  networking.applicationFirewall.blockAllIncoming = false;
 
-  # Drop incoming ICMP requests
-  system.defaults.alf.stealthenabled = 1;
+  # Don't automatically allow signed apps to accept incoming requests
+  networking.applicationFirewall.allowSigned = false;
+
+  # Don't automatically allow signed apps to accept incoming requests
+  networking.applicationFirewall.allowSignedApp = false;
+
+  # Enable stealth mode for the firewall
+  networking.applicationFirewall.enableStealthMode = true;
 }
