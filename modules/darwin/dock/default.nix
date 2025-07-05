@@ -26,11 +26,6 @@
     { path = "/Applications/TablePlus.app/"; }
     { path = "/Users/rbright/Applications/Brave Browser Apps.localized/Excalidraw.app/"; }
     {
-      path = "${config.users.users.${user}.home}/My Drive";
-      section = "others";
-      options = "--sort name --view grid --display stack";
-    }
-    {
       path = "${config.users.users.${user}.home}/Downloads";
       section = "others";
       options = "--sort name --view grid --display stack";
