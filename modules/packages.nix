@@ -76,6 +76,7 @@ with pkgs;
   stylua # Lua code formatter
 
   # Nix
+  deploy-rs # NixOS deployment tool
   nil # Nix language server
   nixfmt-rfc-style # Nix code formatter following RFC style
 
