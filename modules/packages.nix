@@ -151,10 +151,12 @@ with pkgs;
   docker # Containerization platform desktop app
 
   # Kubernetes
+  chart-testing # Helm chart testing tool
+  helmfile # Declarative spec for deploying Helm charts
   k3d # Lightweight Kubernetes cluster manager
   kubectl # Kubernetes command-line tool
   kubernetes-helm # Kubernetes package manager
-  chart-testing # Helm chart testing tool
+  kubeseal # Kubernetes controller and tool for one-way encrypted Secrets
   tilt # Multi-service development environment
 
   # Automation
