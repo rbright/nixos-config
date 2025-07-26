@@ -19,8 +19,6 @@ _:
   "proxyman" # Web debugging proxy for macOS
   "tableplus" # Modern database management tool
   "tower" # Git client with visual interface
-  "vagrant" # Virtual machine manager for creating and managing virtual environments
-  "virtualbox" # Virtualization software for creating and managing virtual machines
   "zed" # High-performance collaborative code editor
   "zulu@17" # OpenJDK distribution (Java 17)
 
