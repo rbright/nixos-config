@@ -158,8 +158,4 @@ with pkgs;
   kubernetes-helm # Kubernetes package manager
   kubeseal # Kubernetes controller and tool for one-way encrypted Secrets
   tilt # Multi-service development environment
-
-  # Automation
-  ansible # Infrastructure automation and configuration management
-  ansible-lint # Linter for Ansible playbooks
 ]
