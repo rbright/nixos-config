@@ -11,7 +11,7 @@ default:
 # Bootstrap the local development environment
 [group('bootstrap')]
 bootstrap:
-    ./bootstrap.zsh
+    ./scripts/bootstrap.zsh
 
 # Update all nix flakes
 [group('nix')]

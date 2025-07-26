@@ -52,7 +52,7 @@ All common operations are available through the `just` task runner:
 ```bash
 just bootstrap          # Bootstrap new macOS installation
 ```
-Runs `./bootstrap.zsh` to install Xcode CLI tools and Nix.
+Runs `./scripts/bootstrap.zsh` to install Xcode CLI tools and Nix.
 
 ### System Management
 ```bash
