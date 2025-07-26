@@ -13,9 +13,8 @@
 
 {
   imports = [
-    ../../modules/darwin
-    ../../modules/home-manager.nix
     ../../modules
+    ../../modules/darwin
   ];
 
   ##############################################################################
@@ -82,5 +81,6 @@
     [
 
     ]
-    ++ (import ../../modules/packages.nix { inherit pkgs; });
+    ++ (import ../../modules/packages.nix { inherit pkgs; })
+    ++ (import ../../modules/darwin/packages.nix { inherit pkgs; });
 }

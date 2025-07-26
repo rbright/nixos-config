@@ -9,18 +9,9 @@ with pkgs;
   # Core
   ##############################################################################
 
-  # macOS
-  aerospace # Tiling window manager for macOS
-  dockutil # Command-line utility for managing the Dock
-  espanso # Text expander and snippet manager
-  ice-bar # Menu bar management tool
-  mas # Mac App Store command-line interface
-  skhd # Hotkey daemon for macOS
-
   # GPG
   gnupg # GNU Privacy Guard for encryption and signing
   gnutls # GNU Transport Layer Security library
-  pinentry_mac # PIN entry dialog for GPG on macOS
 
   # Git
   gh # GitHub CLI tool
@@ -39,7 +30,6 @@ with pkgs;
   htop # Interactive process viewer
   jq # JSON processor and query tool
   just # Command runner and build tool
-  macmon # Monitor macOS system resources
   mkcert # Local HTTPS certificate generator
   nushell # Modern shell with structured data
   ripgrep # Fast text search tool (grep alternative)
