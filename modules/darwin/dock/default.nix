@@ -71,7 +71,7 @@
   system.defaults.dock.mru-spaces = false;
 
   # Show dock on bottom
-  system.defaults.dock.orientation = "right";
+  system.defaults.dock.orientation = "bottom";
 
   # Scroll up on a Dock icon to show all opened windows for an app
   system.defaults.dock.scroll-to-open = true;
