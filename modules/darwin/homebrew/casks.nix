@@ -32,6 +32,7 @@ _:
   "notion" # All-in-one workspace for note-taking, project management, and knowledge management
   "obsidian" # Knowledge management and note-taking app
   "raycast" # Productivity launcher and command palette
+  "sunsama" # Daily planner and calendar
   "superwhisper" # AI-powered voice transcription tool
 
   # Communication Tools

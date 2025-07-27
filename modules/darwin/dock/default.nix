@@ -17,8 +17,7 @@
     { path = "/Applications/Brave Browser.app/"; }
     { path = "/Applications/Fantastical.app/"; }
     { path = "/Applications/Mimestream.app/"; }
-    { path = "/Applications/Todoist.app/"; }
-    { path = "/Applications/Linear.app/"; }
+    { path = "/Applications/Sunsama.app/"; }
     { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Cursor.app/"; }
     { path = "/Applications/Ghostty.app/"; }
