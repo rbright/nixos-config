@@ -45,6 +45,10 @@ _:
   "ledger-live" # Cryptocurrency wallet and portfolio manager
   "thinkorswim" # Advanced trading platform by TD Ameritrade
 
+  # AI Tools
+  "comfyui" # Node-based image, video and audio generator
+  "diffusionbee" # AI image generation tool
+
   # Utilities
   "1password" # Password manager and secure vault
   "balenaetcher" # Flash OS images to SD cards and USB drives
