@@ -23,7 +23,6 @@
     { path = "/Applications/Ghostty.app/"; }
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }
-    { path = "/Users/rbright/Applications/Brave Browser Apps.localized/Excalidraw.app/"; }
     {
       path = "${config.users.users.${user}.home}/Downloads";
       section = "others";
