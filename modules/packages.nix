@@ -20,6 +20,7 @@ with pkgs;
   graphite-cli # Stacked diffs workflow for Git
 
   # Terminal
+  atuin # Shell history management tool
   bat # Cat clone with syntax highlighting
   btop # Resource monitor with modern interface
   carapace # Multi-shell completion framework
