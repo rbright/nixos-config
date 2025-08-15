@@ -24,15 +24,18 @@ with pkgs;
   bat # Cat clone with syntax highlighting
   btop # Resource monitor with modern interface
   carapace # Multi-shell completion framework
+  difftastic # Syntax-aware diffing tool
   direnv # Environment variable management per directory
   eza # Modern replacement for ls
   fd # Fast and user-friendly alternative to find
   fzf # Command-line fuzzy finder
   htop # Interactive process viewer
+  hyperfine # Benchmarking tool
   jq # JSON processor and query tool
   just # Command runner and build tool
   mkcert # Local HTTPS certificate generator
   nushell # Modern shell with structured data
+  procs # Modern process monitor
   ripgrep # Fast text search tool (grep alternative)
   starship # Cross-shell customizable prompt
   stow # Symlink farm manager for dotfiles
