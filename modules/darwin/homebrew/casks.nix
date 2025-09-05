@@ -47,6 +47,7 @@ _:
   "thinkorswim" # Advanced trading platform by TD Ameritrade
 
   # AI Tools
+  "chatgpt" # ChatGPT desktop app
   "comfyui" # Node-based image, video and audio generator
   "diffusionbee" # AI image generation tool
 
