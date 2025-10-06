@@ -48,8 +48,6 @@ _:
 
   # AI Tools
   "chatgpt" # ChatGPT desktop app
-  "comfyui" # Node-based image, video and audio generator
-  "diffusionbee" # AI image generation tool
 
   # Utilities
   "1password" # Password manager and secure vault
