@@ -30,7 +30,6 @@ _:
   "fantastical" # Calendar app with natural language processing
   "google-drive" # Cloud storage and file synchronization
   "loom" # Screen recording and video messaging
-  "notion" # All-in-one workspace for note-taking, project management, and knowledge management
   "obsidian" # Knowledge management and note-taking app
   "raycast" # Productivity launcher and command palette
   "sunsama" # Daily planner and calendar
