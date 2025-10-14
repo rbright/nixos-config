@@ -13,43 +13,35 @@ with pkgs;
   gnupg # GNU Privacy Guard for encryption and signing
   gnutls # GNU Transport Layer Security library
 
+  # Shell
+  atuin # Shell history management tool
+  bat # Cat clone with syntax highlighting
+  carapace # Multi-shell completion framework
+  eza # Modern replacement for ls
+  fd # Fast and user-friendly alternative to find
+  fzf # Command-line fuzzy finder
+  nushell # Modern shell with structured data
+  ripgrep # Fast text search tool (grep alternative)
+  starship # Cross-shell customizable prompt
+  tmux # Terminal multiplexer
+  zoxide # Smart cd command with frecency algorithm
+
+  # Utilities
+  stow # Symlink farm manager for dotfiles
+  wget # Network downloader
+  woff2 # Web font compression utilities
+  xh # HTTP client (curl/HTTPie alternative)
+  xz # Compression utilities
+
+  ##############################################################################
+  # Software Development
+  ##############################################################################
+
   # Git
   gh # GitHub CLI tool
   git # Distributed version control system
   git-lfs # Git Large File Storage extension
   graphite-cli # Stacked diffs workflow for Git
-
-  # Terminal
-  atuin # Shell history management tool
-  bat # Cat clone with syntax highlighting
-  btop # Resource monitor with modern interface
-  carapace # Multi-shell completion framework
-  difftastic # Syntax-aware diffing tool
-  direnv # Environment variable management per directory
-  eza # Modern replacement for ls
-  fd # Fast and user-friendly alternative to find
-  fzf # Command-line fuzzy finder
-  htop # Interactive process viewer
-  hyperfine # Benchmarking tool
-  jq # JSON processor and query tool
-  just # Command runner and build tool
-  mkcert # Local HTTPS certificate generator
-  nushell # Modern shell with structured data
-  procs # Modern process monitor
-  ripgrep # Fast text search tool (grep alternative)
-  starship # Cross-shell customizable prompt
-  stow # Symlink farm manager for dotfiles
-  tmux # Terminal multiplexer
-  wget # Network downloader
-  woff2 # Web font compression utilities
-  yq # YAML processor (jq for YAML)
-  xh # HTTP client (curl/HTTPie alternative)
-  xz # Compression utilities
-  zoxide # Smart cd command with frecency algorithm
-
-  ##############################################################################
-  # Software Development
-  ##############################################################################
 
   # Text Editing
   hadolint # Dockerfile linter
@@ -102,11 +94,13 @@ with pkgs;
   eslint_d # ESLint daemon for faster linting
   prettierd # Prettier daemon for faster code formatting
 
-  ##############################################################################
-  # Machine Learning
-  ##############################################################################
-
-  ollama # LLM runtime
+  # Miscellaneous
+  difftastic # Syntax-aware diffing tool
+  direnv # Environment variable management per directory
+  jq # JSON processor and query tool
+  just # Command runner and build tool
+  mkcert # Local HTTPS certificate generator
+  yq # YAML processor (jq for YAML)
 
   ##############################################################################
   # Development Tools
@@ -130,7 +124,7 @@ with pkgs;
   natscli # Command-line client for NATS messaging system
 
   ##############################################################################
-  # Infrastructure
+  # System Administration
   ##############################################################################
 
   # Cloud
@@ -150,4 +144,19 @@ with pkgs;
   kubernetes-helm # Kubernetes package manager
   kubeseal # Kubernetes controller and tool for one-way encrypted Secrets
   tilt # Multi-service development environment
+
+  # Networking
+  iproute2mac # IP routing utilities
+
+  # Observability
+  btop # Resource monitor with modern interface
+  htop # Interactive process viewer
+  hyperfine # Benchmarking tool
+  procs # Modern process monitor
+
+  ##############################################################################
+  # Machine Learning
+  ##############################################################################
+
+  ollama # LLM runtime
 ]
