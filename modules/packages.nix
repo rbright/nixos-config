@@ -68,11 +68,11 @@ with pkgs;
   nushellPlugins.gstat # Git statistics plugin
   nushellPlugins.polars # DataFrame processing plugin
   nushellPlugins.query # Web scraping and querying plugin
-  nushellPlugins.units # Unit conversion plugin
 
   # TODO: Marked as broken as of 2025-07-05
   # https://github.com/NixOS/nixpkgs/pull/421135
   # nushellPlugins.net # Network utilities plugin
+  # nushellPlugins.units # Unit conversion plugin
 
   # Node.js
   bun # Fast, disk space efficient package manager
