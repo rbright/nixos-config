@@ -75,9 +75,7 @@ with pkgs;
   # nushellPlugins.units # Unit conversion plugin
 
   # Node.js
-  bun # Fast, disk space efficient package manager
-  nodejs_22 # Node.js JavaScript runtime (version 22)
-  pnpm # Fast, disk space efficient package manager
+  nodejs_24 # Node.js JavaScript runtime
   watchman # File watching service for development
 
   # Python
