@@ -8,6 +8,7 @@ _:
     ./dock
     ./finder.nix
     ./fonts.nix
+    ./home-manager.nix
     ./homebrew
     ./keyboard.nix
     ./language-region.nix
