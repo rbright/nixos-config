@@ -95,6 +95,7 @@ with pkgs;
   # Miscellaneous
   difftastic # Syntax-aware diffing tool
   direnv # Environment variable management per directory
+  fastfetch # Fast system information tool
   jq # JSON processor and query tool
   just # Command runner and build tool
   mkcert # Local HTTPS certificate generator
