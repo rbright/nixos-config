@@ -115,7 +115,6 @@ with pkgs;
   fastlane # Mobile app automation and deployment
 
   # Data
-  atlas # Database schema migration tool
   duckdb # Analytical in-process SQL database management system
   postgresql # Object-relational database system
 
