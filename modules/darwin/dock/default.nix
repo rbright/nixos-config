@@ -15,7 +15,7 @@
   # Setup persistent Dock entries
   local.dock.entries = [
     { path = "/Applications/Brave Browser.app/"; }
-    { path = "/Applications/Fantastical.app/"; }
+    { path = "/Applications/Calendar.app/"; }
     { path = "/Applications/Sunsama.app/"; }
     { path = "/Applications/Linear.app/"; }
     { path = "/Applications/Obsidian.app/"; }

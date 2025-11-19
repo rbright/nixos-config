@@ -27,7 +27,6 @@ _:
   "calibre" # E-book management and conversion tool
   "cleanshot" # Screenshot and screen recording tool
   "elgato-camera-hub" # Camera control software for Elgato devices
-  "fantastical" # Calendar app with natural language processing
   "google-drive" # Cloud storage and file synchronization
   "loom" # Screen recording and video messaging
   "obsidian" # Knowledge management and note-taking app
