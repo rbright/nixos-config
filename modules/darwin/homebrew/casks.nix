@@ -45,9 +45,6 @@ _:
   "ledger-live" # Cryptocurrency wallet and portfolio manager
   "thinkorswim" # Advanced trading platform by TD Ameritrade
 
-  # AI Tools
-  "chatgpt" # ChatGPT desktop app
-
   # Utilities
   "1password" # Password manager and secure vault
   "balenaetcher" # Flash OS images to SD cards and USB drives
