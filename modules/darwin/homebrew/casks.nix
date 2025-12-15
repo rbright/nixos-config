@@ -36,6 +36,7 @@ _:
   "superwhisper" # AI-powered voice transcription tool
 
   # Communication Tools
+  "discord" # Chat and messaging platform
   "mimestream" # Native email client for Gmail
   "slack" # Team communication and collaboration platform
   "thunderbird" # Open-source email client
