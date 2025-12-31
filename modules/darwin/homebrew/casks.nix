@@ -19,7 +19,6 @@ _:
   "proxyman" # Web debugging proxy for macOS
   "tableplus" # Modern database management tool
   "tower" # Git client with visual interface
-  "visual-studio-code" # Code editor
   "zed" # High-performance collaborative code editor
   "zulu@17" # OpenJDK distribution (Java 17)
 
@@ -43,7 +42,7 @@ _:
   "zoom" # Video conferencing and webinar platform
 
   # Finance Tools
-  "ledger-live" # Cryptocurrency wallet and portfolio manager
+  "ledger-wallet" # Cryptocurrency wallet and portfolio manager
   "thinkorswim" # Advanced trading platform by TD Ameritrade
 
   # Utilities
