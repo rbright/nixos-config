@@ -20,6 +20,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-steipete-tap = {
+      url = "github:steipete/homebrew-tap";
+      flake = false;
+    };
   };
 
   outputs =
@@ -31,6 +35,7 @@
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
+      homebrew-steipete-tap,
     }@inputs:
     let
       user = "rbright";
@@ -104,6 +109,8 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
+                  # `brew tap steipete/tap` maps to the `steipete/homebrew-tap` repo.
+                  "steipete/homebrew-tap" = homebrew-steipete-tap;
                 };
               };
             }
