@@ -12,13 +12,11 @@ _:
   "android-studio" # Official IDE for Android development
   "steipete/tap/codexbar" # Show usage stats for OpenAI Codex and Claude Code
   "cursor" # AI-powered code editor
-  "dash" # API documentation browser and code snippet manager
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
   "postman" # API development and testing platform
   "proxyman" # Web debugging proxy for macOS
-  "steipete/tap/repobar" # Show status of GitHub repos
   "tableplus" # Modern database management tool
   "tower" # Git client with visual interface
   "zed" # High-performance collaborative code editor
@@ -55,6 +53,5 @@ _:
   "localsend" # Cross-platform file sharing over local network
   "openmtp" # Android file transfer utility for macOS
   "proton-pass" # Password manager by Proton
-  "protonvpn" # VPN service by Proton for privacy protection
   "vnc-viewer" # Remote desktop viewing application
 ]
