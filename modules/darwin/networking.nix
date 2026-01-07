@@ -36,8 +36,8 @@ _:
   # Enable internal firewall
   networking.applicationFirewall.enable = true;
 
-  # Allow incoming requests
-  networking.applicationFirewall.blockAllIncoming = false;
+  # Block incoming requests
+  networking.applicationFirewall.blockAllIncoming = true;
 
   # Don't automatically allow signed apps to accept incoming requests
   networking.applicationFirewall.allowSigned = false;
