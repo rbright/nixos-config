@@ -28,6 +28,7 @@ _:
   "elgato-camera-hub" # Camera control software for Elgato devices
   "fantastical" # Calendar app with natural language processing
   "google-drive" # Cloud storage and file synchronization
+  "granola" # AI-powered notepad for meetings
   "loom" # Screen recording and video messaging
   "obsidian" # Knowledge management and note-taking app
   "raycast" # Productivity launcher and command palette
