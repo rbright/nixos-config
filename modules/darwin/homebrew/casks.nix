@@ -29,6 +29,7 @@ _:
   "google-drive" # Cloud storage and file synchronization
   "granola" # AI-powered notepad for meetings
   "loom" # Screen recording and video messaging
+  "notion" # Productivity platform
   "obsidian" # Knowledge management and note-taking app
   "raycast" # Productivity launcher and command palette
   "sunsama" # Daily planner and calendar
