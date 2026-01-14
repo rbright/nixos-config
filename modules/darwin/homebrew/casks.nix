@@ -11,7 +11,6 @@ _:
   # Development Tools
   "android-studio" # Official IDE for Android development
   "steipete/tap/codexbar" # Show usage stats for OpenAI Codex and Claude Code
-  "cursor" # AI-powered code editor
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
@@ -19,6 +18,7 @@ _:
   "proxyman" # Web debugging proxy for macOS
   "tableplus" # Modern database management tool
   "tower" # Git client with visual interface
+  "visual-studio-code" # Code editor
   "zed" # High-performance collaborative code editor
   "zulu@17" # OpenJDK distribution (Java 17)
 
