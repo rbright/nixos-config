@@ -10,6 +10,7 @@ _:
 
   # Development Tools
   "android-studio" # Official IDE for Android development
+  "conductor" # AI agent parallelisation
   "steipete/tap/codexbar" # Show usage stats for OpenAI Codex and Claude Code
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
