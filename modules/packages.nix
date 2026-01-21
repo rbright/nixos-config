@@ -27,6 +27,7 @@ with pkgs;
   zoxide # Smart cd command with frecency algorithm
 
   # Utilities
+  cloc # Count lines of code
   stow # Symlink farm manager for dotfiles
   wget # Network downloader
   woff2 # Web font compression utilities
