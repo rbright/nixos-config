@@ -19,8 +19,9 @@
     { path = "/Applications/Sunsama.app/"; }
     { path = "/Applications/Linear.app/"; }
     { path = "/Applications/Obsidian.app/"; }
-    { path = "/Applications/Visual Studio Code.app/"; }
     { path = "/Applications/Ghostty.app/"; }
+    { path = "/Applications/Zed.app/"; }
+    { path = "/Applications/Visual Studio Code.app/"; }
     { path = "/Applications/CodexMonitor.app/"; }
     { path = "/Applications/Tower.app/"; }
     { path = "/Applications/TablePlus.app/"; }
