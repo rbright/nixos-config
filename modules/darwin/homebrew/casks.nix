@@ -29,6 +29,7 @@ _:
   "elgato-camera-hub" # Camera control software for Elgato devices
   "google-drive" # Cloud storage and file synchronization
   "granola" # AI-powered notepad for meetings
+  "homerow" # Keyboard shortcuts for every button on your screen
   "loom" # Screen recording and video messaging
   "notion" # Productivity platform
   "obsidian" # Knowledge management and note-taking app
