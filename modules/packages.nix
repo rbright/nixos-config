@@ -62,7 +62,7 @@ with pkgs;
   # Nix
   deploy-rs # NixOS deployment tool
   nil # Nix language server
-  nixfmt-rfc-style # Nix code formatter following RFC style
+  nixfmt # Nix code formatter
 
   # Nushell
   nushellPlugins.formats # Data format conversion plugin
