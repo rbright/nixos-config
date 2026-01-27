@@ -11,12 +11,13 @@ _:
   # Development Tools
   "android-studio" # Official IDE for Android development
   "conductor" # AI agent parallelisation
-  "steipete/tap/codexbar" # Show usage stats for OpenAI Codex and Claude Code
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
   "postman" # API development and testing platform
   "proxyman" # Web debugging proxy for macOS
+  "steipete/tap/codexbar" # Show usage stats for OpenAI Codex and Claude Code
+  "steipete/tap/trimmy" # Flattens those multi-line shell snippets you copy so they actually paste and run
   "tableplus" # Modern database management tool
   "tower" # Git client with visual interface
   "visual-studio-code" # Code editor
