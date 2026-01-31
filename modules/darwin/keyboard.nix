@@ -1,48 +1,58 @@
-_:
+_: {
+  system = {
+    keyboard = {
+      # Disable key mapping
+      enableKeyMapping = false;
 
-{
-  # Disable key mapping
-  system.keyboard.enableKeyMapping = false;
+      # Don't remap Caps Lock
+      remapCapsLockToControl = false;
+      remapCapsLockToEscape = false;
 
-  # Don't remap Caps Lock
-  system.keyboard.remapCapsLockToControl = false;
-  system.keyboard.remapCapsLockToEscape = false;
+      # Don't swap modifiers keys
+      swapLeftCommandAndLeftAlt = false;
+      swapLeftCtrlAndFn = false;
+    };
 
-  # Don't swap modifiers keys
-  system.keyboard.swapLeftCommandAndLeftAlt = false;
-  system.keyboard.swapLeftCtrlAndFn = false;
+    defaults = {
+      NSGlobalDomain = {
+        # Enable key repeat for all apps
+        ApplePressAndHoldEnabled = false;
 
-  # Enable key repeat for all apps
-  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+        # Set key repeat to fastest rate
+        InitialKeyRepeat = 15;
+        KeyRepeat = 2;
 
-  # Set key repeat to fastest rate
-  system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
-  system.defaults.NSGlobalDomain.KeyRepeat = 2;
+        # Use Fn keys as standard function keys
+        "com.apple.keyboard.fnState" = true;
 
-  # Use Fn keys as standard function keys
-  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
+        # Disable automatic capitalization
+        NSAutomaticCapitalizationEnabled = false;
 
-  # Do nothing with the Fn key
-  system.defaults.CustomUserPreferences."com.apple.hitoolbox".AppleFnUsageType = 0;
+        # Disable automatic dash substitution
+        NSAutomaticDashSubstitutionEnabled = false;
 
-  # Disable dictation
-  system.defaults.CustomUserPreferences."com.apple.hitoolbox".AppleDictationAutoEnable = 0;
+        # Disable automatic inline prediction
+        NSAutomaticInlinePredictionEnabled = false;
 
-  # Disable automatic capitalization
-  system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
+        # Disable automatic period substitution
+        NSAutomaticPeriodSubstitutionEnabled = false;
 
-  # Disable automatic dash substitution
-  system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
+        # Disable smart quote substitution
+        NSAutomaticQuoteSubstitutionEnabled = false;
 
-  # Disable automatic inline prediction
-  system.defaults.NSGlobalDomain.NSAutomaticInlinePredictionEnabled = false;
+        # Disable automatic spelling correction
+        NSAutomaticSpellingCorrectionEnabled = false;
+      };
 
-  # Disable automatic period substitution
-  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
+      CustomUserPreferences = {
+        "com.apple.hitoolbox" = {
+          # Do nothing with the Fn key
+          AppleFnUsageType = 0;
 
-  # Disable smart quote substitution
-  system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
-
-  # Disable automatic spelling correction
-  system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
+          # Disable dictation
+          AppleDictationAutoEnable = 0;
+        };
+      };
+    };
+  };
 }

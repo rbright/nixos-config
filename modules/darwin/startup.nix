@@ -1,5 +1,3 @@
-_:
-
-{
+_: {
   system.startup.chime = false;
 }

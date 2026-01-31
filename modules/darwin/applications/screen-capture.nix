@@ -1,19 +1,23 @@
-_:
+_: {
+  system = {
+    defaults = {
+      screencapture = {
+        # Disable drop shadow border around screenshots
+        "disable-shadow" = true;
 
-{
-  # Disable drop shadow border around screenshots
-  system.defaults.screencapture.disable-shadow = true;
+        # Include date and time in screenshot filenames
+        "include-date" = true;
 
-  # Include date and time in screenshot filenames
-  system.defaults.screencapture.include-date = true;
+        # Set location of screenshots
+        location = "~/My Drive/Screenshots";
 
-  # Set location of screenshots
-  system.defaults.screencapture.location = "~/My Drive/Screenshots";
+        # Show thumbnail after screenshot before saving
+        "show-thumbnail" = true;
 
-  # Show thumbnail after screenshot before saving
-  system.defaults.screencapture.show-thumbnail = true;
-
-  # Save screenshots as PNG files
-  system.defaults.screencapture.target = "file";
-  system.defaults.screencapture.type = "png";
+        # Save screenshots as PNG files
+        target = "file";
+        type = "png";
+      };
+    };
+  };
 }

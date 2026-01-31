@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   nixpkgs.config = {
     allowBroken = false;
     allowInsecure = false;

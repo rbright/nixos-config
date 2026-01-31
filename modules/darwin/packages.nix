@@ -1,10 +1,5 @@
-{
-  pkgs,
-  ...
-}:
-
-with pkgs;
-[
+{pkgs, ...}:
+with pkgs; [
   aerospace # Tiling window manager for macOS
   dockutil # Command-line utility for managing the Dock
   espanso # Text expander and snippet manager

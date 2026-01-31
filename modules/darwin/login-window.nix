@@ -1,22 +1,30 @@
-_:
+_: {
+  system = {
+    defaults = {
+      loginwindow = {
+        # Disable guest account
+        GuestEnabled = false;
 
-{
-  # Disable guest account
-  system.defaults.loginwindow.GuestEnabled = false;
+        # Show list of users on the login screen
+        SHOWFULLNAME = true;
 
-  # Show list of users on the login screen
-  system.defaults.loginwindow.SHOWFULLNAME = true;
+        # Allow Restart, Shutdown, and Sleep while logged out
+        RestartDisabled = false;
+        ShutDownDisabled = false;
+        SleepDisabled = false;
 
-  # Allow Restart, Shutdown, and Sleep while logged out
-  system.defaults.loginwindow.RestartDisabled = false;
-  system.defaults.loginwindow.ShutDownDisabled = false;
-  system.defaults.loginwindow.SleepDisabled = false;
+        # Allow Restart and Shutdown while logged in
+        RestartDisabledWhileLoggedIn = false;
+        ShutDownDisabledWhileLoggedIn = false;
+      };
 
-  # Allow Restart and Shutdown while logged in
-  system.defaults.loginwindow.RestartDisabledWhileLoggedIn = false;
-  system.defaults.loginwindow.ShutDownDisabledWhileLoggedIn = false;
-
-  # Don't reopen windows when logging back in
-  system.defaults.CustomUserPreferences."com.apple.loginwindow".LoginwindowLaunchesRelaunchApps = 0;
-  system.defaults.CustomUserPreferences."com.apple.loginwindow".TALLogoutSavesState = 0;
+      CustomUserPreferences = {
+        "com.apple.loginwindow" = {
+          # Don't reopen windows when logging back in
+          LoginwindowLaunchesRelaunchApps = 0;
+          TALLogoutSavesState = 0;
+        };
+      };
+    };
+  };
 }
