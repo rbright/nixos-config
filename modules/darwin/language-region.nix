@@ -1,25 +1,33 @@
-_:
+_: {
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        # Set temperature unit to Fahrenheit
+        AppleTemperatureUnit = "Fahrenheit";
 
-{
-  # Set temperature unit to Fahrenheit
-  system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Fahrenheit";
+        # Force 24-hour time
+        AppleICUForce24HourTime = true;
+      };
 
-  # Force 24-hour time
-  system.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
+      CustomUserPreferences = {
+        NSGlobalDomain = {
+          # Set supported languages
+          AppleLanguages = ["en-US"];
 
-  # Set supported languages
-  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleLanguages = [ "en-US" ];
+          # Set supported languages
+          AppleLocale = "en-US";
 
-  # Set supported languages
-  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleLocale = "en-US";
+          # Set the first day of the week to Monday
+          AppleFirstWeekday = {
+            gregorian = 2;
+          };
 
-  # Set the first day of the week to Monday
-  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleFirstWeekday = {
-    gregorian = 2;
-  };
-
-  # Set the date format to "MM/dd/yyyy"
-  system.defaults.CustomUserPreferences.NSGlobalDomain.AppleICUDateFormatStrings = {
-    "1" = "y-MM-dd";
+          # Set the date format to "MM/dd/yyyy"
+          AppleICUDateFormatStrings = {
+            "1" = "y-MM-dd";
+          };
+        };
+      };
+    };
   };
 }

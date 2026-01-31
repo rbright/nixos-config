@@ -1,12 +1,16 @@
-_:
-
-{
-  # Disable controls in menu bar
-  system.defaults.controlcenter.AirDrop = false;
-  system.defaults.controlcenter.BatteryShowPercentage = false;
-  system.defaults.controlcenter.Bluetooth = false;
-  system.defaults.controlcenter.Display = false;
-  system.defaults.controlcenter.FocusModes = false;
-  system.defaults.controlcenter.NowPlaying = false;
-  system.defaults.controlcenter.Sound = false;
+_: {
+  system = {
+    defaults = {
+      controlcenter = {
+        # Disable controls in menu bar
+        AirDrop = false;
+        BatteryShowPercentage = false;
+        Bluetooth = false;
+        Display = false;
+        FocusModes = false;
+        NowPlaying = false;
+        Sound = false;
+      };
+    };
+  };
 }

@@ -1,30 +1,27 @@
 {
   config,
   pkgs,
-  lib,
   user,
   ...
-}:
+}: let
+  additionalFiles = import ./files.nix {inherit config pkgs user;};
+in {
+  home-manager = {
+    useGlobalPkgs = true;
 
-let
-  additionalFiles = import ./files.nix { inherit config pkgs user; };
-in
-{
-  home-manager.useGlobalPkgs = true;
-
-  home-manager.users.${user} =
-    {
-      config,
+    users.${user} = {
       lib,
       pkgs,
       ...
-    }:
-    {
-      home.enableNixpkgsReleaseCheck = false;
-      home.file = lib.mkMerge [ additionalFiles ];
-      home.packages = (pkgs.callPackage ../packages.nix { }) ++ (pkgs.callPackage ./packages.nix { });
-      home.stateVersion = "24.11";
+    }: {
+      home = {
+        enableNixpkgsReleaseCheck = false;
+        file = lib.mkMerge [additionalFiles];
+        packages = (pkgs.callPackage ../packages.nix {}) ++ (pkgs.callPackage ./packages.nix {});
+        stateVersion = "24.11";
+      };
 
       services.skhd.enable = true;
     };
+  };
 }

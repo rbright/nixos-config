@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   # # Don't check spelling while typing
   # system.defaults.CustomUserPreferences."com.apple.TextEdit".CheckSpellingWhileTyping = 0;
 

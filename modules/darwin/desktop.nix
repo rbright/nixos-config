@@ -1,39 +1,45 @@
-_:
+_: {
+  system = {
+    defaults = {
+      WindowManager = {
+        # Hide icons on desktop
+        StandardHideDesktopIcons = true;
 
-{
-  # Hide icons on desktop
-  system.defaults.WindowManager.StandardHideDesktopIcons = true;
+        # Hide items in Stage Manager
+        HideDesktop = true;
 
-  # Hide items in Stage Manager
-  system.defaults.WindowManager.HideDesktop = true;
+        # Click wallpaper to reveal desktop in Stage Manager
+        EnableStandardClickToShowDesktop = false;
 
-  # Click wallpaper to reveal desktop in Stage Manager
-  system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
+        # Disable Stage Manager
+        GloballyEnabled = false;
 
-  # Disable Stage Manager
-  system.defaults.WindowManager.GloballyEnabled = false;
+        # Show windows from an application all at once in Stage Manager
+        AppWindowGroupingBehavior = true;
 
-  # Show windows from an application all at once in Stage Manager
-  system.defaults.WindowManager.AppWindowGroupingBehavior = true;
+        # Show widgets on desktop
+        StandardHideWidgets = false;
 
-  # Show widgets on desktop
-  system.defaults.WindowManager.StandardHideWidgets = false;
+        # Hide widgets in Stage Manager
+        StageManagerHideWidgets = true;
 
-  # Hide widgets in Stage Manager
-  system.defaults.WindowManager.StageManagerHideWidgets = true;
+        # Disable dragging windows to screen edges to tile
+        EnableTilingByEdgeDrag = false;
 
-  # Disable dragging windows to screen edges to tile
-  system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
+        # Disable dragging windows to menu bar to fill screen
+        EnableTopTilingByEdgeDrag = false;
 
-  # Disable dragging windows to menu bar to fill screen
-  system.defaults.WindowManager.EnableTopTilingByEdgeDrag = false;
+        # Disable holding alt to tile windows
+        EnableTilingOptionAccelerator = false;
 
-  # Disable holding alt to tile windows
-  system.defaults.WindowManager.EnableTilingOptionAccelerator = false;
+        # Disable margin for tiled windows
+        EnableTiledWindowMargins = false;
+      };
 
-  # Disable margin for tiled windows
-  system.defaults.WindowManager.EnableTiledWindowMargins = false;
-
-  # Don't use separate spaces for each display
-  system.defaults.spaces.spans-displays = true;
+      spaces = {
+        # Don't use separate spaces for each display
+        "spans-displays" = true;
+      };
+    };
+  };
 }

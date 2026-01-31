@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   imports = [
     ./applications
     ./control-center.nix

@@ -1,19 +1,27 @@
-_:
+_: {
+  system = {
+    defaults = {
+      SoftwareUpdate = {
+        # Don't automatically install macOS updates
+        AutomaticallyInstallMacOSUpdates = false;
+      };
 
-{
-  # Don't automatically install macOS updates
-  system.defaults.SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+      CustomUserPreferences = {
+        # Enable auto-update for apps
+        "com.apple.commerce".AutoUpdate = true;
 
-  # Enable auto-update for apps
-  system.defaults.CustomUserPreferences."com.apple.commerce".AutoUpdate = true;
+        "com.apple.SoftwareUpdate" = {
+          # Check for software updates daily, not just once per week
+          AutomaticCheckEnabled = true;
+          ScheduleFrequency = 1;
 
-  # Check for software updates daily, not just once per week
-  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".AutomaticCheckEnabled = true;
-  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".ScheduleFrequency = 1;
+          # Download new updates when available
+          AutomaticDownload = 1;
 
-  # Download new updates when available
-  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".AutomaticDownload = 1;
-
-  # Install System data files & security updates
-  system.defaults.CustomUserPreferences."com.apple.SoftwareUpdate".CriticalUpdateInstall = 1;
+          # Install System data files & security updates
+          CriticalUpdateInstall = 1;
+        };
+      };
+    };
+  };
 }

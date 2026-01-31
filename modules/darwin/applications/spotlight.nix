@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   # Disable Spotlight
   system.defaults.CustomUserPreferences."com.apple.Spotlight".orderedItems = [
     {

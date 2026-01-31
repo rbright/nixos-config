@@ -1,5 +1,3 @@
-_:
-
-{
+_: {
   system.defaults.screensaver.askForPassword = true;
 }

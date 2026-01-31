@@ -1,37 +1,43 @@
-_:
+_: {
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        # Set tracking speed
+        "com.apple.trackpad.scaling" = 0.6875;
 
-{
-  # Set tracking speed
-  system.defaults.NSGlobalDomain."com.apple.trackpad.scaling" = 0.6875;
+        # Disable force click
+        "com.apple.trackpad.forceClick" = false;
 
-  # Set tap sensitivity to Medium
-  system.defaults.trackpad.FirstClickThreshold = 1;
-  system.defaults.trackpad.SecondClickThreshold = 1;
+        # Enable secondary click
+        "com.apple.trackpad.enableSecondaryClick" = true;
 
-  # Disable force click
-  system.defaults.NSGlobalDomain."com.apple.trackpad.forceClick" = false;
+        # Disable natural scrolling
+        "com.apple.swipescrolldirection" = false;
+      };
 
-  # Use three-finger tap for Look up & data detectors
-  system.defaults.trackpad.TrackpadThreeFingerTapGesture = 2;
+      trackpad = {
+        # Set tap sensitivity to Medium
+        FirstClickThreshold = 1;
+        SecondClickThreshold = 1;
 
-  # Enable secondary click
-  system.defaults.NSGlobalDomain."com.apple.trackpad.enableSecondaryClick" = true;
+        # Use three-finger tap for Look up & data detectors
+        TrackpadThreeFingerTapGesture = 2;
 
-  # Enable tap to click
-  system.defaults.trackpad.Clicking = true;
+        # Enable tap to click
+        Clicking = true;
 
-  # Enable right-click
-  system.defaults.trackpad.TrackpadRightClick = true;
+        # Enable right-click
+        TrackpadRightClick = true;
 
-  # Disable natural scrolling
-  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
+        # Enable silent clicking
+        ActuationStrength = 0;
 
-  # Enable silent clicking
-  system.defaults.trackpad.ActuationStrength = 0;
+        # Disable tap-to-drag
+        Dragging = false;
 
-  # Disable tap-to-drag
-  system.defaults.trackpad.Dragging = false;
-
-  # Disable three-finger drag
-  system.defaults.trackpad.TrackpadThreeFingerDrag = false;
+        # Disable three-finger drag
+        TrackpadThreeFingerDrag = false;
+      };
+    };
+  };
 }

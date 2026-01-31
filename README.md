@@ -69,6 +69,13 @@ just update-flake FLAKE # Update specific flake input
 just clean              # Clean up old generations
 ```
 
+### Quality
+```bash
+just fmt                # Format tracked Nix files (Alejandra)
+just fmt-check          # Verify formatting
+just lint               # statix + deadnix + formatting check
+```
+
 ### Development
 ```bash
 just                    # Show all available commands

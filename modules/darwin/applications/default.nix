@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   imports = [
     ./activity-monitor.nix
     ./app-store.nix

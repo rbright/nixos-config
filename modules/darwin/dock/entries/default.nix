@@ -2,34 +2,28 @@
   config,
   pkgs,
   lib,
-  user,
   ...
 }:
-
 # Original source: https://gist.github.com/antifuchs/10138c4d838a63c0a05e725ccd7bccdd
-
-with lib;
-let
+with lib; let
   cfg = config.local.dock;
   inherit (pkgs) stdenv dockutil;
-in
-{
-  options = {
-    local.dock.enable = mkOption {
+in {
+  options.local.dock = {
+    enable = mkOption {
       description = "Enable dock";
       type = types.bool;
       default = stdenv.isDarwin;
       example = true;
     };
 
-    local.dock.entries = mkOption {
+    entries = mkOption {
       description = "Entries on the Dock";
       readOnly = true;
-      type =
-        with types;
+      type = with types;
         listOf (submodule {
           options = {
-            path = lib.mkOption { type = str; };
+            path = lib.mkOption {type = str;};
             section = lib.mkOption {
               type = str;
               default = "apps";
@@ -42,7 +36,7 @@ in
         });
     };
 
-    local.dock.user = mkOption {
+    user = mkOption {
       description = "User for which the Dock settings should apply";
       type = types.str;
       default = config.system.primaryUser;
@@ -51,11 +45,14 @@ in
 
   config = mkIf cfg.enable (
     let
-      normalize = path: if hasSuffix ".app" path then path + "/" else path;
-      entryURI =
-        path:
+      normalize = path:
+        if hasSuffix ".app" path
+        then path + "/"
+        else path;
+      entryURI = path:
         "file://"
-        + (builtins.replaceStrings
+        + (
+          builtins.replaceStrings
           [
             " "
             "!"
@@ -83,12 +80,12 @@ in
           (normalize path)
         );
       wantURIs = concatMapStrings (entry: "${entryURI entry.path}\n") cfg.entries;
-      createEntries = concatMapStrings (
-        entry:
-        "${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
-      ) cfg.entries;
-    in
-    {
+      createEntries =
+        concatMapStrings (
+          entry: "${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n"
+        )
+        cfg.entries;
+    in {
       system.activationScripts.postActivation.text = ''
         echo >&2 "Setting up the Dock for ${cfg.user}..."
         su ${cfg.user} -s /bin/sh <<'USERBLOCK'
