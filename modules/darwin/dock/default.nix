@@ -2,7 +2,8 @@
   config,
   user,
   ...
-}: {
+}:
+{
   imports = [
     ./entries
   ];
@@ -13,17 +14,17 @@
 
     # Setup persistent Dock entries
     entries = [
-      {path = "/Applications/Brave Browser.app/";}
-      {path = "/Applications/Calendar.app/";}
-      {path = "/Applications/Sunsama.app/";}
-      {path = "/Applications/Linear.app/";}
-      {path = "/Applications/Obsidian.app/";}
-      {path = "/Applications/Ghostty.app/";}
-      {path = "/Applications/Zed.app/";}
-      {path = "/Applications/Visual Studio Code.app/";}
-      {path = "/Applications/CodexMonitor.app/";}
-      {path = "/Applications/Tower.app/";}
-      {path = "/Applications/TablePlus.app/";}
+      { path = "/Applications/Brave Browser.app/"; }
+      { path = "/Applications/Calendar.app/"; }
+      { path = "/Applications/Sunsama.app/"; }
+      { path = "/Applications/Linear.app/"; }
+      { path = "/Applications/Obsidian.app/"; }
+      { path = "/Applications/Ghostty.app/"; }
+      { path = "/Applications/Zed.app/"; }
+      { path = "/Applications/Visual Studio Code.app/"; }
+      { path = "/Applications/Codex.app/"; }
+      { path = "/Applications/Tower.app/"; }
+      { path = "/Applications/TablePlus.app/"; }
       {
         path = "${config.users.users.${user}.home}/Downloads";
         section = "others";
