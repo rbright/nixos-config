@@ -56,7 +56,7 @@ with pkgs; [
 
   # Nix
   deploy-rs # NixOS deployment tool
-  nil # Nix language server
+  nixd # Nix language server
   nixfmt # Nix code formatter
 
   # Nushell
