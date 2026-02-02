@@ -22,7 +22,7 @@
       { path = "/Applications/Ghostty.app/"; }
       { path = "/Applications/Zed.app/"; }
       { path = "/Applications/Visual Studio Code.app/"; }
-      { path = "/Applications/Codex.app/"; }
+      { path = "/Applications/CodexMonitor.app/"; }
       { path = "/Applications/Tower.app/"; }
       { path = "/Applications/TablePlus.app/"; }
       {

@@ -61,7 +61,7 @@
                 deadnix
                 git
                 nixd
-                nixfmt
+                nixfmt-rfc-style
                 statix
               ];
               shellHook = with pkgs; ''

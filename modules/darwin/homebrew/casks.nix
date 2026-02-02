@@ -8,7 +8,6 @@ _: [
 
   # Development Tools
   "android-studio" # Official IDE for Android development
-  "conductor" # AI agent parallelisation
   "docker-desktop" # Containerization platform desktop app
   "figma" # Collaborative design and prototyping tool
   "imageoptim" # Image compression and optimization tool
