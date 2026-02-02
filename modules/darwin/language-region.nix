@@ -12,7 +12,7 @@ _: {
       CustomUserPreferences = {
         NSGlobalDomain = {
           # Set supported languages
-          AppleLanguages = ["en-US"];
+          AppleLanguages = [ "en-US" ];
 
           # Set supported languages
           AppleLocale = "en-US";

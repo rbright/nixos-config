@@ -19,22 +19,22 @@ bootstrap:
 # Linting
 # ------------------------------------------------------------------------------
 
-# Format tracked Nix files (Alejandra; excludes hardware-configuration.nix)
+# Format tracked Nix files (nixfmt; excludes hardware-configuration.nix)
 [group('qa')]
 fmt:
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); alejandra "${files[@]}"'
+    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt "${files[@]}"'
 
 # Check formatting only (no changes)
 [group('qa')]
 fmt-check:
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); alejandra --check "${files[@]}"'
+    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
 
 # Lint Nix configs (statix + deadnix + formatting check)
 [group('qa')]
 lint:
     nix develop -c statix check --ignore 'hosts/**/hardware-configuration.nix' .
     nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); deadnix --fail --no-underscore "${files[@]}"'
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); alejandra --check "${files[@]}"'
+    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
 
 # ------------------------------------------------------------------------------
 # Flake

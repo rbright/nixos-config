@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   homebrew = {
     # Enable Homebrew
     enable = true;
@@ -22,10 +23,10 @@
     taps = builtins.attrNames config.nix-homebrew.taps;
 
     # Install Homebrew Brews
-    brews = pkgs.callPackage ./brews.nix {};
+    brews = pkgs.callPackage ./brews.nix { };
 
     # Install Homebrew Casks
-    casks = pkgs.callPackage ./casks.nix {};
+    casks = pkgs.callPackage ./casks.nix { };
 
     # Install application from the Mac App Store
     #

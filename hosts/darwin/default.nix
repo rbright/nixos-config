@@ -8,7 +8,8 @@
   pkgs,
   user,
   ...
-}: {
+}:
+{
   imports = [
     ../../modules
     ../../modules/darwin
@@ -79,7 +80,7 @@
 
     # Set the system packages
     systemPackages =
-      (import ../../modules/packages.nix {inherit pkgs;})
-      ++ (import ../../modules/darwin/packages.nix {inherit pkgs;});
+      (import ../../modules/packages.nix { inherit pkgs; })
+      ++ (import ../../modules/darwin/packages.nix { inherit pkgs; });
   };
 }

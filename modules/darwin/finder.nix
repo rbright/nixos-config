@@ -2,7 +2,8 @@
   config,
   user,
   ...
-}: {
+}:
+{
   system = {
     defaults = {
       finder = {

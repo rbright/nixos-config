@@ -71,7 +71,7 @@ just clean              # Clean up old generations
 
 ### Quality
 ```bash
-just fmt                # Format tracked Nix files (Alejandra)
+just fmt                # Format tracked Nix files (nixfmt)
 just fmt-check          # Verify formatting
 just lint               # statix + deadnix + formatting check
 ```

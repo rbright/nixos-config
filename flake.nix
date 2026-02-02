@@ -26,77 +26,82 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    darwin,
-    home-manager,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
-    homebrew-steipete-tap,
-  } @ inputs: let
-    user = "rbright";
-    supportedSystems = [
-      "aarch64-darwin"
-      "x86_64-linux"
-    ];
-    darwinSystems = [
-      "aarch64-darwin"
-    ];
-    forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems f;
-    devShell = system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = with pkgs;
-        mkShell {
-          nativeBuildInputs = with pkgs; [
-            bashInteractive
-            alejandra
-            deadnix
-            git
-            nil
-            statix
-          ];
-          shellHook = with pkgs; ''
-            export EDITOR=nvim
-          '';
+  outputs =
+    {
+      self,
+      nixpkgs,
+      darwin,
+      home-manager,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-steipete-tap,
+    }@inputs:
+    let
+      user = "rbright";
+      supportedSystems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+      ];
+      darwinSystems = [
+        "aarch64-darwin"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems f;
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default =
+            with pkgs;
+            mkShell {
+              nativeBuildInputs = with pkgs; [
+                bashInteractive
+                deadnix
+                git
+                nixd
+                nixfmt
+                statix
+              ];
+              shellHook = with pkgs; ''
+                export EDITOR=nvim
+              '';
+            };
         };
-    };
-    mkApp = scriptName: system: {
-      type = "app";
-      program = "${
-        (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-          #!/usr/bin/env bash
-          PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-          echo "Running ${scriptName} for ${system}"
-          exec ${self}/apps/${system}/${scriptName}
-        '')
-      }/bin/${scriptName}";
-    };
-    mkDarwinApps = system: {
-      "apply" = mkApp "apply" system;
-      "build" = mkApp "build" system;
-      "build-switch" = mkApp "build-switch" system;
-      "check-keys" = mkApp "check-keys" system;
-      "copy-keys" = mkApp "copy-keys" system;
-      "create-keys" = mkApp "create-keys" system;
-      "rollback" = mkApp "rollback" system;
-    };
-  in {
-    devShells = forAllSystems devShell;
-    apps = nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+      mkApp = scriptName: system: {
+        type = "app";
+        program = "${
+          (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
+            #!/usr/bin/env bash
+            PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
+            echo "Running ${scriptName} for ${system}"
+            exec ${self}/apps/${system}/${scriptName}
+          '')
+        }/bin/${scriptName}";
+      };
+      mkDarwinApps = system: {
+        "apply" = mkApp "apply" system;
+        "build" = mkApp "build" system;
+        "build-switch" = mkApp "build-switch" system;
+        "check-keys" = mkApp "check-keys" system;
+        "copy-keys" = mkApp "copy-keys" system;
+        "create-keys" = mkApp "create-keys" system;
+        "rollback" = mkApp "rollback" system;
+      };
+    in
+    {
+      devShells = forAllSystems devShell;
+      apps = nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
-    darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
-      system:
+      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
+        system:
         darwin.lib.darwinSystem {
           inherit system;
-          specialArgs =
-            inputs
-            // {
-              inherit user;
-            };
+          specialArgs = inputs // {
+            inherit user;
+          };
           modules = [
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
@@ -121,6 +126,6 @@
             ./hosts/darwin
           ];
         }
-    );
-  };
+      );
+    };
 }
