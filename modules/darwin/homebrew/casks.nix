@@ -24,6 +24,7 @@ _: [
   # Productivity Tools
   "calibre" # E-book management and conversion tool
   "cleanshot" # Screenshot and screen recording tool
+  "conductor" # Claude code parallelisation
   "elgato-camera-hub" # Camera control software for Elgato devices
   "google-drive" # Cloud storage and file synchronization
   "granola" # AI-powered notepad for meetings
