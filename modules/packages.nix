@@ -20,6 +20,7 @@ with pkgs;
   ripgrep # Fast text search tool (grep alternative)
   starship # Cross-shell customizable prompt
   tmux # Terminal multiplexer
+  zellij
   zoxide # Smart cd command with frecency algorithm
 
   # Utilities
