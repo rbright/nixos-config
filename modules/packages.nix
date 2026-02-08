@@ -114,6 +114,7 @@ with pkgs;
   # Data
   duckdb # Analytical in-process SQL database management system
   postgresql # Object-relational database system
+  sqlc # Generate type-safe code from SQL
 
   # Messaging
   natscli # Command-line client for NATS messaging system
