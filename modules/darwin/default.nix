@@ -16,6 +16,7 @@ _: {
     ./miscellaneous.nix
     ./mouse.nix
     ./networking.nix
+    ./remote-access.nix
     ./screen-saver.nix
     ./security.nix
     ./software-update.nix

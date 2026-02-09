@@ -36,11 +36,11 @@ _: {
       # Enable internal firewall
       enable = true;
 
-      # Block incoming requests
-      blockAllIncoming = true;
+      # SSH over Tailscale requires inbound firewall allowance
+      blockAllIncoming = false;
 
-      # Don't automatically allow signed apps to accept incoming requests
-      allowSigned = false;
+      # Allow signed apps to accept incoming requests
+      allowSigned = true;
 
       # Don't automatically allow signed apps to accept incoming requests
       allowSignedApp = false;
