@@ -9,4 +9,5 @@ with pkgs;
   mas # Mac App Store command-line interface
   pinentry_mac # PIN entry dialog for GPG on macOS
   skhd # Hotkey daemon for macOS
+  terminal-notifier # Send macOS User Notifications from the command-line
 ]
