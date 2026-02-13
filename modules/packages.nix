@@ -5,10 +5,6 @@ with pkgs;
   # Core
   ##############################################################################
 
-  # GPG
-  gnupg # GNU Privacy Guard for encryption and signing
-  gnutls # GNU Transport Layer Security library
-
   # Shell
   atuin # Shell history management tool
   bat # Cat clone with syntax highlighting
@@ -109,8 +105,6 @@ with pkgs;
 
   # Mobile Application
   android-tools # Android SDK platform tools (adb, fastboot)
-  cocoapods # Dependency manager for Swift and Objective-C
-  fastlane # Mobile app automation and deployment
 
   # Data
   duckdb # Analytical in-process SQL database management system
@@ -136,7 +130,6 @@ with pkgs;
   # Kubernetes
   chart-testing # Helm chart testing tool
   helmfile # Declarative spec for deploying Helm charts
-  k3d # Lightweight Kubernetes cluster manager
   kubectl # Kubernetes command-line tool
   kubernetes-helm # Kubernetes package manager
   kubeseal # Kubernetes controller and tool for one-way encrypted Secrets
