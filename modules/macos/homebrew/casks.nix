@@ -1,5 +1,5 @@
 _: [
-  # Web Browsers
+  # Browsers
   "brave-browser" # Privacy-focused web browser with built-in ad blocking
   "google-chrome" # Google's web browser
 

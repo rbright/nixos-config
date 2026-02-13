@@ -15,6 +15,9 @@ default:
 # ------------------------------------------------------------------------------
 
 default_host := "lambda"
+macos_flake := "path:.?dir=hosts/lambda"
+nixos_flake := "path:.?dir=hosts/omega"
+tooling_flake := `if [[ "$(uname -s)" == "Darwin" ]]; then echo "path:.?dir=hosts/lambda"; else echo "path:.?dir=hosts/omega"; fi`
 
 # Bootstrap the local development environment
 [group('bootstrap')]
@@ -22,46 +25,60 @@ bootstrap host=default_host:
     if [[ "{{ host }}" == "lambda" ]]; then \
       ./scripts/bootstrap.zsh; \
     elif [[ "{{ host }}" == "omega" ]]; then \
-      curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install; \
+      echo "omega is NixOS; bootstrap not required."; \
     else \
       echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
       exit 1; \
     fi
 
 # ------------------------------------------------------------------------------
-# Linting
+# QA / Linting
 # ------------------------------------------------------------------------------
 
 # Format tracked Nix files (nixfmt; excludes hardware-configuration.nix)
 [group('qa')]
 fmt:
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt "${files[@]}"'
+    nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt "${files[@]}"'
 
 # Check formatting only (no changes)
 [group('qa')]
 fmt-check:
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
+    nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
 
 # Lint Nix configs (statix + deadnix + formatting check)
 [group('qa')]
 lint:
-    nix develop -c statix check --ignore 'hosts/**/hardware-configuration.nix' .
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); deadnix --fail --no-underscore "${files[@]}"'
-    nix develop -c bash -euo pipefail -c 'mapfile -t files < <(git ls-files "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
+    nix develop '{{ tooling_flake }}' -c statix check --ignore '**/hardware-configuration.nix' .
+    nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); deadnix --fail --no-underscore "${files[@]}"'
+    nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
 
 # ------------------------------------------------------------------------------
 # Flake
 # ------------------------------------------------------------------------------
 
-# Update all nix flakes
+# Update lock data for one host only
 [group('nix')]
-update:
-    nix flake update
+update host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      nix flake update --flake '{{ macos_flake }}'; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      nix flake update --flake '{{ nixos_flake }}'; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
-# Update a specific nix flake
+# Update a specific input for one host (e.g. nixpkgs, home-manager)
 [group('nix')]
-update-flake flake:
-    nix flake update {{ flake }}
+update-flake flake host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      nix flake update {{ flake }} --flake '{{ macos_flake }}'; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      nix flake update {{ flake }} --flake '{{ nixos_flake }}'; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
 # ------------------------------------------------------------------------------
 # Build
@@ -71,9 +88,9 @@ update-flake flake:
 [group('nix')]
 build host=default_host:
     if [[ "{{ host }}" == "lambda" ]]; then \
-      nix build .#darwinConfigurations.lambda.system; \
+      nix build '{{ macos_flake }}#darwinConfigurations.lambda.system'; \
     elif [[ "{{ host }}" == "omega" ]]; then \
-      nix build .#homeConfigurations.omega.activationPackage; \
+      nix build '{{ nixos_flake }}#nixosConfigurations.omega.config.system.build.toplevel'; \
     else \
       echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
       exit 1; \
@@ -89,14 +106,11 @@ install host=default_host:
 switch host=default_host:
     if [[ "{{ host }}" == "lambda" ]]; then \
       rm -f ./result; \
-      nix build .#darwinConfigurations.lambda.system && \
-      sudo ./result/sw/bin/darwin-rebuild switch --flake .#lambda; \
+      nix build '{{ macos_flake }}#darwinConfigurations.lambda.system' && \
+      sudo ./result/sw/bin/darwin-rebuild switch --flake '{{ macos_flake }}#lambda'; \
       rm -f ./result; \
     elif [[ "{{ host }}" == "omega" ]]; then \
-      rm -f ./result; \
-      nix build .#homeConfigurations.omega.activationPackage && \
-      ./result/activate; \
-      rm -f ./result; \
+      sudo nixos-rebuild switch --flake '{{ nixos_flake }}#omega'; \
     else \
       echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
       exit 1; \
@@ -111,14 +125,15 @@ rollback host=default_host generation="":
         echo "Pass a generation number, e.g. 'just rollback lambda 123'"; \
         exit 1; \
       fi; \
-      sudo /run/current-system/sw/bin/darwin-rebuild switch --flake .#lambda --switch-generation "{{ generation }}"; \
+      sudo /run/current-system/sw/bin/darwin-rebuild switch --flake '{{ macos_flake }}#lambda' --switch-generation "{{ generation }}"; \
     elif [[ "{{ host }}" == "omega" ]]; then \
-      home-manager generations; \
+      sudo nix-env --list-generations --profile /nix/var/nix/profiles/system; \
       if [[ -z "{{ generation }}" ]]; then \
-        echo "Pass a generation path, e.g. 'just rollback omega /nix/store/...-home-manager-generation'"; \
+        echo "Pass a generation number, e.g. 'just rollback omega 123'"; \
         exit 1; \
       fi; \
-      "{{ generation }}"/activate; \
+      sudo nix-env --switch-generation "{{ generation }}" --profile /nix/var/nix/profiles/system; \
+      sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch; \
     else \
       echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
       exit 1; \
@@ -130,13 +145,22 @@ list host=default_host:
     if [[ "{{ host }}" == "lambda" ]]; then \
       sudo /run/current-system/sw/bin/darwin-rebuild --list-generations; \
     elif [[ "{{ host }}" == "omega" ]]; then \
-      home-manager generations; \
+      sudo nix-env --list-generations --profile /nix/var/nix/profiles/system; \
     else \
       echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
       exit 1; \
     fi
 
-# Clean up old generations
+# Clean up old generations for a specific host profile
 [group('nix')]
-clean:
-    sudo nix-collect-garbage --delete-old
+clean host=default_host older_than="30d":
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      sudo nix-collect-garbage --delete-older-than "{{ older_than }}"; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      sudo nix-env --delete-generations "{{ older_than }}" --profile /nix/var/nix/profiles/system; \
+      sudo nixos-rebuild boot --flake '{{ nixos_flake }}#omega'; \
+      sudo nix-collect-garbage --delete-older-than "{{ older_than }}"; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
