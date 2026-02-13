@@ -13,7 +13,6 @@ _: {
     ./dock
     ./environment.nix
     ./finder.nix
-    ./fonts.nix
     ./home-manager.nix
     ./homebrew
     ./keyboard.nix
