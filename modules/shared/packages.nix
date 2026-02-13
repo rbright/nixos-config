@@ -5,6 +5,10 @@ with pkgs;
   # Core
   ##############################################################################
 
+  # GPG
+  gnupg # GNU Privacy Guard for encryption and signing
+  gnutls # GNU Transport Layer Security library
+
   # Shell
   atuin # Shell history management tool
   bat # Cat clone with syntax highlighting
@@ -18,6 +22,7 @@ with pkgs;
   tmux # Terminal multiplexer
   zellij
   zoxide # Smart cd command with frecency algorithm
+  zsh
 
   # Utilities
   cloc # Count lines of code
