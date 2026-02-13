@@ -5,7 +5,11 @@
     useUserPackages = true;
 
     users.${user} =
-      { pkgs, ... }:
+      {
+        config,
+        pkgs,
+        ...
+      }:
       {
         home = {
           enableNixpkgsReleaseCheck = false;
@@ -13,7 +17,20 @@
           stateVersion = "25.11";
         };
 
-        programs.home-manager.enable = true;
+        programs = {
+          home-manager.enable = true;
+
+          zsh = {
+            autosuggestion.enable = true;
+            dotDir = config.home.homeDirectory;
+            enable = true;
+            enableCompletion = true;
+            oh-my-zsh = {
+              enable = true;
+            };
+            syntaxHighlighting.enable = true;
+          };
+        };
 
         xdg.enable = true;
       };
