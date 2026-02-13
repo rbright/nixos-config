@@ -12,7 +12,9 @@
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = "25.11";
-    packages = import ../../modules/packages.nix { inherit pkgs; };
+    packages =
+      (import ../../modules/packages.nix { inherit pkgs; })
+      ++ (import ../../modules/linux/packages.nix { inherit pkgs; });
   };
 
   programs.home-manager.enable = true;
