@@ -14,6 +14,9 @@
       wayland = true;
     };
 
+    # Power management daemon required by many desktop components.
+    upower.enable = true;
+
     # Disable X11 desktop sessions; Hyprland runs on Wayland.
     xserver.enable = false;
   };
