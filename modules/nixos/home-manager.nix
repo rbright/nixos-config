@@ -18,8 +18,6 @@
 
         programs = {
           home-manager.enable = true;
-          nushell.enable = true;
-          zsh.enable = true;
         };
 
         xdg.enable = true;
