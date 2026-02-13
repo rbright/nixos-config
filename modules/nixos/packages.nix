@@ -11,6 +11,7 @@ with pkgs;
   # Development Tools
   android-studio # Official IDE for Android development
   figma-linux # Desktop client for Figma on Linux
+  gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   postman # API development and testing platform
   proxyman # Web debugging proxy
   vscode # Code editor developed by Microsoft

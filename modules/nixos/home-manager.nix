@@ -20,15 +20,16 @@
         programs = {
           home-manager.enable = true;
 
+          nushell = {
+            enable = true;
+          };
+
           zsh = {
-            autosuggestion.enable = true;
             dotDir = config.home.homeDirectory;
             enable = true;
-            enableCompletion = true;
             oh-my-zsh = {
               enable = true;
             };
-            syntaxHighlighting.enable = true;
           };
         };
 
