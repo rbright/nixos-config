@@ -7,6 +7,7 @@
   config,
   pkgs,
   user,
+  hostName ? "lambda",
   ...
 }:
 {
@@ -14,6 +15,8 @@
     ../../modules
     ../../modules/darwin
   ];
+
+  networking.hostName = hostName;
 
   nix = {
     ##############################################################################
