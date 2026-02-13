@@ -142,9 +142,6 @@ with pkgs;
   kubeseal # Kubernetes controller and tool for one-way encrypted Secrets
   tilt # Multi-service development environment
 
-  # Networking
-  iproute2mac # IP routing utilities
-
   # Observability
   btop # Resource monitor with modern interface
   htop # Interactive process viewer
