@@ -6,7 +6,6 @@
 
     users.${user} =
       {
-        config,
         pkgs,
         ...
       }:
@@ -19,18 +18,8 @@
 
         programs = {
           home-manager.enable = true;
-
-          nushell = {
-            enable = true;
-          };
-
-          zsh = {
-            dotDir = config.home.homeDirectory;
-            enable = true;
-            oh-my-zsh = {
-              enable = true;
-            };
-          };
+          nushell.enable = true;
+          zsh.enable = true;
         };
 
         xdg.enable = true;
