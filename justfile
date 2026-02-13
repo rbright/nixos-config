@@ -10,10 +10,23 @@ set positional-arguments := true
 default:
     @just --list
 
+# ------------------------------------------------------------------------------
+# Defaults / inventory
+# ------------------------------------------------------------------------------
+
+default_host := "lambda"
+
 # Bootstrap the local development environment
 [group('bootstrap')]
-bootstrap:
-    ./scripts/bootstrap.zsh
+bootstrap host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      ./scripts/bootstrap.zsh; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
 # ------------------------------------------------------------------------------
 # Linting
@@ -56,23 +69,72 @@ update-flake flake:
 
 # Build nix configuration
 [group('nix')]
-build:
-    nix run .#build
+build host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      nix build .#darwinConfigurations.lambda.system; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      nix build .#homeConfigurations.omega.activationPackage; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
 # Install nix configuration
 [group('nix')]
-install:
-    nix run .#build-switch
+install host=default_host:
+    just switch {{ host }}
+
+# Switch the active host configuration
+[group('nix')]
+switch host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      rm -f ./result; \
+      nix build .#darwinConfigurations.lambda.system && \
+      sudo ./result/sw/bin/darwin-rebuild switch --flake .#lambda; \
+      rm -f ./result; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      rm -f ./result; \
+      nix build .#homeConfigurations.omega.activationPackage && \
+      ./result/activate; \
+      rm -f ./result; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
 # Rollback to a previous generation
 [group('nix')]
-rollback:
-    nix run .#rollback
+rollback host=default_host generation="":
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      sudo /run/current-system/sw/bin/darwin-rebuild --list-generations; \
+      if [[ -z "{{ generation }}" ]]; then \
+        echo "Pass a generation number, e.g. 'just rollback lambda 123'"; \
+        exit 1; \
+      fi; \
+      sudo /run/current-system/sw/bin/darwin-rebuild switch --flake .#lambda --switch-generation "{{ generation }}"; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      home-manager generations; \
+      if [[ -z "{{ generation }}" ]]; then \
+        echo "Pass a generation path, e.g. 'just rollback omega /nix/store/...-home-manager-generation'"; \
+        exit 1; \
+      fi; \
+      "{{ generation }}"/activate; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
-# List old generations
+# List generations
 [group('nix')]
-list:
-    nix-env --list-generations
+list host=default_host:
+    if [[ "{{ host }}" == "lambda" ]]; then \
+      sudo /run/current-system/sw/bin/darwin-rebuild --list-generations; \
+    elif [[ "{{ host }}" == "omega" ]]; then \
+      home-manager generations; \
+    else \
+      echo "Unknown host '{{ host }}' (expected: lambda|omega)" >&2; \
+      exit 1; \
+    fi
 
 # Clean up old generations
 [group('nix')]
