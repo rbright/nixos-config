@@ -87,7 +87,8 @@
           deadnix
           git
           nixd
-          nixfmt-rfc-style
+          nixfmt
+          ripgrep
           statix
         ];
         shellHook = ''
