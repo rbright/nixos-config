@@ -1,132 +1,114 @@
-# Nix Configuration for `lambda` and `omega`
+# Multi-Host Nix Configuration
 
-This repository manages two hosts with a shared module baseline:
+This repository manages two hosts:
 
 - `lambda`: macOS (`nix-darwin` + `home-manager` + `nix-homebrew`)
-- `omega`: Ubuntu (`home-manager`, not NixOS)
-
-The goal is to share as much as possible while keeping platform-specific concerns isolated.
+- `omega`: NixOS (`nixosSystem` + `home-manager`)
 
 ## Architecture
 
-- Shared Nix settings: `modules/default.nix`
-- Shared package baseline: `modules/packages.nix`
-- macOS-only modules: `modules/darwin/`
+Each host owns its own flake and lock file:
+
+- macOS host flake: `hosts/lambda/flake.nix`, `hosts/lambda/flake.lock`
+- NixOS host flake: `hosts/omega/flake.nix`, `hosts/omega/flake.lock`
+
+OS policy remains reusable under modules:
+
+- Shared macOS modules: `modules/macos/`
+- Shared NixOS modules: `modules/nixos/`
+  - Program modules split under `modules/nixos/programs/`
+- Shared baseline modules: `modules/shared/default.nix`, `modules/shared/packages.nix`
 - Host entrypoints:
-- `hosts/lambda/default.nix`
-- `hosts/omega/default.nix`
-- Flake outputs:
-- `darwinConfigurations.lambda`
-- `homeConfigurations.omega`
+  - `hosts/lambda/default.nix`
+  - `hosts/omega/default.nix`
+  - `hosts/omega/bluetooth.nix`
+  - `hosts/omega/boot.nix`
+  - `hosts/omega/configuration.nix`
+  - `hosts/omega/hardware-configuration.nix`
+  - `hosts/omega/video.nix`
 
-## Host Matrix
+Host outputs (no root flake composition):
 
-| Host | OS | Flake Output | Switch Method |
-|------|----|--------------|---------------|
-| `lambda` | macOS (aarch64-darwin) | `darwinConfigurations.lambda` | `darwin-rebuild switch --flake .#lambda` |
-| `omega` | Ubuntu (x86_64-linux) | `homeConfigurations.omega` | Home Manager activation package |
+- `path:.?dir=hosts/lambda#darwinConfigurations.lambda`
+- `path:.?dir=hosts/omega#nixosConfigurations.omega`
 
-## Getting Started
+## Host Commands
 
-### 1. Install Nix
+Run `just --list` for the full command catalog.
 
-- `lambda`:
-  - `just bootstrap lambda`
-- `omega`:
-  - `just bootstrap omega`
+| Operation | Lambda (macOS) | Omega (NixOS) |
+|---|---|---|
+| Build | `just build lambda` | `just build omega` |
+| Install / Switch | `just switch lambda` | `just switch omega` |
+| Install alias | `just install lambda` | `just install omega` |
+| List generations | `just list lambda` | `just list omega` |
+| Rollback | `just rollback lambda <generation>` | `just rollback omega <generation>` |
+| Clean old generations | `just clean lambda 30d` | `just clean omega 30d` |
 
-### 2. Build Host Configuration
+`just clean omega <older_than>` deletes old NixOS system generations, rebuilds boot entries, and then runs garbage collection. This is the path to reduce bootloader generation clutter on `omega`.
 
-- `lambda`:
-  - `just build lambda`
-- `omega`:
-  - `just build omega`
+## Flake Management
 
-### 3. Activate Host Configuration
+- Update one host only:
+  - `just update lambda`
+  - `just update omega`
+- Update a specific input in one host:
+  - `just update-flake nixpkgs omega`
+  - `just update-flake home-manager lambda`
 
-- `lambda`:
-  - `just switch lambda`
-- `omega`:
-  - `just switch omega`
+## Package Layers
 
-## Command Reference
+Package scope is intentionally split:
 
-Run `just --list` for the full task inventory.
+- System packages (`environment.systemPackages`):
+  - Keep this minimal and OS-admin focused.
+  - Example: `modules/nixos/system-packages.nix`
+- Home Manager packages (`home.packages`):
+  - Primary user-facing CLI/GUI package layer.
+  - Built from:
+    - shared baseline: `modules/shared/packages.nix`
+    - OS-specific additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
+- Host-specific hardware/system modules:
+  - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
 
-### Nix / Host Operations
+## QA
 
-- Build host config:
-  - `just build lambda`
-  - `just build omega`
-- Switch host config:
-  - `just switch lambda`
-  - `just switch omega`
-- Install (alias of `switch`):
-  - `just install lambda`
-  - `just install omega`
-- List generations:
-  - `just list lambda`
-  - `just list omega`
-- Roll back:
-  - `just rollback lambda <generation-number>`
-  - `just rollback omega <activation-path>`
+Tooling comes from host-specific flakes:
 
-### Maintenance
+- `just fmt`
+- `just fmt-check`
+- `just lint`
 
-- Update all flake inputs:
-  - `just update`
-- Update one flake input:
-  - `just update-flake nixpkgs`
-- Format Nix files:
-  - `just fmt`
-- Lint Nix files:
-  - `just lint`
-
-## Customization
-
-### Shared Packages
-
-Edit `modules/packages.nix` for packages intended for both hosts.
-
-Platform-specific entries are gated in that file (for example, Darwin-only tools).
-
-### macOS-Specific Settings (`lambda`)
-
-- System preferences and app defaults: `modules/darwin/`
-- Homebrew taps/casks/brews: `modules/darwin/homebrew/`
-
-### Ubuntu-Specific Settings (`omega`)
-
-- Home Manager host module: `hosts/omega/default.nix`
-- Add Ubuntu-only settings directly there or split into `modules/linux/` as it grows.
-
-## Deployment Strategy
-
-This repo now uses host-aware `just` commands as the deployment interface instead of legacy `apps/aarch64-darwin/*` wrappers.
-
-That keeps the operational path explicit and consistent:
-
-- local build/switch for `lambda`
-- local Home Manager activation for `omega`
+On macOS these run via `path:.?dir=hosts/lambda`; on Linux they run via `path:.?dir=hosts/omega`.
 
 ## Directory Structure
 
 ```sh
 nixos-config/
-├── flake.nix
-├── flake.lock
-├── justfile
-├── scripts/
-│   └── bootstrap.zsh
 ├── hosts/
 │   ├── lambda/
-│   │   └── default.nix
+│   │   ├── default.nix
+│   │   ├── flake.lock
+│   │   └── flake.nix
 │   └── omega/
-│       └── default.nix
+│       ├── bluetooth.nix
+│       ├── boot.nix
+│       ├── configuration.nix
+│       ├── default.nix
+│       ├── flake.lock
+│       ├── flake.nix
+│       ├── hardware-configuration.nix
+│       └── video.nix
+├── justfile
 └── modules/
-    ├── default.nix
-    ├── packages.nix
-    └── darwin/
+    ├── macos/
+    │   └── ...
+    ├── nixos/
+    │   ├── programs/
+    │   │   ├── default.nix
+    │   │   └── ...
+    │   └── ...
+    └── shared/
         ├── default.nix
-        └── ...
+        └── packages.nix
 ```

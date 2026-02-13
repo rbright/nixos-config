@@ -1,4 +1,8 @@
 _: {
+  imports = [
+    ./nix.nix
+  ];
+
   nixpkgs.config = {
     allowBroken = false;
     allowInsecure = false;

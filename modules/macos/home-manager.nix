@@ -21,7 +21,7 @@ in
         home = {
           enableNixpkgsReleaseCheck = false;
           file = lib.mkMerge [ additionalFiles ];
-          packages = (pkgs.callPackage ../packages.nix { }) ++ (pkgs.callPackage ./packages.nix { });
+          packages = (pkgs.callPackage ../shared/packages.nix { }) ++ (pkgs.callPackage ./packages.nix { });
           stateVersion = "24.11";
         };
 

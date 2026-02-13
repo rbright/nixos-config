@@ -106,6 +106,18 @@
         "type": "github"
       }
     },
+    "macosModules": {
+      "flake": false,
+      "locked": {
+        "path": "../../modules/macos",
+        "type": "path"
+      },
+      "original": {
+        "path": "../../modules/macos",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nix-homebrew": {
       "inputs": {
         "brew-src": "brew-src"
@@ -147,9 +159,23 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-steipete-tap": "homebrew-steipete-tap",
+        "macosModules": "macosModules",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sharedModules": "sharedModules"
       }
+    },
+    "sharedModules": {
+      "flake": false,
+      "locked": {
+        "path": "../../modules/shared",
+        "type": "path"
+      },
+      "original": {
+        "path": "../../modules/shared",
+        "type": "path"
+      },
+      "parent": []
     }
   },
   "root": "root",

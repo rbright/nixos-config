@@ -1,26 +1,11 @@
 {
-  pkgs,
-  user,
+  hostName ? "omega",
   ...
 }:
 {
   imports = [
-    ../../modules
+    ./configuration.nix
   ];
 
-  home = {
-    username = user;
-    homeDirectory = "/home/${user}";
-    stateVersion = "25.11";
-    packages =
-      (import ../../modules/packages.nix { inherit pkgs; })
-      ++ (import ../../modules/linux/packages.nix { inherit pkgs; });
-  };
-
-  programs.home-manager.enable = true;
-
-  # Ubuntu is not NixOS, so use the generic Linux target.
-  targets.genericLinux.enable = true;
-
-  xdg.enable = true;
+  networking.hostName = hostName;
 }
