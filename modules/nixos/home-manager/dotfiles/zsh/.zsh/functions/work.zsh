@@ -29,6 +29,18 @@ work_existing_session_names() {
   zellij ls --no-formatting 2>/dev/null | awk '{ print $1 }'
 }
 
+work_stop_session() {
+  local session="$1"
+  if [[ -z "$session" ]]; then
+    return 0
+  fi
+
+  # Best-effort graceful cleanup for dead metadata first.
+  zellij delete-session --force "$session" >/dev/null 2>&1 || true
+  # Hard kill for any still-running session process.
+  zellij kill-session "$session" >/dev/null 2>&1 || true
+}
+
 work_ensure_agent_sessions() {
   local session
   local existing
@@ -61,8 +73,7 @@ work() {
   case "$cmd" in
     up)
       work_ensure_agent_sessions
-      zellij delete-session --force "$(work_session_name)" >/dev/null 2>&1 \
-        || true
+      work_stop_session "$(work_session_name)"
       zellij attach -c "$(work_session_name)" options \
         --default-layout moonrise \
         --auto-layout false \
@@ -74,10 +85,9 @@ work() {
       work up
       ;;
     down)
-      zellij delete-session --force "$(work_session_name)" >/dev/null 2>&1 \
-        || true
+      work_stop_session "$(work_session_name)"
       while IFS= read -r session; do
-        zellij delete-session --force "$session" >/dev/null 2>&1 || true
+        work_stop_session "$session"
       done < <(work_agent_sessions)
       ;;
     ls)

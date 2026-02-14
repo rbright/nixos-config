@@ -213,27 +213,29 @@ $env.config.hooks.pre_prompt = [
   # Keep work-agent pane titles deterministic:
   # home -> "~", otherwise cwd basename.
   { ||
-    let session = ($env | get -o ZELLIJ_SESSION_NAME | default "")
-    if not ($session =~ '^agent-[0-9]{2}$') {
-      return
-    }
-    if (which zellij | is-empty) {
-      return
-    }
-
-    let cwd = (pwd | path expand)
-    let home = ($nu.home-path | path expand)
-    let basename = ($cwd | path basename)
-    let title = (
-      if $cwd == $home {
-        "~"
-      } else if ($basename | str length) > 0 {
-        $basename
-      } else {
-        "~"
+    do -i {
+      let session = ($env | get -o ZELLIJ_SESSION_NAME | default "")
+      if not ($session =~ '^agent-[0-9]{2}$') {
+        return
       }
-    )
-    do -i { zellij action rename-tab $title | ignore }
+      if (which zellij | is-empty) {
+        return
+      }
+
+      let cwd = (pwd | path expand)
+      let home = ($nu.home-path | path expand)
+      let basename = ($cwd | path basename)
+      let title = (
+        if $cwd == $home {
+          "~"
+        } else if ($basename | str length) > 0 {
+          $basename
+        } else {
+          "~"
+        }
+      )
+      zellij action rename-tab $title | ignore
+    }
   }
 ]
 
@@ -241,22 +243,20 @@ $env.config.hooks.pre_prompt = [
 # Themes and Syntax Highlighting
 ################################################################################
 
-let nu_config_dir = ($nu.config-path | path dirname)
-
-source ($nu_config_dir | path join "themes/catppuccin_mocha.nu")
+source themes/catppuccin_mocha.nu
 
 ################################################################################
 # Plugins
 ################################################################################
 
-source ($nu_config_dir | path join "config/plugins.nu")
+source config/plugins.nu
 
 ################################################################################
 # Aliases
 ################################################################################
 
-source ($nu_config_dir | path join "config/aliases.nu")
-source ($nu_config_dir | path join "config/functions.nu")
+source config/aliases.nu
+source config/functions.nu
 
 ################################################################################
 # Shell Integration
