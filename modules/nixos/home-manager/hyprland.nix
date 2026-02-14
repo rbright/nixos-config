@@ -4,21 +4,40 @@
   programs.kitty.enable = true;
 
   # Hyprland/Waybar/Mako config is sourced from dotfiles.nix-native files.
-  home.packages = with pkgs; [
-    btop
-    blueman
-    gnome-control-center
-    grim
-    hyprlock
-    hyprpaper
-    mako
-    networkmanagerapplet
-    pavucontrol
-    slurp
-    waybar
-    wl-clipboard
-    wofi
-  ];
+  home = {
+    packages = with pkgs; [
+      btop
+      blueman
+      gnome-control-center
+      grim
+      hyprlock
+      hyprpaper
+      mako
+      networkmanagerapplet
+      pavucontrol
+      slurp
+      waybar
+      wl-clipboard
+      wofi
+    ];
+
+    # Cursor theme for GTK/Wayland apps. Change `name`/`size` here to customize.
+    pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    sessionVariables = {
+      GTK_THEME = "catppuccin-mocha-blue-standard";
+      XCURSOR_THEME = "Bibata-Modern-Ice";
+      XCURSOR_SIZE = "24";
+      HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+      HYPRCURSOR_SIZE = "24";
+    };
+  };
 
   # Keep GTK/portal dialogs in dark Catppuccin mode (no light save dialogs).
   gtk = {
@@ -54,20 +73,4 @@
     };
   };
 
-  # Cursor theme for GTK/Wayland apps. Change `name`/`size` here to customize.
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 24;
-  };
-
-  home.sessionVariables = {
-    GTK_THEME = "catppuccin-mocha-blue-standard";
-    XCURSOR_THEME = "Bibata-Modern-Ice";
-    XCURSOR_SIZE = "24";
-    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    HYPRCURSOR_SIZE = "24";
-  };
 }
