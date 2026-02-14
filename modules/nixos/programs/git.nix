@@ -96,9 +96,8 @@ in
       gpg.format = "ssh";
 
       "gpg \"ssh\"" = {
-        allowedSignersFile = "";
-        defaultKeyCommand = "sh -c 'k=$(ssh-add -L 2>/dev/null | sed -n 1p); [ -n \"$k\" ] && printf \"key::%s\\n\" \"$k\"'";
-        program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+        allowedSignersFile = "~/.ssh/allowed_signers";
+        program = "${pkgs.openssh}/bin/ssh-keygen";
       };
 
       init.defaultBranch = "main";
@@ -116,6 +115,7 @@ in
       user = {
         email = "ryan@moonriseconsulting.io";
         name = "Ryan Bright";
+        signingKey = "~/.ssh/id_ed25519.pub";
       };
     };
   };

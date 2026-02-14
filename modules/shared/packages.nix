@@ -28,6 +28,7 @@ with pkgs;
   cloc # Count lines of code
   stow # Symlink farm manager for dotfiles
   wget # Network downloader
+  unzip # Archive extraction (required by Mason package installers)
   woff2 # Web font compression utilities
   xh # HTTP client (curl/HTTPie alternative)
   xz # Compression utilities
@@ -57,6 +58,9 @@ with pkgs;
   luajitPackages.luarocks # Package manager for Lua
   stylua # Lua code formatter
 
+  # Kotlin
+  kotlin-language-server # Language server for Kotlin
+
   # Nix
   deploy-rs # NixOS deployment tool
   nixd # Nix language server
@@ -78,6 +82,7 @@ with pkgs;
   watchman # File watching service for development
 
   # Python
+  python3 # Python runtime (required by Mason pip-based installers)
   ruff # Fast Python linter and formatter
 
   # Rust
@@ -128,6 +133,8 @@ with pkgs;
   opentofu # Open-source Terraform alternative
   pulumi # Infrastructure as Code with multiple languages
   terraform # Infrastructure as Code tool
+  terraform-ls # Language server for Terraform
+  tflint # Terraform linter and language server
 
   # Containerization
   docker # Containerization platform desktop app

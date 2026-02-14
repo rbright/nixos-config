@@ -27,7 +27,10 @@
   # Desktop portal support for screen sharing and file pickers on Wayland.
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Prefer native Wayland for Chromium/Electron apps where supported.
