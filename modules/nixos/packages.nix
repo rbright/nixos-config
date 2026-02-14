@@ -9,6 +9,7 @@ with pkgs;
   wezterm # GPU-accelerated cross-platform terminal emulator and multiplexer
 
   # Development Tools
+  codex # Codex CLI (sourced via codexCliNix overlay in hosts/omega/flake.nix)
   android-studio # Official IDE for Android development
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)

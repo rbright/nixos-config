@@ -2,6 +2,10 @@
   description = "Configuration for managed hosts";
 
   inputs = {
+    codexCliNix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +23,7 @@
 
   outputs =
     {
+      codexCliNix,
       home-manager,
       nixosModules,
       nixpkgs,
@@ -38,6 +43,11 @@
         };
         modules = [
           home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [
+              codexCliNix.overlays.default
+            ];
+          }
           sharedModules.outPath
           nixosModules.outPath
           ./default.nix
