@@ -78,30 +78,13 @@ Hyprland is configured in two layers:
 - System/session enablement: `modules/nixos/desktop.nix`
 - User config (Home Manager): `modules/nixos/home-manager/hyprland.nix`
 
-The Home Manager module intentionally follows an Omarchy-style split config:
-
-- `~/.config/hypr/hyprland.conf` sources:
-  - `monitors.conf`
-  - `envs.conf`
-  - `input.conf`
-  - `looknfeel.conf`
-  - `workspaces.conf`
-  - `windows.conf`
-  - `bindings.conf`
-  - `autostart.conf`
-
 Default behavior:
 
-- `kitty` is installed, and Hyprland keybinds default to `wezterm`.
-- Workspaces `1..10` are persistent.
-- Startup script maps workspaces `1..5` to monitor 1 and `6..10` to monitor 2.
-- App-to-workspace rules are defined in `windows.conf`.
-
-Customization tips:
-
-- Run `hyprctl monitors`, then tune `monitors.conf` if you want explicit output names/scales.
-- Run `hyprctl clients`, then adjust app matching rules in `windows.conf`.
-- Update keybinds in `bindings.conf` to match your preferred window-management muscle memory.
+- `kitty` is installed.
+- Hyprland has a minimal config with only basic keybinds:
+  - `SUPER + Return`: open `kitty`
+  - `SUPER + Shift + Q`: close active window
+  - `SUPER + Shift + M`: exit Hyprland session
 
 ## QA
 
