@@ -12,6 +12,10 @@
         ...
       }:
       {
+        imports = [
+          ./home-manager/hyprland.nix
+        ];
+
         home = {
           enableNixpkgsReleaseCheck = false;
           packages = (pkgs.callPackage ../shared/packages.nix { }) ++ (pkgs.callPackage ./packages.nix { });
