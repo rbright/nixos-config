@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   # Keep kitty installed as requested.
   programs.kitty.enable = true;
 

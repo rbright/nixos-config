@@ -71,6 +71,34 @@ Package scope is intentionally split:
 - Host-specific hardware/system modules:
   - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
 
+## Omega Dotfiles (NixOS-Only)
+
+Omega package dotfiles are now vendored in this repository and sourced by Home
+Manager using native config files:
+
+- Dotfile source root:
+  - `modules/nixos/home-manager/dotfiles/omega/`
+- Home Manager module:
+  - `modules/nixos/home-manager/dotfiles.nix`
+- Wiring:
+  - `modules/nixos/home-manager.nix` (applies only when `hostName == "omega"`)
+
+Before first `omega` switch from this repo, remove existing Stow-managed links
+on the NixOS machine from the dotfiles repository:
+
+```sh
+cd /Users/rbright/Projects/dotfiles
+STOW_FLAGS="-nv" just uninstall omega
+just uninstall omega
+```
+
+Then apply the NixOS config from this repository:
+
+```sh
+cd /Users/rbright/Projects/nixos-config
+just switch omega
+```
+
 ## Hyprland On `omega`
 
 Hyprland is configured in two layers:

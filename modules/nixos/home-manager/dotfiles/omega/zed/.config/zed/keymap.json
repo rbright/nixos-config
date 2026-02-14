@@ -1,0 +1,72 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Editor
+      "ctrl-`": "editor::ToggleFocus",
+      // File Finder
+      "cmd-p": "file_finder::Toggle",
+      // Terminal
+      "cmd-`": "terminal_panel::Toggle",
+      // Agent Panel
+      "cmd-shift-a": "agent::ToggleFocus",
+      // Git
+      "ctrl-alt-cmd-shift-g": "git_panel::ToggleFocus",
+      "cmd-alt-p": "git::Worktree",
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      // Pane Splitting
+      "ctrl-shift-h": "pane::SplitLeft",
+      "ctrl-shift-j": "pane::SplitDown",
+      "ctrl-shift-k": "pane::SplitUp",
+      "ctrl-shift-l": "pane::SplitRight",
+      // Pane Navigation
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      // Close Pane
+      "ctrl-q": "pane::CloseAllItems",
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "alt-cmd-p": null
+    }
+  },
+  {
+    "context": "CommitEditor > Editor",
+    "bindings": {
+      "alt-tab": null
+    }
+  },
+  {
+    "context": "GitCommit > Editor",
+    "bindings": {
+      "alt-tab": null
+    }
+  },
+  {
+    "context": "(GitPanel && ChangesList)",
+    "bindings": {
+      "ctrl-s": "git::StageFile"
+    }
+  },
+  {
+    "context": "CommitEditor > Editor",
+    "bindings": {
+      "cmd-shift-g": "git::GenerateCommitMessage"
+    }
+  }
+]

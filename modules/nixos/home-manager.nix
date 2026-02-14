@@ -1,4 +1,8 @@
-{ user, ... }:
+{
+  hostName,
+  user,
+  ...
+}:
 {
   home-manager = {
     # Avoid activation failures when HM starts managing existing dotfiles.
@@ -8,12 +12,16 @@
 
     users.${user} =
       {
+        lib,
         pkgs,
         ...
       }:
       {
         imports = [
           ./home-manager/hyprland.nix
+        ]
+        ++ lib.optionals (hostName == "omega") [
+          ./home-manager/dotfiles.nix
         ];
 
         home = {
