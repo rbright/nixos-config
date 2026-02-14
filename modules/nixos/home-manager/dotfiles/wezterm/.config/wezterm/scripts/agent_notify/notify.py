@@ -33,7 +33,6 @@ def _find_terminal_notifier() -> str | None:
     for candidate in (
         Path.home() / ".nix-profile/bin/terminal-notifier",
         Path("/nix/var/nix/profiles/default/bin/terminal-notifier"),
-        Path("/opt/homebrew/bin/terminal-notifier"),
         Path("/usr/local/bin/terminal-notifier"),
         Path("/usr/bin/terminal-notifier"),
     ):

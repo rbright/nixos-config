@@ -7,6 +7,7 @@ _: {
     ./networking.nix
     ./printing.nix
     ./programs
+    ./ssh.nix
     ./system-packages.nix
     ./user.nix
   ];

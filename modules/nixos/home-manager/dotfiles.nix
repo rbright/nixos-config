@@ -1,6 +1,6 @@
 _:
 let
-  dotfilesRoot = ./dotfiles/omega;
+  dotfilesRoot = ./dotfiles;
 
   recursiveSource = source: {
     inherit source;
@@ -8,8 +8,6 @@ let
   };
 in
 {
-  # Migrated from /Users/rbright/Projects/dotfiles (.stow/hosts/omega.packages).
-  # Runtime/auth artifacts were intentionally not copied.
   home.file = {
     # atuin
     ".config/atuin/config.toml".source = dotfilesRoot + "/atuin/.config/atuin/config.toml";
@@ -26,14 +24,22 @@ in
     ".curlrc".source = dotfilesRoot + "/curl/.curlrc";
 
     # git
-    ".gitconfig".source = dotfilesRoot + "/git/.gitconfig";
     ".gitignore".source = dotfilesRoot + "/git/.gitignore";
 
     # github
     ".config/gh/config.yml".source = dotfilesRoot + "/github/.config/gh/config.yml";
 
+    # hypr
+    ".config/hypr" = recursiveSource (dotfilesRoot + "/hypr/.config/hypr");
+
+    # mako
+    ".config/mako/config".source = dotfilesRoot + "/mako/.config/mako/config";
+
     # neovim
     ".config/nvim" = recursiveSource (dotfilesRoot + "/neovim/.config/nvim");
+
+    # nushell
+    ".config/nushell" = recursiveSource (dotfilesRoot + "/nushell/.config/nushell");
 
     # profile
     ".profile".source = dotfilesRoot + "/profile/.profile";
@@ -46,6 +52,9 @@ in
 
     # tmux
     ".config/tmux/tmux.conf".source = dotfilesRoot + "/tmux/.config/tmux/tmux.conf";
+
+    # waybar
+    ".config/waybar" = recursiveSource (dotfilesRoot + "/waybar/.config/waybar");
 
     # wezterm
     ".config/wezterm" = recursiveSource (dotfilesRoot + "/wezterm/.config/wezterm");

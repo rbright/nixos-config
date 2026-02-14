@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/python3
+#!/usr/bin/env python3
 """Entrypoint for agent completion notifications.
 
 The actual implementation lives in `agent_notify/` so per-agent logic is cleanly

@@ -1,20 +1,16 @@
-_: {
-  # Keep kitty installed as requested.
+{ pkgs, ... }:
+{
+  # Keep kitty installed as requested; Hyprland can still default to wezterm.
   programs.kitty.enable = true;
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-
-    # Minimal, safe baseline to ensure Hyprland starts.
-    settings = {
-      "$mod" = "SUPER";
-
-      bind = [
-        "$mod, RETURN, exec, kitty"
-        "$mod SHIFT, Q, killactive,"
-        "$mod SHIFT, M, exit,"
-      ];
-    };
-  };
+  # Hyprland/Waybar/Mako config is sourced from dotfiles.nix-native files.
+  home.packages = with pkgs; [
+    gnome-control-center
+    grim
+    mako
+    slurp
+    waybar
+    wl-clipboard
+    wofi
+  ];
 }

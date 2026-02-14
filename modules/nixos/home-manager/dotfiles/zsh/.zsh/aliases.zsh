@@ -86,9 +86,6 @@ alias tower="gittower"
 # Go
 alias got="go test ./... -v"
 
-# Homebrew
-alias brews="brew list -1"
-
 # Hyperfine
 alias hf="hyperfine"
 
@@ -113,8 +110,3 @@ alias pip="pip3"
 
 # SSH
 alias sshgen="ssh-keygen -t ed25519 -C"
-
-# Tailscale
-if [[ "$OSTYPE" == darwin* ]] && [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]; then
-  alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-fi

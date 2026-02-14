@@ -7,6 +7,9 @@
     xwayland.enable = true;
   };
 
+  # Needed by many GTK/GNOME settings and apps for persisted preferences.
+  programs.dconf.enable = true;
+
   services = {
     # Keep GDM as the login manager, but run Wayland sessions.
     displayManager.gdm = {

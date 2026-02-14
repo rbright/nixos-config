@@ -5,7 +5,6 @@ local home = os.getenv("HOME")
 if not home or home == "" then
   home = "/home/" .. (os.getenv("USER") or "rbright")
 end
-local is_darwin = wezterm.target_triple and wezterm.target_triple:find("darwin", 1, true) ~= nil
 local nu_bin = home .. "/.nix-profile/bin/nu"
 
 local function file_exists(path)
@@ -48,14 +47,6 @@ local keys = {
   -- Preserve Meta+Enter for terminal apps instead of WezTerm's default Alt+Enter fullscreen behavior.
   { key = "Enter", mods = "ALT", action = wezterm.action.SendString("\x1b\r") },
 }
-
-if is_darwin then
-  -- Force explicit macOS clipboard bindings in case defaults are shadowed.
-  table.insert(keys, { key = "c", mods = "CMD", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") })
-  table.insert(keys, { key = "v", mods = "CMD", action = wezterm.action.PasteFrom("Clipboard") })
-  -- Match macOS-style "delete previous word" muscle memory in terminal apps.
-  table.insert(keys, { key = "Backspace", mods = "CMD", action = wezterm.action.SendKey({ key = "w", mods = "CTRL" }) })
-end
 
 config.keys = keys
 

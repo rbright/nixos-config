@@ -1,0 +1,18 @@
+* {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 12px;
+}
+
+window#waybar {
+    background: rgba(17, 17, 27, 0.9);
+    color: #cdd6f4;
+}
+
+#workspaces button.active {
+    color: #89b4fa;
+}
+
+#clock,
+#tray {
+    margin: 0 8px;
+}

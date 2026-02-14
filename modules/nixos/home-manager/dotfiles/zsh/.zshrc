@@ -19,20 +19,9 @@ setopt EXTENDED_GLOB      # More powerful globbing
 export EDITOR="$HOME/.nix-profile/bin/nvim"
 export LANG=en_US.UTF-8
 
-is_darwin=false
-if [[ "$OSTYPE" == darwin* ]]; then
-  is_darwin=true
-fi
-
 ################################################################################
 # Development Tools
 ################################################################################
-
-# Android + Java (macOS only)
-if "$is_darwin"; then
-  export ANDROID_HOME="$HOME/Library/Android/sdk"
-  export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
-fi
 
 # Go
 export GOPATH="$HOME/go"
@@ -71,14 +60,6 @@ path=(
   # Add system PATH
   $path
 )
-
-if "$is_darwin"; then
-  # Homebrew + Android tools are macOS-specific.
-  path+=(
-    "/opt/homebrew/bin"
-    $ANDROID_HOME/{emulator,platform-tools}
-  )
-fi
 
 export PATH
 

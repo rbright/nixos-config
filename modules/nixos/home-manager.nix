@@ -1,5 +1,4 @@
 {
-  hostName,
   user,
   ...
 }:
@@ -12,15 +11,12 @@
 
     users.${user} =
       {
-        lib,
         pkgs,
         ...
       }:
       {
         imports = [
           ./home-manager/hyprland.nix
-        ]
-        ++ lib.optionals (hostName == "omega") [
           ./home-manager/dotfiles.nix
         ];
 

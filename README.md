@@ -71,32 +71,32 @@ Package scope is intentionally split:
 - Host-specific hardware/system modules:
   - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
 
-## Omega Dotfiles (NixOS-Only)
+## NixOS Dotfiles
 
-Omega package dotfiles are now vendored in this repository and sourced by Home
+NixOS dotfiles are now vendored in this repository and sourced by Home
 Manager using native config files:
 
 - Dotfile source root:
-  - `modules/nixos/home-manager/dotfiles/omega/`
+  - `modules/nixos/home-manager/dotfiles/`
 - Home Manager module:
   - `modules/nixos/home-manager/dotfiles.nix`
 - Wiring:
-  - `modules/nixos/home-manager.nix` (applies only when `hostName == "omega"`)
+  - `modules/nixos/home-manager.nix` (applies to NixOS hosts)
 
-Before first `omega` switch from this repo, remove existing Stow-managed links
-on the NixOS machine from the dotfiles repository:
+Before first NixOS host switch from this repo, remove existing Stow-managed
+links on that machine from the dotfiles repository:
 
 ```sh
 cd /Users/rbright/Projects/dotfiles
-STOW_FLAGS="-nv" just uninstall omega
-just uninstall omega
+STOW_FLAGS="-nv" just uninstall <host>
+just uninstall <host>
 ```
 
 Then apply the NixOS config from this repository:
 
 ```sh
 cd /Users/rbright/Projects/nixos-config
-just switch omega
+just switch <host>
 ```
 
 ## Hyprland On `omega`
@@ -104,15 +104,42 @@ just switch omega
 Hyprland is configured in two layers:
 
 - System/session enablement: `modules/nixos/desktop.nix`
-- User config (Home Manager): `modules/nixos/home-manager/hyprland.nix`
+- Package/runtime wiring: `modules/nixos/home-manager/hyprland.nix`
+- Native config files (dotfiles):
+  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hyprland.conf`
+  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/{config,style.css}`
+  - `modules/nixos/home-manager/dotfiles/mako/.config/mako/config`
 
 Default behavior:
 
 - `kitty` is installed.
-- Hyprland has a minimal config with only basic keybinds:
-  - `SUPER + Return`: open `kitty`
+- `wofi` is installed as a minimal app launcher.
+- `gnome-control-center` is installed so GNOME Settings can be launched from Hyprland.
+- `waybar` and `mako` are launched at Hyprland startup.
+- Hyprland keeps a small keybind set:
+  - `SUPER + Return`: open `wezterm`
+  - `SUPER + D` or `SUPER + Space`: open launcher (`wofi`)
+  - `SUPER + G`: open GNOME Settings (`gnome-control-center`)
+  - `SUPER + Shift + 3`: full screenshot to `~/Pictures/Screenshots`
+  - `SUPER + Shift + 4`: region screenshot to `~/Pictures/Screenshots`
+  - `SUPER + Shift + 5`: region screenshot to clipboard
   - `SUPER + Shift + Q`: close active window
+  - `SUPER + Shift + R`: reload Hyprland config
   - `SUPER + Shift + M`: exit Hyprland session
+
+## 1Password SSH Agent On `omega`
+
+- NixOS SSH client is configured to use 1Password agent socket:
+  - `modules/nixos/ssh.nix` sets:
+    - `Host *`
+    - `IdentityAgent ~/.1password/agent.sock`
+- NixOS Git config is defined natively via Home Manager module wiring:
+  - `modules/nixos/programs/git.nix`
+  - `home-manager.users.<user>.programs.git.settings."gpg \"ssh\"".program = <1Password op-ssh-sign path>`
+
+In 1Password desktop app, enable SSH agent integration:
+
+- `Settings` -> `Developer` -> `Use the SSH agent`
 
 ## QA
 
