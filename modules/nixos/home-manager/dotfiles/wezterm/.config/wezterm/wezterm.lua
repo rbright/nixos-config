@@ -44,8 +44,9 @@ config.window_close_confirmation = 'NeverPrompt'
 config.window_decorations = "RESIZE"
 
 local keys = {
-  -- Preserve Meta+Enter for terminal apps instead of WezTerm's default Alt+Enter fullscreen behavior.
+  -- Preserve Meta+Enter semantics so terminal apps can map it to newline actions.
   { key = "Enter", mods = "ALT", action = wezterm.action.SendString("\x1b\r") },
+  { key = "Enter", mods = "SUPER", action = wezterm.action.SendString("\x1b\r") },
 }
 
 config.keys = keys

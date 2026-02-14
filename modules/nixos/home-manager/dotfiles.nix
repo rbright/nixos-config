@@ -35,9 +35,6 @@ in
     # mako
     ".config/mako/config".source = dotfilesRoot + "/mako/.config/mako/config";
 
-    # neovim
-    ".config/nvim" = recursiveSource (dotfilesRoot + "/neovim/.config/nvim");
-
     # nushell
     ".config/nushell" = recursiveSource (dotfilesRoot + "/nushell/.config/nushell");
 
@@ -58,9 +55,6 @@ in
 
     # wezterm
     ".config/wezterm" = recursiveSource (dotfilesRoot + "/wezterm/.config/wezterm");
-
-    # zed
-    ".config/zed" = recursiveSource (dotfilesRoot + "/zed/.config/zed");
 
     # zellij
     ".config/zellij" = recursiveSource (dotfilesRoot + "/zellij/.config/zellij");

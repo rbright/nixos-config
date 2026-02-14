@@ -53,6 +53,11 @@ lint:
     nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); deadnix --fail --no-underscore "${files[@]}"'
     nix develop '{{ tooling_flake }}' -c bash -euo pipefail -c 'mapfile -t files < <(rg --files -g "*.nix" | grep -v "hardware-configuration.nix$"); nixfmt --check "${files[@]}"'
 
+# Run runtime Hyprland smoke test for keymaps, binds, and workspace rules
+[group('qa')]
+hypr-smoke:
+    bash ./scripts/hypr-smoke-test.sh
+
 # ------------------------------------------------------------------------------
 # Flake
 # ------------------------------------------------------------------------------
