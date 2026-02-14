@@ -16,6 +16,7 @@
       }:
       {
         imports = [
+          ./home-manager/brave-profiles.nix
           ./home-manager/hyprland.nix
           ./home-manager/dotfiles.nix
         ];

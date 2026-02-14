@@ -2,6 +2,7 @@
 {
   # Enable shells at the system level for login-shell support.
   programs.zsh.enable = true;
+  environment.shells = [ pkgs.nushell ];
 
   users.users.${user} = {
     description = "Ryan Bright";
@@ -10,6 +11,6 @@
       "wheel"
     ];
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
   };
 }

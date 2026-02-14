@@ -9,12 +9,15 @@ with pkgs;
   wezterm # GPU-accelerated cross-platform terminal emulator and multiplexer
 
   # Development Tools
-  codex # Codex CLI (sourced via codexCliNix overlay in hosts/omega/flake.nix)
   android-studio # Official IDE for Android development
+  atlas # Manage your database schema as code
+  bun # Fast JavaScript runtime, package manager, and bundler
+  codex # Codex CLI (sourced via codexCliNix overlay in hosts/omega/flake.nix)
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   postman # API development and testing platform
   proxyman # Web debugging proxy
+  uv # Extremely fast Python package installer and resolver, written in Rust
   vscode # Code editor developed by Microsoft
   zed-editor # High-performance, multiplayer code editor from the creators of Atom and Tree-sitter
   zulu17 # OpenJDK distribution (Java 17)
@@ -38,4 +41,5 @@ with pkgs;
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton
   realvnc-vnc-viewer # Remote desktop viewing application
+  thunar # Lightweight GTK file manager
 ]
