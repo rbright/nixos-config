@@ -142,7 +142,7 @@
   "pulseaudio": {
     "format": "{icon}",
     "tooltip-format": "Playing at {volume}%",
-    "on-click": "sh -c 'if command -v pavucontrol >/dev/null 2>&1; then pavucontrol; else wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; fi'",
+    "on-click": "sh -c 'if command -v hyprpwcenter >/dev/null 2>&1; then hyprpwcenter; elif command -v pavucontrol >/dev/null 2>&1; then pavucontrol; else wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; fi'",
     "scroll-step": 5,
     "format-muted": "",
     "format-icons": {

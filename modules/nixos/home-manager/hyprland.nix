@@ -10,8 +10,11 @@
       blueman
       gnome-control-center
       grim
+      hypridle
       hyprlock
       hyprpaper
+      hyprpicker
+      hyprpwcenter
       mako
       networkmanagerapplet
       pavucontrol
