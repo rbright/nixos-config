@@ -47,6 +47,15 @@ Run `just --list` for the full command catalog.
 
 `just clean omega <older_than>` deletes old NixOS system generations, rebuilds boot entries, and then runs garbage collection. This is the path to reduce bootloader generation clutter on `omega`.
 
+### Passwordless Rebuild On `omega`
+
+`modules/nixos/sudo.nix` grants `NOPASSWD` for:
+
+- `/run/current-system/sw/bin/nixos-rebuild`
+
+This removes the sudo password prompt for `just switch omega` while keeping
+password prompts for unrelated privileged commands.
+
 ## Flake Management
 
 - Update one host only:
@@ -250,6 +259,37 @@ Connect from another tailnet device:
   - Target host `omega` (MagicDNS) or the `100.x.y.z` address from `tailscale ip -4`.
 
 After `omega` connectivity is confirmed, macOS host OpenSSH can be removed.
+
+## llama.cpp On `omega`
+
+- NixOS host config enables managed llama.cpp service in:
+  - `modules/nixos/llama-cpp.nix`
+  - `services.llama-cpp.enable = true`
+  - `services.llama-cpp.package = pkgs.llama-cpp.override { cudaSupport = true; }`
+  - `services.llama-cpp.modelsDir = /var/lib/llama-cpp/models`
+
+Apply and verify on `omega`:
+
+```sh
+cd /home/rbright/Projects/nixos-config
+just switch omega
+systemctl status llama-cpp.service --no-pager
+curl -s http://127.0.0.1:11434/v1/models | jq .
+```
+
+Populate the model directory with GGUF files:
+
+```sh
+sudo install -d -m 0755 /var/lib/llama-cpp/models
+sudo cp /path/to/*.gguf /var/lib/llama-cpp/models/
+sudo systemctl restart llama-cpp.service
+```
+
+Live service logs:
+
+```sh
+journalctl -u llama-cpp.service -f
+```
 
 ## QA
 
