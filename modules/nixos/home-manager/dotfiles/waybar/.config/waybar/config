@@ -66,11 +66,6 @@
     "on-scroll-left": "",
     "on-scroll-right": ""
   },
-  "custom/logout": {
-    "format": "",
-    "tooltip": "Log out of Hyprland",
-    "on-click": "hyprctl dispatch exit"
-  },
   "battery": {
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",

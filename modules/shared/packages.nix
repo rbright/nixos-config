@@ -20,7 +20,7 @@ with pkgs;
   ripgrep # Fast text search tool (grep alternative)
   starship # Cross-shell customizable prompt
   tmux # Terminal multiplexer
-  zellij
+  zellij # Terminal workspace with batteries included
   zoxide # Smart cd command with frecency algorithm
   zsh
 
@@ -41,7 +41,6 @@ with pkgs;
   gh # GitHub CLI tool
   git # Distributed version control system
   git-lfs # Git Large File Storage extension
-  graphite-cli # Stacked diffs workflow for Git
 
   # Text Editing
   hadolint # Dockerfile linter
@@ -97,9 +96,11 @@ with pkgs;
   prettierd # Prettier daemon for faster code formatting
 
   # Miscellaneous
+  ast-grep # Fast and polyglot tool for code searching, linting, rewriting at large scale
   difftastic # Syntax-aware diffing tool
   direnv # Environment variable management per directory
   fastfetch # Fast system information tool
+  gitleaks # Scan git repos (or files) for secrets
   jq # JSON processor and query tool
   just # Command runner and build tool
   mkcert # Local HTTPS certificate generator
@@ -157,5 +158,5 @@ with pkgs;
   # Machine Learning
   ##############################################################################
 
-  llama-cpp # Local GGUF inference runtime (llama-server/llama-cli)
+  llama-cpp # LLM inference in C/C++
 ]
