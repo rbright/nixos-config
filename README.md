@@ -154,6 +154,8 @@ Default behavior:
   - audio: `hyprpwcenter` (fallback: `pavucontrol`, then `wpctl ... toggle mute`)
   - bluetooth: `blueman-manager` (fallback: `wezterm -e bluetoothctl`)
 - Waybar right modules include tray, bluetooth, network, audio, and battery.
+- GNOME Calendar is installed and set as the default calendar handler for
+  `webcal` and `.ics` links via `xdg.mimeApps`.
 - Waybar/Mako UI typography uses `Inter` sizing (`12`) with Nerd Font fallback for icon glyphs.
 - GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
   while keeping the `Papirus-Dark` theme name for compatibility.
@@ -165,11 +167,12 @@ Default behavior:
 - Hyper app bindings are used only for app focus/launch:
   - `Hyper + <key>`: focus/switch to app window if present, otherwise launch.
   - `Hyper + Shift + <same key>`: launch a new window/instance for that app.
+  - `Hyper + F` targets GNOME Calendar (`gnome-calendar`) on workspace `8`.
 - Brave context split is declarative and profile-safe:
   - `brave-personal` uses `~/.config/BraveSoftware/Brave-Browser`.
   - `brave-work` uses `~/.config/BraveSoftware/Brave-Browser-Work`.
   - default browser handlers (`http`, `https`, `text/html`) prefer `brave-personal`.
-  - Hypr web-app launchers (`calendar`, `todoist`, `linear`, `messages`,
+  - Hypr web-app launchers (`todoist`, `linear`, `messages`,
     `agent-monitor`, and mail fallback) launch with `brave-work`.
 - AeroSpace-like workspace model is defined and persisted:
   - `1` (general), `2` (code), `3` (dev tools), `4` (notes/office),
@@ -204,6 +207,8 @@ Default behavior:
   - `ALT + SUPER + C`: open Vicinae clipboard history (`vicinae://extensions/vicinae/clipboard/history`)
   - `HYPER + G`: open GNOME Settings (`gnome-control-center`)
   - `CTRL + ALT + SUPER + L`: lock screen (`hyprlock`)
+  - `CTRL + ALT + SUPER + E`: open Vicinae emoji picker
+    (`vicinae://extensions/vicinae/emoji/search`)
   - `SUPER + Shift + 3`: full screenshot to `~/Pictures/Screenshots`
   - `SUPER + Shift + 4`: region screenshot to `~/Pictures/Screenshots`
   - `SUPER + Shift + 5`: region screenshot to clipboard
