@@ -24,9 +24,8 @@ case "$app" in
     target_workspace='1'
     ;;
   calendar)
-    class_regex='^(org\.gnome\.Calendar|gnome-calendar|brave-browser|Brave-browser|brave-.*)$'
-    title_regex='calendar'
-    launch_cmd='brave-work --new-window --app=https://calendar.google.com'
+    class_regex='^(org\.gnome\.Calendar|gnome-calendar|calendar|Calendar)$'
+    launch_cmd='gnome-calendar'
     target_workspace='8'
     ;;
   discord)

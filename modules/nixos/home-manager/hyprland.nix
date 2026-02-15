@@ -8,6 +8,7 @@
     packages = with pkgs; [
       btop
       blueman
+      gnome-calendar
       gnome-control-center
       grim
       hypridle

@@ -37,10 +37,15 @@ in
       "brave-personal.desktop"
       "brave-browser.desktop"
     ];
+    "application/ics" = [ "org.gnome.Calendar.desktop" ];
+    "application/x-ics" = [ "org.gnome.Calendar.desktop" ];
+    "application/x-vnd.ical" = [ "org.gnome.Calendar.desktop" ];
     "text/html" = [
       "brave-personal.desktop"
       "brave-browser.desktop"
     ];
+    "text/calendar" = [ "org.gnome.Calendar.desktop" ];
+    "text/x-vcalendar" = [ "org.gnome.Calendar.desktop" ];
     "x-scheme-handler/about" = [
       "brave-personal.desktop"
       "brave-browser.desktop"
@@ -57,6 +62,8 @@ in
       "brave-personal.desktop"
       "brave-browser.desktop"
     ];
+    "x-scheme-handler/webcal" = [ "org.gnome.Calendar.desktop" ];
+    "x-scheme-handler/webcals" = [ "org.gnome.Calendar.desktop" ];
   };
 
   xdg.desktopEntries = {
