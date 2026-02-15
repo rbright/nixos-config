@@ -1,4 +1,11 @@
 { pkgs, ... }:
+let
+  # GNOME Control Center blocks panel launch outside GNOME/Unity unless
+  # XDG_CURRENT_DESKTOP includes GNOME.
+  gnomeOnlineAccountsSettings = pkgs.writeShellScriptBin "gnome-online-accounts-settings" ''
+    exec env XDG_CURRENT_DESKTOP=GNOME gnome-control-center online-accounts
+  '';
+in
 {
   # Keep kitty installed as requested; Hyprland can still default to wezterm.
   programs.kitty.enable = true;
@@ -8,8 +15,10 @@
     packages = with pkgs; [
       btop
       blueman
+      evolution-data-server
       gnome-calendar
       gnome-control-center
+      gnome-online-accounts
       grim
       hypridle
       hyprlock
@@ -22,6 +31,8 @@
       slurp
       waybar
       wl-clipboard
+    ] ++ [
+      gnomeOnlineAccountsSettings
     ];
 
     # Cursor theme for GTK/Wayland apps. Change `name`/`size` here to customize.
