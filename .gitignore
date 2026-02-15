@@ -1,9 +1,13 @@
+# macOS
 .DS_Store
+
+# NixOS
 result
 
 # Agents
 PLAN.md
 SESSION.md
 
+# Projects
 **/projects.nu
 **/projects.zsh

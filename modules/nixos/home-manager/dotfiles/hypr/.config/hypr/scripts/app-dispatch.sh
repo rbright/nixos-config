@@ -29,17 +29,16 @@ case "$app" in
     launch_cmd='brave-work --new-window --app=https://calendar.google.com'
     target_workspace='8'
     ;;
-  sunsama)
-    class_regex='^(sunsama|Sunsama|brave-browser|Brave-browser|brave-.*)$'
-    title_regex='sunsama'
-    launch_cmd='sunsama || brave-work --new-window --app=https://app.sunsama.com'
-    target_workspace='5'
+  discord)
+    class_regex='^(Discord|discord)$'
+    launch_cmd='discord'
+    target_workspace='7'
     ;;
-  todoist)
-    class_regex='^(todoist|Todoist|brave-browser|Brave-browser|brave-.*)$'
-    title_regex='todoist'
-    launch_cmd='todoist || brave-work --new-window --app=https://app.todoist.com'
-    target_workspace='5'
+  email)
+    class_regex='^(thunderbird|Thunderbird|brave-browser|Brave-browser|brave-.*)$'
+    title_regex='gmail|mail'
+    launch_cmd='thunderbird || brave-work --new-window --app=https://mail.google.com'
+    target_workspace='7'
     ;;
   linear)
     class_regex='^(linear|Linear|brave-browser|Brave-browser|brave-.*)$'
@@ -47,58 +46,53 @@ case "$app" in
     launch_cmd='linear || brave-work --new-window --app=https://linear.app'
     target_workspace='5'
     ;;
-  obsidian)
-    class_regex='^(obsidian|Obsidian|md\.obsidian)$'
-    launch_cmd='obsidian'
-    target_workspace='4'
-    ;;
   messages)
     class_regex='^(messages|Messages|brave-browser|Brave-browser|brave-.*)$'
     title_regex='messages'
     launch_cmd='brave-work --new-window --app=https://messages.google.com/web/conversations'
     target_workspace='7'
     ;;
-  mimestream)
-    class_regex='^(mimestream|Mimestream|thunderbird|Thunderbird|brave-browser|Brave-browser|brave-.*)$'
-    title_regex='mimestream|gmail|mail'
-    launch_cmd='mimestream || thunderbird || brave-work --new-window --app=https://mail.google.com'
-    target_workspace='7'
+  obsidian)
+    class_regex='^(obsidian|Obsidian|md\.obsidian)$'
+    launch_cmd='obsidian'
+    target_workspace='4'
+    ;;
+  sunsama)
+    class_regex='^(sunsama|Sunsama|brave-browser|Brave-browser|brave-.*)$'
+    title_regex='sunsama'
+    launch_cmd='sunsama || brave-work --new-window --app=https://app.sunsama.com'
+    target_workspace='5'
     ;;
   slack)
     class_regex='^(Slack|slack)$'
     launch_cmd='slack'
     target_workspace='7'
     ;;
-  discord)
-    class_regex='^(Discord|discord)$'
-    launch_cmd='discord'
-    target_workspace='7'
+  tableplus)
+    class_regex='^(TablePlus|tableplus)$'
+    launch_cmd='tableplus'
+    target_workspace='3'
     ;;
   terminal)
     class_regex='^(org\.wezfurlong\.wezterm|WezTerm|wezterm)$'
     launch_cmd='wezterm'
     target_workspace='10'
     ;;
-  agent-monitor)
-    class_regex='^(codexmonitor|CodexMonitor|conductor|Conductor|brave-browser|Brave-browser|brave-.*)$'
-    title_regex='codex|openai|usage|monitor|conductor'
-    launch_cmd='codex monitor || brave-work --new-window --app=https://platform.openai.com/usage'
-    target_workspace='9'
-    ;;
-  zed)
-    class_regex='^(dev\.zed\.Zed|Zed|zed)$'
-    launch_cmd='zeditor || zed'
-    target_workspace='2'
+  todoist)
+    class_regex='^(todoist|Todoist|brave-browser|Brave-browser|brave-.*)$'
+    title_regex='todoist'
+    launch_cmd='todoist || brave-work --new-window --app=https://app.todoist.com'
+    target_workspace='5'
     ;;
   vscode)
     class_regex='^(com\.microsoft\.VSCode|Code|code)$'
     launch_cmd='code --new-window'
     target_workspace='9'
     ;;
-  tableplus)
-    class_regex='^(TablePlus|tableplus|Postman|postman)$'
-    launch_cmd='tableplus || postman'
-    target_workspace='3'
+  zed)
+    class_regex='^(dev\.zed\.Zed|Zed|zed)$'
+    launch_cmd='zeditor || zed'
+    target_workspace='2'
     ;;
   *)
     echo "Unknown app key: $app" >&2

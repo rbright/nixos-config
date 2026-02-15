@@ -4,10 +4,11 @@
 }:
 {
   home-manager = {
-    # Avoid activation failures when HM starts managing existing dotfiles.
-    backupFileExtension = "hm-backup";
     useGlobalPkgs = true;
     useUserPackages = true;
+
+    # Avoid activation failures when HM starts managing existing dotfiles.
+    backupFileExtension = "hm-backup";
 
     users.${user} =
       {

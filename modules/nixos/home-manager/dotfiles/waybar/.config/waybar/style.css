@@ -3,43 +3,43 @@
 @define-color muted #585b70;
 
 * {
-  background-color: @background;
-  color: @foreground;
+    background-color: @background;
+    color: @foreground;
 
-  border: none;
-  border-radius: 0;
-  min-height: 0;
-  font-family: 'Inter', 'JetBrainsMono Nerd Font';
-  font-size: 14px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
 }
 
 .modules-left {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .modules-right {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 #workspaces button {
-  all: initial;
-  padding: 0 8px;
-  margin: 0 1.5px;
-  min-width: 11px;
+    all: initial;
+    padding: 0 8px;
+    margin: 0 1.5px;
+    min-width: 11px;
 }
 
 #workspaces button.empty {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 #workspaces button.active {
-  color: @accent;
+    color: @accent;
 }
 
 #battery,
 #pulseaudio {
-  min-width: 20px;
-  margin: 0 9px;
+    min-width: 20px;
+    margin: 0 9px;
 }
 
 #battery,
@@ -47,50 +47,50 @@
 #network,
 #bluetooth,
 #custom-expand-icon {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 #tray {
-  margin-right: 16px;
+    margin-right: 16px;
 }
 
 #bluetooth {
-  margin-right: 17px;
+    margin-right: 17px;
 }
 
 #network {
-  margin-right: 13px;
+    margin-right: 13px;
 }
 
 #custom-expand-icon {
-  margin-right: 18px;
+    margin-right: 18px;
 }
 
 #custom-logout {
-  margin-left: 12px;
-  margin-right: 2px;
-  font-size: 18px;
-  color: @accent;
-  padding: 0 6px;
+    margin-left: 12px;
+    margin-right: 2px;
+    font-size: 18px;
+    color: @accent;
+    padding: 0 6px;
 }
 
 #custom-logout:hover {
-  color: @foreground;
+    color: @foreground;
 }
 
 tooltip {
-  padding: 4px;
-  border: 1px solid @accent;
-  background: @background;
+    padding: 4px;
+    border: 1px solid @accent;
+    background: @background;
 }
 
 #clock {
-  margin-left: 10px;
-  color: @foreground;
+    margin-left: 10px;
+    color: @foreground;
 }
 
 #network.disconnected,
 #bluetooth.disabled,
 #bluetooth.off {
-  color: @muted;
+    color: @muted;
 }

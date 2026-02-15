@@ -1,16 +1,18 @@
-font=Inter 14
-default-timeout=5000
-anchor=top-right
+font=JetBrainsMono Nerd Font Mono 14
+
 width=380
 height=140
-padding=16
+
+anchor=top-right
+background-color=#1e1e2e
 border-size=2
 border-radius=8
 border-color=#89b4fa
-background-color=#1e1e2e
-text-color=#cdd6f4
+default-timeout=5000
 icons=1
+padding=16
 max-icon-size=64
+text-color=#cdd6f4
 
 [urgency=low]
 border-color=#89b4fa

@@ -4,15 +4,8 @@
   "position": "top",
   "spacing": 0,
   "height": 40,
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": [
-    "group/tray-expander",
-    "bluetooth",
-    "network",
-    "pulseaudio",
-    "battery",
-    "custom/logout"
+  "modules-left": [
+    "hyprland/workspaces"
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -44,23 +37,39 @@
       "10": []
     }
   },
-  "clock": {
-    "format": "{:L%B %d @ %H:%M}",
-    "format-alt": "{:L%A, %d %B %Y %H:%M}",
-    "tooltip": false
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "group/tray-expander",
+    "bluetooth",
+    "network",
+    "pulseaudio",
+    "battery"
+  ],
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": [
+      "custom/expand-icon",
+      "tray"
+    ]
   },
-  "network": {
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰀂",
-    "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-disconnected": "Disconnected",
-    "on-click": "sh -c 'if command -v nm-connection-editor >/dev/null 2>&1; then nm-connection-editor; else wezterm -e nmtui; fi'",
-    "interval": 3,
-    "spacing": 1
+  "custom/expand-icon": {
+    "format": "",
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
+  },
+  "custom/logout": {
+    "format": "",
+    "tooltip": "Log out of Hyprland",
+    "on-click": "hyprctl dispatch exit"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -68,8 +77,30 @@
     "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
     },
     "format-full": "󰂅",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
@@ -89,6 +120,30 @@
     "on-click": "sh -c 'if command -v blueman-manager >/dev/null 2>&1; then blueman-manager; else wezterm -e bluetoothctl; fi'",
     "tooltip-format": "Devices connected: {num_connections}"
   },
+  "clock": {
+    "format": "{:L%B %d @ %H:%M}",
+    "format-alt": "{:L%B %d @ %H:%M}",
+    "tooltip": false
+  },
+  "network": {
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰤮",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "sh -c 'if command -v nm-connection-editor >/dev/null 2>&1; then nm-connection-editor; else wezterm -e nmtui; fi'",
+    "interval": 3,
+    "spacing": 1
+  },
   "pulseaudio": {
     "format": "{icon}",
     "tooltip-format": "Playing at {volume}%",
@@ -98,29 +153,12 @@
     "format-icons": {
       "headphone": "",
       "headset": "",
-      "default": ["", "", ""]
+      "default": [
+        "",
+        "",
+        ""
+      ]
     }
-  },
-  "custom/logout": {
-    "format": "",
-    "tooltip": "Log out of Hyprland",
-    "on-click": "hyprctl dispatch exit"
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": ["custom/expand-icon", "tray"]
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
   },
   "tray": {
     "icon-size": 20,
