@@ -129,7 +129,14 @@ Hyprland is configured in two layers:
 Default behavior:
 
 - `kitty` is installed.
-- `wofi` is installed as a minimal app launcher.
+- `vicinae` is configured as the default app launcher (`$launcher = vicinae toggle` in Hyprland variables).
+- Vicinae daemon setup follows official NixOS guidance via Home Manager:
+  - `modules/nixos/home-manager/vicinae.nix` enables `programs.vicinae`
+  - user service auto-start is managed by `programs.vicinae.systemd.enable = true`
+  - baseline settings from `https://docs.vicinae.com/nixos#configuring-with-home-manager`
+  - extensions enabled: `bluetooth`, `nix`, `power-profile`
+  - dark theme baseline: `catppuccin-mocha`
+  - clipboard history is pinned in favorites (`clipboard:history`)
 - `gnome-control-center` is installed so GNOME Settings can be launched from Hyprland.
 - `waybar`, `mako`, and `hyprpaper` are launched at Hyprland startup.
 - Hyprpaper is launched with explicit config path
@@ -148,7 +155,7 @@ Default behavior:
 - GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
   while keeping the `Papirus-Dark` theme name for compatibility.
 - Cursor theme is declarative in `modules/nixos/home-manager/hyprland.nix` via
-  `home.pointerCursor` (`Bibata-Modern-Ice`, size `24` by default).
+  `home.pointerCursor` (`catppuccin-mocha-blue-cursors`, size `24` by default).
 - `Caps Lock` is remapped to Hyper via XKB option `caps:hyper`.
 - Key repeat is tuned faster (`repeat_rate = 55`, `repeat_delay = 250`).
 - GTK/GNOME interface font baseline is `Inter 12` to avoid oversized Chromium/Brave chrome text.
@@ -158,6 +165,7 @@ Default behavior:
 - Brave context split is declarative and profile-safe:
   - `brave-personal` uses `~/.config/BraveSoftware/Brave-Browser`.
   - `brave-work` uses `~/.config/BraveSoftware/Brave-Browser-Work`.
+  - default browser handlers (`http`, `https`, `text/html`) prefer `brave-personal`.
   - Hypr web-app launchers (`calendar`, `todoist`, `linear`, `messages`,
     `agent-monitor`, and mail fallback) launch with `brave-work`.
 - AeroSpace-like workspace model is defined and persisted:
@@ -182,9 +190,14 @@ Default behavior:
   space at screen edges.
 - GTK file dialogs are forced dark via Catppuccin GTK theme + `prefer-dark`
   interface setting + GTK portal backend.
+- Thunar is configured declaratively for `omega`:
+  - system enablement via `modules/nixos/programs/thunar.nix`
+  - default directory handler via `modules/nixos/home-manager/thunar.nix`
+  - preferred startup view set to `ThunarDetailsView` (List/Details mode)
 - Utility keybinds remain in place:
   - `SUPER + Return`: open `wezterm`
-  - `SUPER + Space` (and fallback `CTRL + Space`): open launcher (`wofi`)
+  - `SUPER + Space` (and fallback `CTRL + Space`): open launcher (`vicinae toggle`)
+  - `ALT + SUPER + C`: open Vicinae clipboard history (`vicinae://extensions/vicinae/clipboard/history`)
   - `HYPER + G`: open GNOME Settings (`gnome-control-center`)
   - `CTRL + ALT + SUPER + L`: lock screen (`hyprlock`)
   - `SUPER + Shift + 3`: full screenshot to `~/Pictures/Screenshots`
@@ -259,6 +272,25 @@ Connect from another tailnet device:
   - Target host `omega` (MagicDNS) or the `100.x.y.z` address from `tailscale ip -4`.
 
 After `omega` connectivity is confirmed, macOS host OpenSSH can be removed.
+
+## UniFi Drive NFS On `omega`
+
+- NFS client support and mount wiring are defined in:
+  - `hosts/omega/nas.nix`
+  - mount point: `/mnt/unifi-drive`
+  - mount type: `nfs` with `nofail` + `x-systemd.automount` safety options
+- Set the UniFi console endpoint in `hosts/omega/nas.nix`:
+  - current default: `192.168.31.119:/` (NFSv4 pseudo-root for discovery)
+  - once you confirm the exact export path, replace with that specific export.
+
+Apply and test:
+
+```sh
+cd /home/rbright/Projects/nixos-config
+just switch omega
+ls /mnt/unifi-drive
+thunar /mnt/unifi-drive
+```
 
 ## llama.cpp On `omega`
 
