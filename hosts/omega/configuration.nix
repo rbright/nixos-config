@@ -3,6 +3,7 @@ _: {
     ./bluetooth.nix
     ./boot.nix
     ./hardware-configuration.nix
+    ./nas.nix
     ./thunderbolt.nix
     ./video.nix
   ];

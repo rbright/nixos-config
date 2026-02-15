@@ -24,6 +24,7 @@ with pkgs;
 
   # Productivity Tools
   calibre # E-book management and conversion tool
+  cider # Apple Music client for Linux
   obsidian # Powerful knowledge base that works on top of a local folder of plain text Markdown files
   sunsama # Digital daily planner that helps you feel calm and stay focused
 
@@ -41,5 +42,4 @@ with pkgs;
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton
   realvnc-vnc-viewer # Remote desktop viewing application
-  thunar # Lightweight GTK file manager
 ]

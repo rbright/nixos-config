@@ -1,11 +1,15 @@
 {
   user,
+  vicinaeExtensions,
   ...
 }:
 {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = {
+      inherit vicinaeExtensions;
+    };
 
     # Avoid activation failures when HM starts managing existing dotfiles.
     backupFileExtension = "hm-backup";
@@ -19,6 +23,8 @@
         imports = [
           ./home-manager/brave-profiles.nix
           ./home-manager/hyprland.nix
+          ./home-manager/thunar.nix
+          ./home-manager/vicinae.nix
           ./home-manager/dotfiles.nix
         ];
 

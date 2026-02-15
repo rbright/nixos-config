@@ -25,10 +25,39 @@ let
   };
 in
 {
+  home.sessionVariables.BROWSER = "brave-personal";
+
   home.packages = [
     bravePersonal
     braveWork
   ];
+
+  xdg.mimeApps.defaultApplications = {
+    "application/xhtml+xml" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+    "text/html" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+    "x-scheme-handler/about" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+    "x-scheme-handler/http" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+    "x-scheme-handler/https" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+    "x-scheme-handler/unknown" = [
+      "brave-personal.desktop"
+      "brave-browser.desktop"
+    ];
+  };
 
   xdg.desktopEntries = {
     "brave-personal" = {

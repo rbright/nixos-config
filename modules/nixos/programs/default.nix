@@ -3,5 +3,6 @@ _: {
     ./firefox.nix
     ./git.nix
     ./one-password.nix
+    ./thunar.nix
   ];
 }

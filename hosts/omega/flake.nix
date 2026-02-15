@@ -10,6 +10,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vicinaeExtensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixosModules = {
       flake = false;
       url = "path:../../modules/nixos";
@@ -25,6 +29,7 @@
     {
       codexCliNix,
       home-manager,
+      vicinaeExtensions,
       nixosModules,
       nixpkgs,
       sharedModules,
@@ -40,6 +45,7 @@
         specialArgs = {
           hostName = "omega";
           user = "rbright";
+          inherit vicinaeExtensions;
         };
         modules = [
           home-manager.nixosModules.home-manager
