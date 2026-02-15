@@ -156,7 +156,11 @@ Default behavior:
 - Waybar right modules include tray, bluetooth, network, audio, and battery.
 - GNOME Calendar is installed and set as the default calendar handler for
   `webcal` and `.ics` links via `xdg.mimeApps`.
-- Waybar/Mako UI typography uses `Inter` sizing (`12`) with Nerd Font fallback for icon glyphs.
+- GNOME Online Accounts runtime is available (`gnome-online-accounts`) so
+  GNOME Calendar can use connected providers under Hyprland.
+- Waybar and Mako typography use `Inter` with:
+  - Waybar: `14px` (closer to GNOME Calendar title readability)
+  - Mako: `12` (matching GTK interface baseline)
 - GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
   while keeping the `Papirus-Dark` theme name for compatibility.
 - Cursor theme is declarative in `modules/nixos/home-manager/hyprland.nix` via
@@ -215,6 +219,12 @@ Default behavior:
   - `SUPER + Q`: close active window
   - `SUPER + Shift + R`: reload Hyprland config
   - `SUPER + Shift + M`: exit Hyprland session
+
+Connect online accounts for GNOME Calendar:
+
+```sh
+gnome-online-accounts-settings
+```
 
 ## 1Password SSH Agent On `omega`
 
