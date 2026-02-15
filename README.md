@@ -138,19 +138,22 @@ Default behavior:
   - dark theme baseline: `catppuccin-mocha`
   - clipboard history is pinned in favorites (`clipboard:history`)
 - `gnome-control-center` is installed so GNOME Settings can be launched from Hyprland.
-- `waybar`, `mako`, and `hyprpaper` are launched at Hyprland startup.
+- `waybar`, `mako`, `hyprpaper`, and `hypridle` are launched at Hyprland startup.
 - Hyprpaper is launched with explicit config path
   (`hyprpaper -c ~/.config/hypr/hyprpaper.conf`) and pins
-  `~/.config/hypr/wallpapers/cat-waves-mocha.png` to each monitor
-  (`DP-5`, `DP-1`, plus a fallback for any additional monitor).
+  `~/.config/hypr/wallpapers/cat-waves-mocha.png` to all connected monitors.
+- Hyprlock and Hypridle are configured declaratively via:
+  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hyprlock.conf`
+  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hypridle.conf`
+  - idle policy: lock at 5 min, DPMS off at 5.5 min, suspend at 30 min.
 - Main monitor (`DP-5`, AW3225QF) is pinned to `3840x2160@239.99`.
 - Waybar workspace buttons are rendered as compact numeric labels (`1..10`).
 - Waybar center clock shows localized date + time (`%B %d @ %H:%M`).
 - Waybar module clicks:
   - network: `nm-connection-editor` (fallback: `wezterm -e nmtui`)
-  - audio: `pavucontrol` (fallback: `wpctl ... toggle mute`)
+  - audio: `hyprpwcenter` (fallback: `pavucontrol`, then `wpctl ... toggle mute`)
   - bluetooth: `blueman-manager` (fallback: `wezterm -e bluetoothctl`)
-- Waybar includes a right-side logout icon (``) that exits Hyprland.
+- Waybar right modules include tray, bluetooth, network, audio, and battery.
 - Waybar/Mako UI typography uses `Inter` sizing (`12`) with Nerd Font fallback for icon glyphs.
 - GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
   while keeping the `Papirus-Dark` theme name for compatibility.
@@ -196,6 +199,7 @@ Default behavior:
   - preferred startup view set to `ThunarDetailsView` (List/Details mode)
 - Utility keybinds remain in place:
   - `SUPER + Return`: open `wezterm`
+  - `SUPER + P`: open color picker (`hyprpicker -a -f hex`)
   - `SUPER + Space` (and fallback `CTRL + Space`): open launcher (`vicinae toggle`)
   - `ALT + SUPER + C`: open Vicinae clipboard history (`vicinae://extensions/vicinae/clipboard/history`)
   - `HYPER + G`: open GNOME Settings (`gnome-control-center`)
