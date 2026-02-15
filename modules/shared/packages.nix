@@ -157,5 +157,5 @@ with pkgs;
   # Machine Learning
   ##############################################################################
 
-  ollama # LLM runtime
+  llama-cpp # Local GGUF inference runtime (llama-server/llama-cli)
 ]
