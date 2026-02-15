@@ -42,10 +42,10 @@
   ],
   "modules-right": [
     "group/tray-expander",
-    "bluetooth",
-    "network",
     "pulseaudio",
-    "battery"
+    "battery",
+    "bluetooth",
+    "network"
   ],
   "group/tray-expander": {
     "orientation": "inherit",
