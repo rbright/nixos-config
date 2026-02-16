@@ -156,8 +156,12 @@ Default behavior:
 - Waybar right modules include tray, bluetooth, network, audio, and battery.
 - GNOME Calendar is installed and set as the default calendar handler for
   `webcal` and `.ics` links via `xdg.mimeApps`.
-- GNOME Online Accounts runtime is available (`gnome-online-accounts`) so
-  GNOME Calendar can use connected providers under Hyprland.
+- GNOME Online Accounts and Evolution Data Server system daemons are enabled
+  (`services.gnome.gnome-online-accounts`, `services.gnome.evolution-data-server`)
+  so GNOME Calendar can sync connected providers under Hyprland.
+- GDM remains the login manager, but its greeter runs on Xorg
+  (`services.displayManager.gdm.wayland = false`) for improved login keyboard
+  reliability on NVIDIA systems.
 - Waybar and Mako typography use `Inter` with:
   - Waybar: `14px` (closer to GNOME Calendar title readability)
   - Mako: `12` (matching GTK interface baseline)
