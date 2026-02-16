@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -39,6 +40,37 @@ def _find_terminal_notifier() -> str | None:
         if candidate.is_file() and os.access(candidate, os.X_OK):
             return str(candidate)
     return shutil.which("terminal-notifier")
+
+
+def _find_busctl() -> str | None:
+    for candidate in (
+        Path("/run/current-system/sw/bin/busctl"),
+        Path("/usr/bin/busctl"),
+        Path("/bin/busctl"),
+    ):
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            return str(candidate)
+    return shutil.which("busctl")
+
+
+def _find_notify_send() -> str | None:
+    for candidate in (
+        Path.home() / ".nix-profile/bin/notify-send",
+        Path("/run/current-system/sw/bin/notify-send"),
+        Path("/usr/bin/notify-send"),
+        Path("/bin/notify-send"),
+    ):
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            return str(candidate)
+    return shutil.which("notify-send")
+
+
+def _is_macos() -> bool:
+    return platform.system() == "Darwin"
+
+
+def _is_linux() -> bool:
+    return platform.system() == "Linux"
 
 
 def log_notification(notification: Notification) -> None:
@@ -85,6 +117,54 @@ def notify_macos(title: str, message: str) -> None:
         pass
 
 
+def notify_linux(title: str, message: str) -> None:
+    busctl = _find_busctl()
+    if busctl:
+        try:
+            subprocess.run(
+                [
+                    busctl,
+                    "--user",
+                    "call",
+                    "org.freedesktop.Notifications",
+                    "/org/freedesktop/Notifications",
+                    "org.freedesktop.Notifications",
+                    "Notify",
+                    "susssasa{sv}i",
+                    "agent-notify",
+                    "0",
+                    "",
+                    title,
+                    _truncate(message),
+                    "0",
+                    "0",
+                    "5000",
+                ],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+            return
+        except OSError:
+            pass
+
+    notify_send = _find_notify_send()
+    if not notify_send:
+        return
+
+    try:
+        subprocess.run(
+            [notify_send, title, _truncate(message)],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+    except OSError:
+        pass
+
+
 def _env_enabled(name: str, default: bool = True) -> bool:
     value = os.environ.get(name)
     if value is None:
@@ -102,7 +182,9 @@ def notify_terminal_bell() -> None:
 
 def dispatch_notifications(notification: Notification) -> None:
     title = title_from_cwd(notification.cwd)
-    if _env_enabled("AGENT_NOTIFY_MACOS", default=True):
+    if _is_macos() and _env_enabled("AGENT_NOTIFY_MACOS", default=True):
         notify_macos(title, notification.message)
+    if _is_linux() and _env_enabled("AGENT_NOTIFY_LINUX", default=True):
+        notify_linux(title, notification.message)
     if _env_enabled("AGENT_NOTIFY_BELL", default=True):
         notify_terminal_bell()
