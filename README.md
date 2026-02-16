@@ -145,7 +145,7 @@ Default behavior:
 - Hyprlock and Hypridle are configured declaratively via:
   - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hyprlock.conf`
   - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hypridle.conf`
-  - idle policy: lock at 5 min, DPMS off at 5.5 min, suspend at 30 min.
+  - idle policy: lock at 5 min, DPMS off at 5.5 min, no auto-suspend.
 - Main monitor (`DP-5`, AW3225QF) is pinned to `3840x2160@239.99`.
 - Waybar workspace buttons are rendered as compact numeric labels (`1..10`).
 - Waybar center clock shows localized date + time (`%B %d @ %H:%M`).

@@ -93,10 +93,10 @@ $env.config.completions.quick = true
 $env.config.bracketed_paste = true
 
 # Show current directory and running command in the terminal tab/window title.
-# Disable in managed agent sessions so zellij pane names are controlled by our
-# explicit rename hook (basename / "~").
+# Disable inside zellij so pane/tab names are controlled by our explicit
+# rename hook (basename / "~").
 $env.config.shell_integration.osc2 = (
-  not (($env | get -o ZELLIJ_SESSION_NAME | default "") =~ '^agent-[0-9]{2}$')
+  (($env | get -o ZELLIJ | default "") | is-empty)
 )
 
 # Report the current directory to the terminal using OSC 7.
@@ -198,6 +198,41 @@ $env.config.filesize.precision = 1
 # Hooks
 ################################################################################
 
+# Keep zellij pane titles deterministic:
+# home -> "~", otherwise cwd basename.
+def _zellij_refresh_title [] {
+  do -i {
+    if (($env | get -o ZELLIJ | default "") | is-empty) {
+      return
+    }
+    if (which zellij | is-empty) {
+      return
+    }
+
+    let cwd = (pwd | path expand)
+    # Nushell 0.102 exposes $nu.home-dir (not home-path).
+    let home = (($env | get -o HOME | default $nu.home-dir) | path expand)
+    let basename = ($cwd | path basename)
+    let title = (
+      if $cwd == $home {
+        "~"
+      } else if ($basename | str length) > 0 {
+        $basename
+      } else {
+        "~"
+      }
+    )
+    zellij action rename-pane $title | ignore
+    zellij action rename-tab $title | ignore
+  }
+}
+
+# Ensure title refresh runs on every prompt render, including after `cd`.
+$env.PROMPT_COMMAND = {||
+  _zellij_refresh_title
+  "nu"
+}
+
 $env.config.hooks.pre_prompt = [
   # Enable direnv integration
   { ||
@@ -210,35 +245,23 @@ $env.config.hooks.pre_prompt = [
       $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
     }
   }
-  # Keep work-agent pane titles deterministic:
-  # home -> "~", otherwise cwd basename.
-  { ||
-    do -i {
-      let session = ($env | get -o ZELLIJ_SESSION_NAME | default "")
-      if not ($session =~ '^agent-[0-9]{2}$') {
-        return
-      }
-      if (which zellij | is-empty) {
-        return
-      }
-
-      let cwd = (pwd | path expand)
-      let home = ($nu.home-path | path expand)
-      let basename = ($cwd | path basename)
-      let title = (
-        if $cwd == $home {
-          "~"
-        } else if ($basename | str length) > 0 {
-          $basename
-        } else {
-          "~"
-        }
-      )
-      zellij action rename-pane $title | ignore
-      zellij action rename-tab $title | ignore
-    }
-  }
+  # Refresh pane/tab title before rendering prompt.
+  { || _zellij_refresh_title }
 ]
+
+# Also refresh immediately on directory changes so title updates right after `cd`.
+let existing_pwd_hooks = (
+  ($env.config.hooks.env_change | default {})
+  | get -o PWD
+  | default []
+)
+$env.config.hooks.env_change = (
+  ($env.config.hooks.env_change | default {})
+  | upsert PWD (
+      $existing_pwd_hooks
+      | append { |before, after| _zellij_refresh_title }
+    )
+)
 
 ################################################################################
 # Themes and Syntax Highlighting

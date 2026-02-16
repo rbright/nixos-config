@@ -155,6 +155,13 @@ in
     # Power management daemon required by many desktop components.
     upower.enable = true;
 
+    # Keep long-running workflows alive by disabling logind idle-triggered
+    # suspend behavior globally.
+    logind.settings.Login = {
+      IdleAction = "ignore";
+      IdleActionSec = 0;
+    };
+
     # Disable X11 desktop sessions; Hyprland runs on Wayland.
     xserver.enable = false;
 

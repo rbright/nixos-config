@@ -126,7 +126,7 @@ EOF
 }
 
 work_agent_managed_session_p() {
-  [[ "$ZELLIJ_SESSION_NAME" == agent-0[1-8] ]]
+  [[ -n "$ZELLIJ" ]]
 }
 
 work_agent_pane_title() {
