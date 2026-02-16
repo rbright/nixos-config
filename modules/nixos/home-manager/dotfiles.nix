@@ -29,6 +29,9 @@ in
     # github
     ".config/gh/config.yml".source = dotfilesRoot + "/github/.config/gh/config.yml";
 
+    # ghostty
+    ".config/ghostty" = recursiveSource (dotfilesRoot + "/ghostty/.config/ghostty");
+
     # hypr
     ".config/hypr" = recursiveSource (dotfilesRoot + "/hypr/.config/hypr");
 
