@@ -175,7 +175,9 @@ Default behavior:
   `home.pointerCursor` (`catppuccin-mocha-blue-cursors`, size `24` by default).
 - `Caps Lock` is remapped to Hyper via XKB option `caps:hyper`.
 - Key repeat is tuned faster (`repeat_rate = 55`, `repeat_delay = 250`).
-- GTK/GNOME interface font baseline is `Inter 12` to avoid oversized Chromium/Brave chrome text.
+- GTK/GNOME interface font baseline is `Inter 11` (configured in
+  `modules/nixos/home-manager/appearance.nix`) to keep app chrome text from
+  rendering oversized.
 - Hyper app bindings are used only for app focus/launch:
   - `Hyper + <key>`: focus/switch to app window if present, otherwise launch.
   - `Hyper + Shift + <same key>`: launch a new window/instance for that app.

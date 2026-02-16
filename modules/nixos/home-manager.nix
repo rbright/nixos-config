@@ -21,6 +21,7 @@
       }:
       {
         imports = [
+          ./home-manager/appearance.nix
           ./home-manager/brave-profiles.nix
           ./home-manager/hyprland.nix
           ./home-manager/thunar.nix
