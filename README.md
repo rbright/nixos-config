@@ -376,6 +376,13 @@ Tooling comes from host-specific flakes:
 
 On macOS these run via `path:.?dir=hosts/lambda`; on Linux they run via `path:.?dir=hosts/omega`.
 
+Pre-commit hooks are defined in `.pre-commit-config.yaml` and currently run `just lint` before each commit:
+
+```sh
+prek install
+prek run -a
+```
+
 ## Directory Structure
 
 ```sh
