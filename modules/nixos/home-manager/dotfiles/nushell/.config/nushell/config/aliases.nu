@@ -21,9 +21,6 @@ alias ccm = npx ccusage@latest monthly
 # AI Assistant - opencode
 alias oc = opencode
 
-# AI Assistant - Codex
-alias c = codex --no-alt-screen
-
 # Docker
 alias di = docker images
 alias db = docker build
