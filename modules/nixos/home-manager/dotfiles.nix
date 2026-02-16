@@ -9,6 +9,9 @@ let
 in
 {
   home.file = {
+    # agents
+    ".agents/scripts" = recursiveSource (dotfilesRoot + "/agents/.agents/scripts");
+
     # atuin
     ".config/atuin/config.toml".source = dotfilesRoot + "/atuin/.config/atuin/config.toml";
     ".local/share/atuin/init.nu".source = dotfilesRoot + "/atuin/.local/share/atuin/init.nu";
