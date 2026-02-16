@@ -46,26 +46,23 @@ layout {
 
     tab name="o11y" split_direction="horizontal" {
         pane split_direction="vertical" {
-            pane name="htop-local" command="zsh" {
-                args "-lc" "if command -v htop >/dev/null 2>&1; then exec htop; elif command -v btop >/dev/null 2>&1; then exec btop; else echo 'htop/btop not available'; exec zsh -i; fi"
+            pane name="btop-local" command="nu" {
+                args "-e" "zsh -lc 'if command -v btop >/dev/null 2>&1; then btop; else echo \"btop not available\"; fi'"
             }
-            pane name="htop-moonrise-00" command="zsh" {
-                args "-lc" "if getent hosts moonrise-00 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-00 htop || echo 'ssh moonrise-00 failed'; else echo 'moonrise-00 unavailable (DNS unresolved)'; fi; exec zsh -i"
-            }
-            pane name="htop-moonrise-01" command="zsh" {
-                args "-lc" "if getent hosts moonrise-01 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-01 htop || echo 'ssh moonrise-01 failed'; else echo 'moonrise-01 unavailable (DNS unresolved)'; fi; exec zsh -i"
-            }
-            pane name="htop-moonrise-02" command="zsh" {
-                args "-lc" "if getent hosts moonrise-02 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-02 htop || echo 'ssh moonrise-02 failed'; else echo 'moonrise-02 unavailable (DNS unresolved)'; fi; exec zsh -i"
+            pane name="docker-stats" command="nu" {
+                args "-e" "zsh -lc 'if docker info >/dev/null 2>&1; then docker stats; else echo \"docker daemon unavailable\"; fi'"
             }
         }
         pane split_direction="vertical" {
-            pane name="docker-stats" command="zsh" {
-                args "-lc" "if docker info >/dev/null 2>&1; then exec docker stats; else echo 'docker daemon unavailable'; exec zsh -i; fi"
+            pane name="htop-moonrise-00" command="nu" {
+                args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-00 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-00 htop || echo \"ssh moonrise-labs-node-00 failed\"; else echo \"moonrise-labs-node-00 unavailable (DNS unresolved)\"; fi'"
             }
-            pane
-            pane
-            pane
+            pane name="htop-moonrise-01" command="nu" {
+                args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-01 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-01 htop || echo \"ssh moonrise-labs-node-01 failed\"; else echo \"moonrise-labs-node-01 unavailable (DNS unresolved)\"; fi'"
+            }
+            pane name="htop-moonrise-02" command="nu" {
+                args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-02 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-02 htop || echo \"ssh moonrise-labs-node-02 failed\"; else echo \"moonrise-labs-node-02 unavailable (DNS unresolved)\"; fi'"
+            }
         }
     }
 }
