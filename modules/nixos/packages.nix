@@ -32,6 +32,7 @@ with pkgs;
   # Communication Tools
   discord # Chat and messaging platform
   slack # Team communication and collaboration platform
+  thunderbird # Open-source email, calendar, and chat client
   zoom-us # Video conferencing and webinar platform
 
   # Finance Tools
