@@ -341,3 +341,9 @@ def "work agent" [agent: int] {
 # Compatibility wrappers during tmux -> zellij migration.
 def start-work [] { work up }
 def stop-work [] { work down }
+
+################################################################################
+# llama.cpp
+################################################################################
+
+source ~/.zsh/functions/llama.nu
