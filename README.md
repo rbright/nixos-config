@@ -342,6 +342,19 @@ Live service logs:
 journalctl -u llama-cpp.service -f
 ```
 
+Nushell command helpers (after `just switch omega`):
+
+```sh
+llm start
+llm stop
+llm restart
+llm download <gguf-url>
+llm list
+llm message "Explain the NixOS module system in 3 bullets."
+llm logs
+llm logs --follow
+```
+
 ## QA
 
 Tooling comes from host-specific flakes:
