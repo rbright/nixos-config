@@ -10,7 +10,9 @@ def llm-base-url [] { "http://127.0.0.1:11434" }
 
 def llm-model-aliases [] {
     {
-        mistral: "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q6_K.gguf"
+        mistral: "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q6_K.gguf",
+        qwen: "Qwen_Qwen3-32B-Q6_K"
+        qwenc: "Qwen3-Coder-30B-A3B-Instruct-Q6_K"
     }
 }
 
