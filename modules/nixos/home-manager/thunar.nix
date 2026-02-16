@@ -8,12 +8,16 @@ _: {
     };
   };
 
-  # Avoid runtime xfconf activation failures by writing the channel file directly.
-  xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''
-    <?xml version="1.0" encoding="UTF-8"?>
+  # Thunar may rewrite this file, so force replacement to avoid backup
+  # collisions with pre-existing *.hm-backup files during activation.
+  xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml" = {
+    force = true;
+    text = ''
+      <?xml version="1.0" encoding="UTF-8"?>
 
-    <channel name="thunar" version="1.0">
-      <property name="last-view" type="string" value="ThunarDetailsView"/>
-    </channel>
-  '';
+      <channel name="thunar" version="1.0">
+        <property name="last-view" type="string" value="ThunarDetailsView"/>
+      </channel>
+    '';
+  };
 }
