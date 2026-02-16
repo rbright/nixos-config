@@ -188,6 +188,9 @@ style = 'bold yellow'
 time_format = '%T'
 utc_time_offset = 'local'
 
+[username]
+format = '[$user]($style) '
+
 [vagrant]
 disabled = false
 format = '[$symbol($version )]($style)'
