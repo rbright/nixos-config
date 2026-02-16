@@ -25,7 +25,7 @@ with pkgs;
 
   # Productivity Tools
   calibre # E-book management and conversion tool
-  cider # Apple Music client for Linux
+  cider-2 # Apple Music client for Linux
   obsidian # Powerful knowledge base that works on top of a local folder of plain text Markdown files
   sunsama # Digital daily planner that helps you feel calm and stay focused
 
