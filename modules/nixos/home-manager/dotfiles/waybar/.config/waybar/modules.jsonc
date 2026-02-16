@@ -121,12 +121,12 @@
   "cpu": {
     "format": "{usage}% ",
     "tooltip": true,
-    "tooltip-format": "Uso de CPU: {usage}%\\nNúcleos: {cores}"
+    "tooltip-format": "CPU usage: {usage}%\\nCores: {cores}"
   },
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,
-    "tooltip-format": "RAM en uso: {used} / {total} ({percentage}%)"
+    "tooltip-format": "RAM in use: {used} / {total} ({percentage}%)"
   },
   "pulseaudio": {
     "format": "{icon}",
