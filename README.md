@@ -351,6 +351,7 @@ llm restart
 llm download <gguf-url>
 llm list
 llm message "Explain the NixOS module system in 3 bullets."
+mistral "Explain the NixOS module system in 3 bullets."
 llm logs
 llm logs --follow
 ```

@@ -8,6 +8,23 @@ def llm-models-dir [] { "/var/lib/llama-cpp/models" }
 
 def llm-base-url [] { "http://127.0.0.1:11434" }
 
+def llm-model-aliases [] {
+    {
+        mistral: "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q6_K.gguf"
+    }
+}
+
+def llm-default-model-name [] { "mistral" }
+
+def llm-normalize-model-name [name: string] {
+    let normalized = ($name | str trim | str downcase)
+    if ($normalized | str ends-with ".gguf") {
+        $normalized | str replace -r '\.gguf$' ''
+    } else {
+        $normalized
+    }
+}
+
 def llm-require [command: string] {
     if (which $command | is-empty) {
         error make { msg: $"($command) is not available on PATH" }
@@ -37,12 +54,50 @@ def llm-query-models [] {
 }
 
 def llm-default-model [] {
-    let models = (llm-query-models)
-    if ($models | is-empty) {
-        error make { msg: "No models available. Use `llm download <url>` first." }
+    llm-resolve-model (llm-default-model-name)
+}
+
+def llm-resolve-model [requested: string] {
+    let trimmed = ($requested | str trim)
+    if (($trimmed | str length) == 0) {
+        error make { msg: "Model name cannot be empty." }
     }
 
-    $models | get 0.id
+    let models = (llm-query-models)
+    if ($models | is-empty) {
+        error make { msg: "No models available. Use `llm download <url>` and `llm restart` first." }
+    }
+
+    let aliases = (llm-model-aliases)
+    let target = ($aliases | get -o $trimmed | default $trimmed)
+    let target_norm = (llm-normalize-model-name $target)
+    let requested_norm = (llm-normalize-model-name $trimmed)
+
+    let exact = (
+        $models
+        | where { |model| ((llm-normalize-model-name ($model.id | into string)) == $target_norm) }
+        | get -o 0.id
+    )
+    if $exact != null {
+        return $exact
+    }
+
+    let fuzzy = (
+        $models
+        | where { |model|
+            let id_norm = (llm-normalize-model-name ($model.id | into string))
+            ($id_norm | str contains $target_norm) or ($id_norm | str contains $requested_norm)
+        }
+        | get -o 0.id
+    )
+    if $fuzzy != null {
+        return $fuzzy
+    }
+
+    let available = ($models | get id | str join ", ")
+    error make {
+        msg: $"Model `($trimmed)` not found. Available models: ($available)"
+    }
 }
 
 def llm [] {
@@ -52,9 +107,10 @@ def llm [] {
     print "  llm restart               Restart llama-cpp.service"
     print "  llm download <url>        Download a GGUF model"
     print "  llm list                  List models exposed by llama.cpp API"
-    print "  llm message <text>        Send plaintext message to /v1/chat/completions"
+    print "  llm message <text>        Send message (default model alias: mistral)"
     print "  llm logs                  Show recent llama-cpp logs"
     print "  llm logs --follow         Follow llama-cpp logs"
+    print "  mistral <text>            Shortcut for `llm message --model mistral`"
 }
 
 def "llm start" [] {
@@ -110,10 +166,26 @@ def "llm download" [
 }
 
 def "llm list" [] {
+    let aliases = (llm-model-aliases)
+    let default_name = (llm-default-model-name)
+
     llm-query-models
     | each { |model|
+        let model_id = ($model | get -o id | default "")
+        let matched_alias = (
+            $aliases
+            | transpose alias target
+            | where { |row|
+                (llm-normalize-model-name $row.target) == (llm-normalize-model-name $model_id)
+            }
+            | get -o 0.alias
+            | default ""
+        )
+
         {
-            id: ($model | get -o id | default "")
+            id: $model_id
+            alias: $matched_alias
+            default: ($matched_alias == $default_name)
             owned_by: ($model | get -o owned_by | default "")
             object: ($model | get -o object | default "")
         }
@@ -128,7 +200,7 @@ def "llm message" [
 ] {
     llm-require "curl"
 
-    let selected_model = if $model == null { llm-default-model } else { $model }
+    let selected_model = if $model == null { llm-default-model } else { llm-resolve-model $model }
     let has_system = (($system | default "" | str trim | str length) > 0)
 
     let payload = {
@@ -159,6 +231,26 @@ def "llm message" [
             $response
         } else {
             $content
+        }
+    }
+}
+
+def mistral [
+    message: string
+    --system (-s): string
+    --raw (-r)
+] {
+    if $system == null {
+        if $raw {
+            llm message --model mistral --raw $message
+        } else {
+            llm message --model mistral $message
+        }
+    } else {
+        if $raw {
+            llm message --model mistral --system $system --raw $message
+        } else {
+            llm message --model mistral --system $system $message
         }
     }
 }
