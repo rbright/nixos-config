@@ -9,6 +9,9 @@ background-blur-radius = 20
 background-opacity = 1.0
 bold-is-bright = true
 copy-on-select = true
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = super+shift+v=paste_from_selection
 cursor-style = block
 cursor-style-blink = true
 mouse-hide-while-typing = true
