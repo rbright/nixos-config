@@ -11,3 +11,7 @@ SESSION.md
 # Projects
 **/projects.nu
 **/projects.zsh
+
+# Python
+**/__pycache__
+**/.pyc
