@@ -1,0 +1,25 @@
+{
+  "include": [
+    "~/.config/waybar/modules.jsonc"
+  ],
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 40,
+  "modules-left": [
+    "custom/nixicon",
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "group/tray-expander",
+    "cpu",
+    "memory",
+    "network",
+    "pulseaudio",
+    "bluetooth"
+  ]
+}

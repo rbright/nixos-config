@@ -1,12 +1,9 @@
 {
-  "reload_style_on_change": true,
-  "layer": "top",
-  "position": "top",
-  "spacing": 0,
-  "height": 40,
-  "modules-left": [
-    "hyprland/workspaces"
-  ],
+  "custom/nixicon": {
+    "format": "",
+    "on-click": "vicinae toggle",
+    "tooltip": false
+  },
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
@@ -37,16 +34,6 @@
       "10": []
     }
   },
-  "modules-center": [
-    "clock"
-  ],
-  "modules-right": [
-    "group/tray-expander",
-    "pulseaudio",
-    "battery",
-    "bluetooth",
-    "network"
-  ],
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
@@ -116,28 +103,30 @@
     "tooltip-format": "Devices connected: {num_connections}"
   },
   "clock": {
-    "format": "{:L%B %d @ %H:%M}",
-    "format-alt": "{:L%B %d @ %H:%M}",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%H:%M}",
     "tooltip": false
   },
   "network": {
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
-    ],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰀂",
+    "format-ethernet": "󰈀",
+    "format-linked": "󰈀",
     "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "{ifname} {ipaddr}/{cidr}\\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-linked": "{ifname} (sin IP)",
     "tooltip-format-disconnected": "Disconnected",
     "on-click": "sh -c 'if command -v nm-connection-editor >/dev/null 2>&1; then nm-connection-editor; else wezterm -e nmtui; fi'",
     "interval": 3,
     "spacing": 1
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": true,
+    "tooltip-format": "Uso de CPU: {usage}%\\nNúcleos: {cores}"
+  },
+  "memory": {
+    "format": "{}% 󰍛",
+    "tooltip": true,
+    "tooltip-format": "RAM en uso: {used} / {total} ({percentage}%)"
   },
   "pulseaudio": {
     "format": "{icon}",

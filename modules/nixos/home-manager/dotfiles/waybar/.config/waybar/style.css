@@ -9,8 +9,8 @@
     border: none;
     border-radius: 0;
     min-height: 0;
-    font-family: "Inter";
-    font-size: 14px;
+    font-family: "IBM Plex Sans";
+    font-size: 18px;
 }
 
 .modules-left {
@@ -18,7 +18,7 @@
 }
 
 .modules-right {
-    margin-right: 10px;
+    margin-right: 4px;
 }
 
 #workspaces button {
@@ -36,34 +36,51 @@
     color: @accent;
 }
 
-#battery,
-#pulseaudio {
-    min-width: 20px;
-    margin: 0 9px;
-}
-
+#custom-nixicon,
+#custom-expand-icon,
 #battery,
 #pulseaudio,
 #network,
 #bluetooth,
-#custom-expand-icon {
+#cpu,
+#memory {
+    font-family:
+        "Symbols Nerd Font Mono", "JetBrainsMono Nerd Font", "IBM Plex Sans";
     font-size: 18px;
+}
+
+#custom-nixicon {
+    margin-right: 12px;
+    padding-right: 2px;
+    font-size: 20px;
+}
+
+#pulseaudio,
+#battery,
+#bluetooth,
+#network,
+#cpu,
+#memory {
+    margin-right: 14px;
+    padding: 0 2px;
+    min-width: 22px;
+}
+
+#cpu,
+#memory {
+    min-width: 64px;
+}
+
+#custom-expand-icon {
+    margin-right: 14px;
+}
+
+#memory {
+    margin-right: 8px;
 }
 
 #tray {
     margin-right: 16px;
-}
-
-#bluetooth {
-    margin-right: 17px;
-}
-
-#network {
-    margin-right: 13px;
-}
-
-#custom-expand-icon {
-    margin-right: 18px;
 }
 
 #custom-logout {
