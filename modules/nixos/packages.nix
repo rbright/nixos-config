@@ -6,6 +6,7 @@ with pkgs;
   google-chrome # Google's web browser
 
   # Terminal
+  ghostty # Fast, feature-rich terminal emulator
   wezterm # GPU-accelerated cross-platform terminal emulator and multiplexer
 
   # Development Tools
