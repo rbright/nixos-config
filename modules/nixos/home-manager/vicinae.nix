@@ -21,7 +21,7 @@
 
       font.normal = {
         size = 14;
-        family = "Lexend";
+        family = "IBM Plex Sans";
       };
 
       theme = {
