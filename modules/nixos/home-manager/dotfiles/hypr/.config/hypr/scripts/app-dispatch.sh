@@ -64,7 +64,7 @@ case "$app" in
     ;;
   slack)
     class_regex='^(Slack|slack)$'
-    launch_cmd='slack'
+    launch_cmd='env GTK_THEME=catppuccin-mocha-blue-standard:dark GTK_APPLICATION_PREFER_DARK_THEME=1 slack'
     target_workspace='7'
     ;;
   tableplus)

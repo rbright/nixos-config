@@ -11,17 +11,23 @@
   programs.dconf.enable = true;
 
   services = {
-    # Keep GDM as the login manager, but run Wayland sessions.
+    # Keep GDM as the login manager. Run the greeter on Xorg for better
+    # keyboard reliability on NVIDIA setups, while keeping Hyprland Wayland.
     displayManager.gdm = {
       enable = true;
-      wayland = true;
+      wayland = false;
     };
 
     # Power management daemon required by many desktop components.
     upower.enable = true;
 
-    # Disable X11 desktop sessions; Hyprland runs on Wayland.
-    xserver.enable = false;
+    # Required for GDM's Xorg greeter path.
+    xserver.enable = true;
+
+    # Required runtime daemons so GNOME Calendar can sync provider calendars
+    # under non-GNOME sessions like Hyprland.
+    gnome.gnome-online-accounts.enable = true;
+    gnome.evolution-data-server.enable = true;
   };
 
   # Desktop portal support for screen sharing and file pickers on Wayland.

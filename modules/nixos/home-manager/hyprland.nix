@@ -12,28 +12,31 @@ in
 
   # Hyprland/Waybar/Mako config is sourced from dotfiles.nix-native files.
   home = {
-    packages = with pkgs; [
-      btop
-      blueman
-      evolution-data-server
-      gnome-calendar
-      gnome-control-center
-      gnome-online-accounts
-      grim
-      hypridle
-      hyprlock
-      hyprpaper
-      hyprpicker
-      hyprpwcenter
-      mako
-      networkmanagerapplet
-      pavucontrol
-      slurp
-      waybar
-      wl-clipboard
-    ] ++ [
-      gnomeOnlineAccountsSettings
-    ];
+    packages =
+      with pkgs;
+      [
+        btop
+        blueman
+        evolution-data-server
+        gnome-calendar
+        gnome-control-center
+        gnome-online-accounts
+        grim
+        hypridle
+        hyprlock
+        hyprpaper
+        hyprpicker
+        hyprpwcenter
+        mako
+        networkmanagerapplet
+        pavucontrol
+        slurp
+        waybar
+        wl-clipboard
+      ]
+      ++ [
+        gnomeOnlineAccountsSettings
+      ];
 
     # Cursor theme for GTK/Wayland apps. Change `name`/`size` here to customize.
     pointerCursor = {
@@ -45,7 +48,8 @@ in
     };
 
     sessionVariables = {
-      GTK_THEME = "catppuccin-mocha-blue-standard";
+      GTK_THEME = "catppuccin-mocha-blue-standard:dark";
+      GTK_APPLICATION_PREFER_DARK_THEME = "1";
       XCURSOR_THEME = "catppuccin-mocha-blue-cursors";
       XCURSOR_SIZE = "24";
       HYPRCURSOR_THEME = "catppuccin-mocha-blue-cursors";
