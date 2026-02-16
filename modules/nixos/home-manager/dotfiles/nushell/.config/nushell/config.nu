@@ -93,8 +93,8 @@ $env.config.completions.quick = true
 $env.config.bracketed_paste = true
 
 # Show current directory and running command in the terminal tab/window title.
-# Disable in managed agent sessions so zellij tab names are controlled by our
-# explicit `rename-tab` hook (basename / "~").
+# Disable in managed agent sessions so zellij pane names are controlled by our
+# explicit rename hook (basename / "~").
 $env.config.shell_integration.osc2 = (
   not (($env | get -o ZELLIJ_SESSION_NAME | default "") =~ '^agent-[0-9]{2}$')
 )
@@ -234,6 +234,7 @@ $env.config.hooks.pre_prompt = [
           "~"
         }
       )
+      zellij action rename-pane $title | ignore
       zellij action rename-tab $title | ignore
     }
   }

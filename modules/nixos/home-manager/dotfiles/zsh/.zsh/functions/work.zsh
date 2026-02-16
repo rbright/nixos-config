@@ -151,6 +151,7 @@ work_agent_refresh_pane_title() {
 
   local title
   title="$(work_agent_pane_title)"
+  zellij action rename-pane "$title" >/dev/null 2>&1 || true
   zellij action rename-tab "$title" >/dev/null 2>&1 || true
 }
 
