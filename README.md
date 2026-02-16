@@ -159,12 +159,16 @@ Default behavior:
 - GNOME Online Accounts and Evolution Data Server system daemons are enabled
   (`services.gnome.gnome-online-accounts`, `services.gnome.evolution-data-server`)
   so GNOME Calendar can sync connected providers under Hyprland.
-- GDM remains the login manager, but its greeter runs on Xorg
-  (`services.displayManager.gdm.wayland = false`) for improved login keyboard
-  reliability on NVIDIA systems.
-- Waybar and Mako typography use `Inter` with:
-  - Waybar: `14px` (closer to GNOME Calendar title readability)
-  - Mako: `12` (matching GTK interface baseline)
+- `greetd` with ReGreet is the login manager for `omega`:
+  - launched through `cage` by `programs.regreet` defaults
+  - themed with Catppuccin + IBM Plex Sans to align with Hyprlock styling
+  - configured to prefer the UWSM Hyprland session path by hiding the plain
+    `hyprland.desktop` entry in ReGreet session discovery
+  - ReGreet state cache (`/var/lib/regreet/state.toml`) remembers last user and
+    session selection between logins
+- Waybar and Mako typography use `IBM Plex Sans` with:
+  - Waybar: `16px`
+  - Mako: `12`
 - GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
   while keeping the `Papirus-Dark` theme name for compatibility.
 - Cursor theme is declarative in `modules/nixos/home-manager/hyprland.nix` via
@@ -221,7 +225,7 @@ Default behavior:
   - `SUPER + Shift + 4`: region screenshot to `~/Pictures/Screenshots`
   - `SUPER + Shift + 5`: region screenshot to clipboard
   - `SUPER + Q`: close active window
-  - `SUPER + Shift + R`: reload Hyprland config
+  - `SUPER + Shift + R`: restart Waybar + Mako, then reload Hyprland config
   - `SUPER + Shift + M`: exit Hyprland session
 
 Connect online accounts for GNOME Calendar:

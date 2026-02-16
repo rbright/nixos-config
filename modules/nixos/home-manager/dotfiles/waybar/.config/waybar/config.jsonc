@@ -16,10 +16,10 @@
   ],
   "modules-right": [
     "group/tray-expander",
+    "pulseaudio",
+    "bluetooth",
+    "network",
     "cpu",
     "memory",
-    "network",
-    "pulseaudio",
-    "bluetooth"
   ]
 }
