@@ -108,7 +108,14 @@ in
         prompt = false;
       };
 
+      # Keep new topic branches from implicitly tracking a differently named
+      # upstream (for example origin/main), which can lead automation to push
+      # to protected branches.
+      branch.autoSetupMerge = "simple";
+
       push.default = "current";
+      # On first push, automatically create upstream for the current branch.
+      push.autoSetupRemote = true;
 
       tag.forceSignAnnotated = false;
 
