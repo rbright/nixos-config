@@ -1,7 +1,7 @@
 let
   unifiNasHost = "192.168.31.119";
-  # Use the NFSv4 pseudo-root so volumes are discoverable when exact export path is unknown.
-  unifiNasExport = "/";
+  # UniFi Drive exports shared drives under /var/nfs/shared/<SharedDriveName>.
+  unifiNasExport = "/var/nfs/shared/Shared";
 in
 {
   boot.supportedFilesystems = [ "nfs" ];

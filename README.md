@@ -312,17 +312,47 @@ After `omega` connectivity is confirmed, macOS host OpenSSH can be removed.
   - `hosts/omega/nas.nix`
   - mount point: `/mnt/unifi-drive`
   - mount type: `nfs` with `nofail` + `x-systemd.automount` safety options
-- Set the UniFi console endpoint in `hosts/omega/nas.nix`:
-  - current default: `192.168.31.119:/` (NFSv4 pseudo-root for discovery)
-  - once you confirm the exact export path, replace with that specific export.
+- Current UniFi shared-drive export target:
+  - `192.168.31.119:/var/nfs/shared/Shared`
+  - this follows UniFi's Linux NFS path format for Shared Drives.
 
 Apply and test:
 
 ```sh
 cd /home/rbright/Projects/nixos-config
 just switch omega
+sudo mount -v /mnt/unifi-drive
 ls /mnt/unifi-drive
 thunar /mnt/unifi-drive
+```
+
+## Google Drive via rclone on `omega`
+
+- Declarative rclone mount service is defined in:
+  - `modules/nixos/home-manager/rclone.nix`
+  - user service: `rclone-gdrive.service`
+  - remote name expected: `gdrive`
+  - mount point: `~/GoogleDrive`
+
+One-time OAuth setup (interactive):
+
+```sh
+rclone config
+```
+
+- Create remote name: `gdrive`
+- Storage type: `drive`
+
+Apply and test:
+
+```sh
+cd /home/rbright/Projects/nixos-config
+just switch omega
+systemctl --user daemon-reload
+systemctl --user enable --now rclone-gdrive.service
+systemctl --user status rclone-gdrive.service --no-pager
+ls ~/GoogleDrive
+thunar ~/GoogleDrive
 ```
 
 ## llama.cpp On `omega`

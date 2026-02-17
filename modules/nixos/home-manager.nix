@@ -24,6 +24,7 @@
           ./home-manager/appearance.nix
           ./home-manager/brave-profiles.nix
           ./home-manager/hyprland.nix
+          ./home-manager/rclone.nix
           ./home-manager/thunar.nix
           ./home-manager/vicinae.nix
           ./home-manager/dotfiles.nix
