@@ -1,5 +1,16 @@
 { pkgs, ... }:
 with pkgs;
+let
+  # Use the FHS variant for broad extension compatibility and force libsecret
+  # credential storage for stable Settings Sync/profile auth on Linux.
+  vscodeWithKeyring =
+    (vscode.override {
+      commandLineArgs = "--password-store=gnome-libsecret";
+    }).fhs;
+
+  # Local package until upstream lands in nixpkgs.
+  piCodingAgent = pkgs.callPackage ../../pkgs/pi-coding-agent { };
+in
 [
   # Browsers
   brave # Privacy-oriented browser for Desktop and Laptop computers
@@ -15,6 +26,7 @@ with pkgs;
   bun # Fast JavaScript runtime, package manager, and bundler
   claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
   codex # Lightweight coding agent that runs in your terminal
+  piCodingAgent # Minimal terminal coding harness for agentic engineering workflows
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   prek # Fast pre-commit hook runner and config manager
@@ -22,7 +34,7 @@ with pkgs;
   proxyman # Web debugging proxy
   tableplus # Cross-platform database management tool
   uv # Extremely fast Python package installer and resolver, written in Rust
-  vscode # Code editor developed by Microsoft
+  vscodeWithKeyring # VS Code in FHS mode with libsecret-backed credential storage
   zed-editor # High-performance, multiplayer code editor from the creators of Atom and Tree-sitter
   zulu17 # OpenJDK distribution (Java 17)
 

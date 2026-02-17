@@ -77,6 +77,8 @@ Package scope is intentionally split:
   - Built from:
     - shared baseline: `modules/shared/packages.nix`
     - OS-specific additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
+  - Local package note:
+    - `pi` is currently sourced from `pkgs/pi-coding-agent/default.nix` (upstream `badlogic/pi-mono`), since it is not yet in `nixpkgs`.
 - Host-specific hardware/system modules:
   - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
 
@@ -96,8 +98,10 @@ Zed and Neovim are intentionally unmanaged by Home Manager on NixOS. Their
 configs are managed via GNU Stow from `/home/rbright/Projects/dotfiles`
 (`omega.packages` contains `zed` and `neovim`).
 
-Credential persistence for Zed relies on GNOME Keyring (`services.gnome.gnome-keyring.enable = true`)
-to provide the Secret Service backend on NixOS.
+Credential persistence for Zed and VS Code profile sync relies on GNOME Keyring
+(`services.gnome.gnome-keyring.enable = true`) to provide the Secret Service backend on NixOS.
+VS Code is installed as an FHS-wrapped package with `--password-store=gnome-libsecret`
+to keep extension compatibility and credential storage reliable.
 
 To (re)stow Zed/Neovim config on `omega`:
 
