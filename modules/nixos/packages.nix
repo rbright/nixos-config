@@ -13,7 +13,8 @@ with pkgs;
   android-studio # Official IDE for Android development
   atlas # Manage your database schema as code
   bun # Fast JavaScript runtime, package manager, and bundler
-  codex # Codex CLI (sourced via codexCliNix overlay in hosts/omega/flake.nix)
+  claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
+  codex # Lightweight coding agent that runs in your terminal
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   prek # Fast pre-commit hook runner and config manager
