@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  nixPiAgent ? null,
+  ...
+}:
 with pkgs;
 let
   # Use the FHS variant for broad extension compatibility and force libsecret
@@ -8,8 +12,12 @@ let
       commandLineArgs = "--password-store=gnome-libsecret";
     }).fhs;
 
-  # Local package until upstream lands in nixpkgs.
-  piCodingAgent = pkgs.callPackage ../../pkgs/pi-coding-agent { };
+  # Use external flake package source of truth; keep a local fallback for safety.
+  piAgent =
+    if nixPiAgent != null then
+      nixPiAgent.packages.${pkgs.system}.pi-agent
+    else
+      pkgs.callPackage ../../pkgs/pi-coding-agent { };
 in
 [
   # Browsers
@@ -26,7 +34,7 @@ in
   bun # Fast JavaScript runtime, package manager, and bundler
   claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
   codex # Lightweight coding agent that runs in your terminal
-  piCodingAgent # Minimal terminal coding harness for agentic engineering workflows
+  piAgent # Minimal terminal coding harness for agentic engineering workflows
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   prek # Fast pre-commit hook runner and config manager

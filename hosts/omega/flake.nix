@@ -14,6 +14,10 @@
       url = "github:rbright/koko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixPiAgent = {
+      url = "github:rbright/nix-pi-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vicinaeExtensions = {
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +38,7 @@
       codexCliNix,
       home-manager,
       koko,
+      nixPiAgent,
       vicinaeExtensions,
       nixosModules,
       nixpkgs,
@@ -50,7 +55,10 @@
         specialArgs = {
           hostName = "omega";
           user = "rbright";
-          inherit vicinaeExtensions;
+          inherit
+            nixPiAgent
+            vicinaeExtensions
+            ;
         };
         modules = [
           home-manager.nixosModules.home-manager
