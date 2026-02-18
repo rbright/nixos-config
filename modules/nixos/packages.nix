@@ -14,6 +14,14 @@ let
 
   # External package source of truth.
   piAgent = nixPiAgent.packages.${pkgs.system}.pi-agent;
+
+  # Ensure btop can load NVIDIA NVML on NixOS hybrid/dGPU systems.
+  btopWithNvml = lib.hiPrio (
+    writeShellScriptBin "btop" ''
+      export LD_LIBRARY_PATH="/run/opengl-driver/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+      exec ${btop}/bin/btop "$@"
+    ''
+  );
 in
 [
   # Browsers
@@ -60,6 +68,7 @@ in
   # Utilities
   _1password-cli # Command-line client for 1Password
   _1password-gui # Desktop GUI for 1Password
+  btopWithNvml # Wrapped btop binary to expose NVIDIA NVML via /run/opengl-driver/lib
   ffmpeg # Multimedia toolkit (includes ffplay)
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton

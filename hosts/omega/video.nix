@@ -1,5 +1,9 @@
 { config, ... }:
 {
+  # Ensure NVIDIA UVM device nodes are present for apps that depend on them
+  # (eg. Zed GPU context init on hybrid systems).
+  boot.kernelModules = [ "nvidia_uvm" ];
+
   # NVIDIA-specific variables recommended for Wayland compositors.
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
