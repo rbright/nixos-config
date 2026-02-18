@@ -46,21 +46,21 @@ layout {
 
     tab name="o11y" split_direction="horizontal" {
         pane split_direction="vertical" {
-            pane name="btop-local" command="nu" {
+            pane name="btop-local" exclude_from_sync=true command="nu" {
                 args "-e" "zsh -lc 'if command -v btop >/dev/null 2>&1; then btop; else echo \"btop not available\"; fi'"
             }
-            pane name="docker-stats" command="nu" {
+            pane name="docker-stats" exclude_from_sync=true command="nu" {
                 args "-e" "zsh -lc 'if docker info >/dev/null 2>&1; then docker stats; else echo \"docker daemon unavailable\"; fi'"
             }
         }
         pane split_direction="vertical" {
-            pane name="htop-moonrise-00" command="nu" {
+            pane name="htop-moonrise-00" exclude_from_sync=true command="nu" {
                 args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-00 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-00 htop || echo \"ssh moonrise-labs-node-00 failed\"; else echo \"moonrise-labs-node-00 unavailable (DNS unresolved)\"; fi'"
             }
-            pane name="htop-moonrise-01" command="nu" {
+            pane name="htop-moonrise-01" exclude_from_sync=true command="nu" {
                 args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-01 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-01 htop || echo \"ssh moonrise-labs-node-01 failed\"; else echo \"moonrise-labs-node-01 unavailable (DNS unresolved)\"; fi'"
             }
-            pane name="htop-moonrise-02" command="nu" {
+            pane name="htop-moonrise-02" exclude_from_sync=true command="nu" {
                 args "-e" "zsh -lc 'if getent hosts moonrise-labs-node-02 >/dev/null 2>&1; then TERM=xterm-256color ssh -o ConnectTimeout=4 -t moonrise-labs-node-02 htop || echo \"ssh moonrise-labs-node-02 failed\"; else echo \"moonrise-labs-node-02 unavailable (DNS unresolved)\"; fi'"
             }
         }
