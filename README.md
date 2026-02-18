@@ -165,6 +165,7 @@ just switch omega
 **Default behavior highlights**
 
 - Launcher: `vicinae toggle` (bound to `CTRL + SPACE`)
+- Clipboard CLI: `wl-copy` / `wl-paste` from `modules/nixos/packages.nix`, shared with Vicinae history + Hypr screenshot copy flows
 - File manager: Thunar (`SUPER + E`)
 - Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
 - Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
