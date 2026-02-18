@@ -1,111 +1,138 @@
 # Multi-Host Nix Configuration
 
-This repository manages two hosts:
+This repository manages two host-specific Nix flakes:
 
 - `lambda`: macOS (`nix-darwin` + `home-manager` + `nix-homebrew`)
 - `omega`: NixOS (`nixosSystem` + `home-manager`)
 
-## Architecture
+## Start Here (Entrypoint)
 
-Each host owns its own flake and lock file:
+### Prerequisites
 
-- macOS host flake: `hosts/lambda/flake.nix`, `hosts/lambda/flake.lock`
-- NixOS host flake: `hosts/omega/flake.nix`, `hosts/omega/flake.lock`
+- Nix with flakes enabled (`nix --version`)
+- [`just`](https://github.com/casey/just) (`just --version`)
+- Git checkout of this repo
 
-OS policy remains reusable under modules:
+### First successful run (fast path)
 
-- Shared macOS modules: `modules/macos/`
-- Shared NixOS modules: `modules/nixos/`
-  - Program modules split under `modules/nixos/programs/`
-- Shared baseline modules: `modules/shared/default.nix`, `modules/shared/packages.nix`
-- Host entrypoints:
-  - `hosts/lambda/default.nix`
-  - `hosts/omega/default.nix`
-  - `hosts/omega/bluetooth.nix`
-  - `hosts/omega/boot.nix`
-  - `hosts/omega/configuration.nix`
-  - `hosts/omega/hardware-configuration.nix`
-  - `hosts/omega/video.nix`
+```sh
+just --list
+just build omega
+```
 
-Host outputs (no root flake composition):
+Success looks like:
 
-- `path:.?dir=hosts/lambda#darwinConfigurations.lambda`
-- `path:.?dir=hosts/omega#nixosConfigurations.omega`
+- `just --list` prints recipe groups (`bootstrap`, `nix`, `qa`)
+- `just build omega` exits with code `0`
 
-## Host Commands
+### First successful run on macOS host (`lambda`)
 
-Run `just --list` for the full command catalog.
+```sh
+just bootstrap lambda
+just build lambda
+just switch lambda
+```
+
+Success looks like:
+
+- bootstrap completes Xcode CLI tools + Nix install prompt flow
+- build/switch complete without evaluation errors
+
+> [!NOTE]
+> `just build lambda` requires a Darwin builder (`aarch64-darwin`). Running this on Linux fails by design.
+
+## Daily Command Reference
+
+Run `just --list` for the full catalog.
 
 | Operation | Lambda (macOS) | Omega (NixOS) |
 |---|---|---|
 | Build | `just build lambda` | `just build omega` |
 | Install / Switch | `just switch lambda` | `just switch omega` |
 | Install alias | `just install lambda` | `just install omega` |
+| Update host lockfile | `just update lambda` | `just update omega` |
+| Update one flake input | `just update-flake nixpkgs lambda` | `just update-flake nixpkgs omega` |
 | List generations | `just list lambda` | `just list omega` |
-| Rollback | `just rollback lambda <generation>` | `just rollback omega <generation>` |
+| Roll back generation | `just rollback lambda <generation>` | `just rollback omega <generation>` |
 | Clean old generations | `just clean lambda 30d` | `just clean omega 30d` |
 
-`just clean omega <older_than>` deletes old NixOS system generations, rebuilds boot entries, and then runs garbage collection. This is the path to reduce bootloader generation clutter on `omega`.
+`just clean omega <older_than>` deletes old generations, rebuilds boot entries, then runs GC.
 
-### Passwordless Rebuild On `omega`
+## Validation, CI, and Contributor Loop
 
-`modules/nixos/sudo.nix` grants `NOPASSWD` for:
+### Local validation
 
-- `/run/current-system/sw/bin/nixos-rebuild`
+```sh
+just fmt-check
+just lint
+just build omega
+```
 
-This removes the sudo password prompt for `just switch omega` while keeping
-password prompts for unrelated privileged commands.
+If you changed `lambda`-scoped config, also run:
 
-## Flake Management
+```sh
+just build lambda
+```
 
-- Update one host only:
-  - `just update lambda`
-  - `just update omega`
-- Update a specific input in one host:
-  - `just update-flake nixpkgs omega`
-  - `just update-flake home-manager lambda`
+### CI parity
 
-## Package Layers
+GitHub Actions (`.github/workflows/lint.yml`) runs:
 
-Package scope is intentionally split:
+```sh
+nix run nixpkgs#just -- lint
+```
 
-- System packages (`environment.systemPackages`):
-  - Keep this minimal and OS-admin focused.
+### Pre-commit
+
+```sh
+prek install
+prek run -a
+```
+
+Success looks like:
+
+- no `statix`/`deadnix`/`nixfmt` failures
+- clean exit code (`0`)
+
+## Architecture and Source of Truth
+
+| Concern | Authoritative source |
+|---|---|
+| Command surface | `justfile` |
+| macOS host flake/lock | `hosts/lambda/flake.nix`, `hosts/lambda/flake.lock` |
+| NixOS host flake/lock | `hosts/omega/flake.nix`, `hosts/omega/flake.lock` |
+| Shared Nix policy | `modules/shared/` |
+| macOS modules | `modules/macos/` |
+| NixOS modules | `modules/nixos/` |
+| NixOS Home Manager wiring | `modules/nixos/home-manager.nix` |
+| NixOS dotfile declarations | `modules/nixos/home-manager/dotfiles.nix` + `modules/nixos/home-manager/dotfiles/` |
+| Local `pi` package | `pkgs/pi-coding-agent/package.nix` |
+
+Host outputs:
+
+- `path:.?dir=hosts/lambda#darwinConfigurations.lambda`
+- `path:.?dir=hosts/omega#nixosConfigurations.omega`
+
+### Package layering
+
+- System packages (`environment.systemPackages`): minimal, OS-admin focused
   - Example: `modules/nixos/system-packages.nix`
-- Home Manager packages (`home.packages`):
-  - Primary user-facing CLI/GUI package layer.
-  - Built from:
-    - shared baseline: `modules/shared/packages.nix`
-    - OS-specific additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
-  - Local package note:
-    - `pi` is currently sourced from `pkgs/pi-coding-agent/package.nix` (upstream `badlogic/pi-mono`), since it is not yet in `nixpkgs`.
-    - `pkgs/pi-coding-agent/` is extraction-ready and includes its own `flake.nix`, updater, and scaffold helper (`pkgs/pi-coding-agent/scripts/scaffold-standalone.sh` + `pkgs/pi-coding-agent/EXTRACTION.md`).
-    - Refresh local pi package pin + hashes via `just update-pi` (or `just update-pi 0.53.0`).
-- Host-specific hardware/system modules:
-  - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
+- User packages (`home.packages`): daily CLI/GUI tools
+  - shared baseline: `modules/shared/packages.nix`
+  - OS additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
+- Local `pi` package workflow:
+  - package: `pkgs/pi-coding-agent/package.nix`
+  - update: `just update-pi` or `just update-pi 0.53.0`
+  - standalone packaging docs: `pkgs/pi-coding-agent/README.md`
 
-## NixOS Dotfiles
+### NixOS dotfiles scope
 
-NixOS dotfiles (except Zed and Neovim) are vendored in this repository and sourced by
-Home Manager using native config files:
+Most NixOS dotfiles are vendored under:
 
-- Dotfile source root:
-  - `modules/nixos/home-manager/dotfiles/`
-- Home Manager module:
-  - `modules/nixos/home-manager/dotfiles.nix`
-- Wiring:
-  - `modules/nixos/home-manager.nix` (applies to NixOS hosts)
+- `modules/nixos/home-manager/dotfiles/`
+- wired by `modules/nixos/home-manager/dotfiles.nix`
 
-Zed and Neovim are intentionally unmanaged by Home Manager on NixOS. Their
-configs are managed via GNU Stow from `/home/rbright/Projects/dotfiles`
-(`omega.packages` contains `zed` and `neovim`).
-
-Credential persistence for Zed and VS Code profile sync relies on GNOME Keyring
-(`services.gnome.gnome-keyring.enable = true`) to provide the Secret Service backend on NixOS.
-VS Code is installed as an FHS-wrapped package with `--password-store=gnome-libsecret`
-to keep extension compatibility and credential storage reliable.
-
-To (re)stow Zed/Neovim config on `omega`:
+Zed and Neovim remain intentionally external (GNU Stow in `/home/rbright/Projects/dotfiles`):
 
 ```sh
 cd /home/rbright/Projects/dotfiles
@@ -113,188 +140,100 @@ STOW_FLAGS="-nv" just install omega
 just install omega
 ```
 
-Then apply the NixOS config from this repository:
+Then re-apply this repo's host config:
 
 ```sh
 cd /home/rbright/Projects/nixos-config
 just switch omega
 ```
 
-## Hyprland On `omega`
+## Omega Runtime Runbooks (Optional Depth)
 
-Hyprland is configured in two layers:
+<details>
+<summary><strong>Hyprland desktop (`omega`)</strong></summary>
 
-- System/session enablement: `modules/nixos/desktop.nix`
-- Package/runtime wiring: `modules/nixos/home-manager/hyprland.nix`
-- Native config files (dotfiles):
-  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hyprland.conf`
-  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/scripts/app-dispatch.sh`
-  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/{config,style.css}`
-  - `modules/nixos/home-manager/dotfiles/mako/.config/mako/config`
+**Authoritative files**
 
-Default behavior:
+- Session/system enablement: `modules/nixos/desktop.nix`
+- Home Manager package/runtime wiring: `modules/nixos/home-manager/hyprland.nix`
+- Dotfiles root: `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/`
+- Waybar config:
+  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/config.jsonc`
+  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/modules.jsonc`
+  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/style.css`
 
-- `kitty` is installed.
-- `vicinae` is configured as the default app launcher (`$launcher = vicinae toggle` in Hyprland variables).
-- Vicinae daemon setup follows official NixOS guidance via Home Manager:
-  - `modules/nixos/home-manager/vicinae.nix` enables `programs.vicinae`
-  - user service auto-start is managed by `programs.vicinae.systemd.enable = true`
-  - baseline settings from `https://docs.vicinae.com/nixos#configuring-with-home-manager`
-  - extensions enabled: `bluetooth`, `nix`, `power-profile`
-  - dark theme baseline: `catppuccin-mocha`
-  - clipboard history is pinned in favorites (`clipboard:history`)
-- `gnome-control-center` is installed so GNOME Settings can be launched from Hyprland.
-- `waybar`, `mako`, `hyprpaper`, and `hypridle` are launched at Hyprland startup.
-- Hyprpaper is launched with explicit config path
-  (`hyprpaper -c ~/.config/hypr/hyprpaper.conf`) and pins
-  `~/.config/hypr/wallpapers/cat-waves-mocha.png` to all connected monitors.
-- Hyprlock and Hypridle are configured declaratively via:
-  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hyprlock.conf`
-  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/hypridle.conf`
-  - idle policy: lock at 5 min, DPMS off at 5.5 min, no auto-suspend.
-- Main monitor (`DP-5`, AW3225QF) is pinned to `3840x2160@239.99`.
-- Waybar workspace buttons are rendered as compact numeric labels (`1..10`).
-- Waybar center clock shows localized date + time (`%B %d @ %H:%M`).
-- Waybar module clicks:
-  - network: `nm-connection-editor` (fallback: `wezterm -e nmtui`)
-  - audio: `hyprpwcenter` (fallback: `pavucontrol`, then `wpctl ... toggle mute`)
-  - bluetooth: `blueman-manager` (fallback: `wezterm -e bluetoothctl`)
-- Waybar right modules include tray, bluetooth, network, audio, and battery.
-- GNOME Calendar is installed and set as the default calendar handler for
-  `webcal` and `.ics` links via `xdg.mimeApps`.
-- GNOME Online Accounts and Evolution Data Server system daemons are enabled
-  (`services.gnome.gnome-online-accounts`, `services.gnome.evolution-data-server`)
-  so GNOME Calendar can sync connected providers under Hyprland.
-- `greetd` with ReGreet is the login manager for `omega`:
-  - launched through `cage` by `programs.regreet` defaults
-  - themed with Catppuccin + IBM Plex Sans to align with Hyprlock styling
-  - configured to prefer the UWSM Hyprland session path by hiding the plain
-    `hyprland.desktop` entry in ReGreet session discovery
-  - ReGreet state cache (`/var/lib/regreet/state.toml`) remembers last user and
-    session selection between logins
-- Waybar and Mako typography use `IBM Plex Sans` with:
-  - Waybar: `16px`
-  - Mako: `12`
-- GTK icon theme uses Catppuccin-tinted Papirus folders (`catppuccin-papirus-folders`)
-  while keeping the `Papirus-Dark` theme name for compatibility.
-- Cursor theme is declarative in `modules/nixos/home-manager/hyprland.nix` via
-  `home.pointerCursor` (`catppuccin-mocha-blue-cursors`, size `24` by default).
-- `Caps Lock` is remapped to Hyper via XKB option `caps:hyper`.
-- Key repeat is tuned faster (`repeat_rate = 55`, `repeat_delay = 250`).
-- GTK/GNOME interface font baseline is `Inter 11` (configured in
-  `modules/nixos/home-manager/appearance.nix`) to keep app chrome text from
-  rendering oversized.
-- Hyper app bindings are used only for app focus/launch:
-  - `Hyper + <key>`: focus/switch to app window if present, otherwise launch.
-  - `Hyper + Shift + <same key>`: launch a new window/instance for that app.
-  - `Hyper + F` targets GNOME Calendar (`gnome-calendar`) on workspace `8`.
-- Activation requests are followed across workspaces (`misc.focus_on_activate = true`)
-  so opening/activating an app window jumps to the workspace containing it.
-- Brave context split is declarative and profile-safe:
-  - `brave-personal` uses `~/.config/BraveSoftware/Brave-Browser`.
-  - `brave-work` uses `~/.config/BraveSoftware/Brave-Browser-Work`.
-  - default browser handlers (`http`, `https`, `text/html`) prefer `brave-personal`.
-  - Hypr web-app launchers (`todoist`, `linear`, `messages`,
-    `agent-monitor`, and mail fallback) launch with `brave-work`.
-- AeroSpace-like workspace model is defined and persisted:
-  - `1` (general), `2` (code), `3` (dev tools), `4` (notes/office),
-    `5` (planning), `6` (trading), `7` (messaging), `8` (calendar),
-    `9` (agent monitor), `10` (terminal)
-  - Workspace-to-monitor split mirrors AeroSpace:
-    - `1..8` are pinned to the main monitor.
-    - `9..10` are pinned to the secondary monitor.
-  - `Alt + 1..0` switches workspaces; `Alt + Shift + 1..0` moves windows.
-- Keybind scope is intentionally minimal:
-  - app launch/focus (`Hyper`)
-  - workspace switching/move (`Alt + 1..0`)
-  - window management (`Super + H/J/K/L` focus, `Super + Shift + H/J/K/L` move)
-  - screenshots (`Super + Shift + 3/4/5`)
-- `Super + [` and `Super + ]` send `Ctrl+Shift+Tab` and `Ctrl+Tab` to provide
-  consistent tab navigation in Brave, Zed, and other tabbed apps.
-- Catppuccin palette sources are vendored:
-  - `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/themes/catppuccin.css`
-  - `modules/nixos/home-manager/dotfiles/hypr/.config/hypr/themes/catppuccin/colors.toml`
-- Hyprland layout is configured with zero outer/inner gaps to avoid wallpaper
-  space at screen edges.
-- GTK file dialogs are forced dark via Catppuccin GTK theme + `prefer-dark`
-  interface setting + GTK portal backend.
-- Thunar is configured declaratively for `omega`:
-  - system enablement via `modules/nixos/programs/thunar.nix`
-  - default directory handler via `modules/nixos/home-manager/thunar.nix`
-  - preferred startup view set to `ThunarDetailsView` (List/Details mode)
-- Utility keybinds remain in place:
-  - `SUPER + Return`: open `wezterm`
-  - `SUPER + P`: open color picker (`hyprpicker -a -f hex`)
-  - `SUPER + Space` (and fallback `CTRL + Space`): open launcher (`vicinae toggle`)
-  - `ALT + SUPER + C`: open Vicinae clipboard history (`vicinae://extensions/vicinae/clipboard/history`)
-  - `HYPER + G`: open GNOME Settings (`gnome-control-center`)
-  - `CTRL + ALT + SUPER + L`: lock screen (`hyprlock`)
-  - `CTRL + ALT + SUPER + E`: open Vicinae emoji picker
-    (`vicinae://extensions/vicinae/emoji/search`)
-  - `SUPER + Shift + 3`: full screenshot to `~/Pictures/Screenshots`
-  - `SUPER + Shift + 4`: region screenshot to `~/Pictures/Screenshots`
-  - `SUPER + Shift + 5`: region screenshot to clipboard
-  - `SUPER + Q`: close active window
-  - `SUPER + Shift + R`: restart Waybar + Mako, then reload Hyprland config
-  - `SUPER + Shift + M`: exit Hyprland session
+**Default behavior highlights**
 
-Connect online accounts for GNOME Calendar:
+- Launcher: `vicinae toggle` (bound to `CTRL + SPACE`)
+- File manager: Thunar (`SUPER + E`)
+- Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
+- Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
+- Waybar center clock: `%H:%M`
+- Waybar right modules: tray expander, audio, bluetooth, network, CPU, memory
+- Keyring + sync support: `services.gnome.gnome-keyring.enable = true`
+- GNOME Online Accounts helper command:
 
 ```sh
 gnome-online-accounts-settings
 ```
 
-## 1Password SSH Agent On `omega`
+**High-signal keybinds**
 
-- NixOS SSH client is configured to use 1Password agent socket:
-  - `modules/nixos/ssh.nix` sets:
-    - `Host *`
-    - `IdentityAgent ~/.1password/agent.sock`
-- NixOS Git config is defined natively via Home Manager module wiring:
-  - `modules/nixos/programs/git.nix`
-  - `gpg.format = ssh`
-  - `user.signingKey = ~/.ssh/id_ed25519.pub`
-  - `gpg.ssh.program = ssh-keygen`
-  - `gpg.ssh.allowedSignersFile = ~/.ssh/allowed_signers`
-  - push safety defaults for branch workflows:
-    - `push.default = current`
-    - `push.autoSetupRemote = true`
-    - `branch.autoSetupMerge = simple`
+| Shortcut | Action |
+|---|---|
+| `CTRL + SPACE` | Open Vicinae launcher |
+| `ALT + SUPER + C` | Open Vicinae clipboard history |
+| `CTRL + ALT + SUPER + E` | Open Vicinae emoji search |
+| `SUPER + Shift + 3/4/5` | Full save / region save / region to clipboard screenshot |
+| `ALT + 1..0` | Switch workspace |
+| `ALT + Shift + 1..0` | Move window to workspace |
+| `Hyper + <key>` | Focus app (or launch if missing) |
+| `Hyper + Shift + <key>` | Launch new app instance |
+| `SUPER + [` / `SUPER + ]` | Send browser/editor tab back/forward shortcuts |
 
-In 1Password desktop app, enable SSH agent integration:
+**Verification commands**
 
-- `Settings` -> `Developer` -> `Use the SSH agent`
+```sh
+just switch omega
+hyprctl -j configerrors | jq .
+just hypr-smoke
+```
 
-Create `~/.ssh/allowed_signers` for local signature verification:
+</details>
+
+<details>
+<summary><strong>1Password SSH agent + Git signing (`omega`)</strong></summary>
+
+**Authoritative files**
+
+- SSH agent socket config: `modules/nixos/ssh.nix`
+- Git config: `modules/nixos/programs/git.nix`
+
+**Workflow**
+
+1. Enable SSH agent in 1Password Desktop:
+   - `Settings -> Developer -> Use the SSH agent`
+2. Ensure allowed signers file exists:
 
 ```sh
 printf '%s %s\n' "$(git config user.email)" "$(cat ~/.ssh/id_ed25519.pub)" > ~/.ssh/allowed_signers
 chmod 600 ~/.ssh/allowed_signers
 ```
 
-## Tailscale SSH On `omega`
+Success looks like: Git can sign commits with SSH format and `IdentityAgent ~/.1password/agent.sock` is active.
 
-- NixOS host config enables Tailscale + Tailscale SSH in:
-  - `modules/nixos/tailscale.nix`
-  - `services.tailscale.enable = true`
-  - `services.tailscale.openFirewall = true`
-  - `services.tailscale.extraSetFlags = [ "--ssh=true" ]`
+</details>
 
-One-time onboarding on `omega`:
+<details>
+<summary><strong>Tailscale SSH (`omega`)</strong></summary>
+
+**Authoritative file**: `modules/nixos/tailscale.nix`
+
+Apply + onboard:
 
 ```sh
-cd /home/rbright/Projects/nixos-config
 just switch omega
-```
-
-Then authenticate the node with one of:
-
-```sh
-# Interactive auth flow (prints login URL)
 sudo tailscale up --ssh
-
-# Admin-issued machine key flow
-sudo tailscale up --ssh --auth-key 'tskey-...'
 ```
 
 Verify:
@@ -304,83 +243,74 @@ tailscale status --self
 tailscale ip -4
 ```
 
-Connect from another tailnet device:
+Success looks like: node is online and reachable via `ssh rbright@omega` from another tailnet device.
 
-- macOS OpenSSH client:
-  - `ssh rbright@omega`
-- Android Termius:
-  - Ensure Android Tailscale app is connected first.
-  - Target host `omega` (MagicDNS) or the `100.x.y.z` address from `tailscale ip -4`.
+</details>
 
-After `omega` connectivity is confirmed, macOS host OpenSSH can be removed.
+<details>
+<summary><strong>UniFi Drive NFS mount (`omega`)</strong></summary>
 
-## UniFi Drive NFS On `omega`
+**Authoritative file**: `hosts/omega/nas.nix`
 
-- NFS client support and mount wiring are defined in:
-  - `hosts/omega/nas.nix`
-  - mount point: `/mnt/unifi-drive`
-  - mount type: `nfs` with `nofail` + `x-systemd.automount` safety options
-- Current UniFi shared-drive export target:
-  - `192.168.31.119:/var/nfs/shared/Shared`
-  - this follows UniFi's Linux NFS path format for Shared Drives.
+Current mount target:
 
-Apply and test:
+- mount point: `/mnt/unifi-drive`
+- export: `192.168.31.119:/volume/3351ce27-74cc-4650-8150-68d70281a854/.srv/.unifi-drive/Shared/.data`
+
+Apply + test:
 
 ```sh
-cd /home/rbright/Projects/nixos-config
 just switch omega
 sudo mount -v /mnt/unifi-drive
 ls /mnt/unifi-drive
 thunar /mnt/unifi-drive
 ```
 
-## Google Drive via rclone on `omega`
+Success looks like: directory listing works and mount is browseable in Thunar.
 
-- Declarative rclone mount service is defined in:
-  - `modules/nixos/home-manager/rclone.nix`
-  - user service: `rclone-gdrive.service`
-  - remote name expected: `gdrive`
-  - mount point: `~/GoogleDrive`
+</details>
 
-One-time OAuth setup (interactive):
+<details>
+<summary><strong>Google Drive via rclone (`omega`)</strong></summary>
+
+**Authoritative file**: `modules/nixos/home-manager/rclone.nix`
+
+One-time OAuth setup:
 
 ```sh
 rclone config
 ```
 
-- Create remote name: `gdrive`
-- Storage type: `drive`
+- Remote name must be `gdrive`
 
-Apply and test:
+Apply + test:
 
 ```sh
-cd /home/rbright/Projects/nixos-config
 just switch omega
 systemctl --user daemon-reload
 systemctl --user enable --now rclone-gdrive.service
 systemctl --user status rclone-gdrive.service --no-pager
 ls ~/GoogleDrive
-thunar ~/GoogleDrive
 ```
 
-## llama.cpp On `omega`
+Success looks like: `rclone-gdrive.service` is active and `~/GoogleDrive` is mounted.
 
-- NixOS host config enables managed llama.cpp service in:
-  - `modules/nixos/llama-cpp.nix`
-  - `services.llama-cpp.enable = true`
-  - `services.llama-cpp.package = pkgs.llama-cpp.override { cudaSupport = true; }`
-  - `services.llama-cpp.modelsDir = /var/lib/llama-cpp/models`
+</details>
 
-Apply and verify on `omega`:
+<details>
+<summary><strong>llama.cpp service + helpers (`omega`)</strong></summary>
+
+**Authoritative file**: `modules/nixos/llama-cpp.nix`
+
+Apply + verify:
 
 ```sh
-cd /home/rbright/Projects/nixos-config
 just switch omega
 systemctl status llama-cpp.service --no-pager
 curl -s http://127.0.0.1:11434/v1/models | jq .
 ```
 
-Populate the model directory with GGUF files:
+Populate model directory:
 
 ```sh
 sudo install -d -m 0755 /var/lib/llama-cpp/models
@@ -388,13 +318,7 @@ sudo cp /path/to/*.gguf /var/lib/llama-cpp/models/
 sudo systemctl restart llama-cpp.service
 ```
 
-Live service logs:
-
-```sh
-journalctl -u llama-cpp.service -f
-```
-
-Nushell command helpers (after `just switch omega`):
+Helper commands (after switch):
 
 ```sh
 llm start
@@ -408,28 +332,35 @@ llm logs
 llm logs --follow
 ```
 
-## QA
+</details>
 
-Tooling comes from host-specific flakes:
+## Troubleshooting
 
-- `just fmt`
-- `just fmt-check`
-- `just lint`
-- `just hypr-smoke` (runtime Hyprland smoke test)
-  - Run after `just switch omega` from inside an active Hyprland session.
+- **`just build lambda` fails on Linux with `required system ... aarch64-darwin`**
+  - Expected when not on macOS/Darwin builder.
+- **`just hypr-smoke` reports launcher/tab bind failures**
+  - The script currently checks `SUPER + SPACE` and strict `sendshortcut` args.
+  - Current config uses `CTRL + SPACE` and runtime-normalized `sendshortcut` args.
+  - Use the script’s manual E2E checklist section for runtime confirmation.
+- **NFS mount does not resolve**
+  - Verify export path from UniFi host:
+    ```sh
+    showmount -e 192.168.31.119
+    ```
+  - Update `hosts/omega/nas.nix` if UniFi export path changed.
+- **`rclone-gdrive.service` does not start**
+  - Confirm config exists at `~/.config/rclone/rclone.conf` and includes remote `gdrive`.
+- **`just lint` fails on warnings**
+  - `statix` warnings are treated as failures in the current lint recipe.
 
-On macOS these run via `path:.?dir=hosts/lambda`; on Linux they run via `path:.?dir=hosts/omega`.
+## Additional Documentation
 
-Pre-commit hooks are defined in `.pre-commit-config.yaml` and currently run `just lint` before each commit:
-
-```sh
-prek install
-prek run -a
-```
+- Local `pi` package guide: `pkgs/pi-coding-agent/README.md`
+- Standalone extraction checklist: `pkgs/pi-coding-agent/EXTRACTION.md`
 
 ## Directory Structure
 
-```sh
+```text
 nixos-config/
 ├── hosts/
 │   ├── lambda/
@@ -444,17 +375,20 @@ nixos-config/
 │       ├── flake.lock
 │       ├── flake.nix
 │       ├── hardware-configuration.nix
+│       ├── nas.nix
+│       ├── thunderbolt.nix
 │       └── video.nix
 ├── justfile
-└── modules/
-    ├── macos/
-    │   └── ...
-    ├── nixos/
-    │   ├── programs/
-    │   │   ├── default.nix
-    │   │   └── ...
-    │   └── ...
-    └── shared/
-        ├── default.nix
-        └── packages.nix
+├── modules/
+│   ├── macos/
+│   ├── nixos/
+│   │   ├── home-manager/
+│   │   └── programs/
+│   └── shared/
+└── pkgs/
+    └── pi-coding-agent/
 ```
+
+## Ownership / Help
+
+For doc or workflow drift, open a PR in this repository and update the nearest authoritative source (`justfile`, module, or package README) in the same change.
