@@ -1,6 +1,6 @@
 {
   pkgs,
-  nixPiAgent ? null,
+  nixPiAgent,
   ...
 }:
 with pkgs;
@@ -12,12 +12,8 @@ let
       commandLineArgs = "--password-store=gnome-libsecret";
     }).fhs;
 
-  # Use external flake package source of truth; keep a local fallback for safety.
-  piAgent =
-    if nixPiAgent != null then
-      nixPiAgent.packages.${pkgs.system}.pi-agent
-    else
-      pkgs.callPackage ../../pkgs/pi-coding-agent { };
+  # External package source of truth.
+  piAgent = nixPiAgent.packages.${pkgs.system}.pi-agent;
 in
 [
   # Browsers

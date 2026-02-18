@@ -12,7 +12,7 @@ Ship safe, host-aware Nix changes that stay easy to review, verify, and roll bac
 
 - **Repo-wide rules:** this file (`AGENTS.md`)
 - **Dotfiles runtime rules:** `modules/nixos/home-manager/dotfiles/AGENTS.md`
-- **pi-agent package source:** `https://github.com/rbright/nix-pi-agent` (legacy local fallback: `pkgs/pi-coding-agent/AGENTS.md`)
+- **pi-agent package source:** `https://github.com/rbright/nix-pi-agent`
 - **User-facing workflows/commands:** `README.md` and `justfile`
 - **Task execution artifacts:** `PLAN.md` and `SESSION.md`
 

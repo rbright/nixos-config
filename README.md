@@ -356,8 +356,6 @@ llm logs --follow
 ## Additional Documentation
 
 - `pi-agent` package repository: `https://github.com/rbright/nix-pi-agent`
-- Legacy local package guide: `pkgs/pi-coding-agent/README.md`
-- Legacy extraction checklist: `pkgs/pi-coding-agent/EXTRACTION.md`
 
 ## Directory Structure
 
@@ -380,14 +378,12 @@ nixos-config/
 │       ├── thunderbolt.nix
 │       └── video.nix
 ├── justfile
-├── modules/
-│   ├── macos/
-│   ├── nixos/
-│   │   ├── home-manager/
-│   │   └── programs/
-│   └── shared/
-└── pkgs/
-    └── pi-coding-agent/
+└── modules/
+    ├── macos/
+    ├── nixos/
+    │   ├── home-manager/
+    │   └── programs/
+    └── shared/
 ```
 
 ## Ownership / Help

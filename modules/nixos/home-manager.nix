@@ -1,5 +1,6 @@
 {
   user,
+  nixPiAgent,
   vicinaeExtensions,
   ...
 }:
@@ -32,7 +33,9 @@
 
         home = {
           enableNixpkgsReleaseCheck = false;
-          packages = (pkgs.callPackage ../shared/packages.nix { }) ++ (pkgs.callPackage ./packages.nix { });
+          packages =
+            (pkgs.callPackage ../shared/packages.nix { })
+            ++ (pkgs.callPackage ./packages.nix { inherit nixPiAgent; });
           stateVersion = "25.11";
         };
 
