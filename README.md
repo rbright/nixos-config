@@ -169,7 +169,9 @@ just switch omega
 - Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
 - Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
 - Waybar center clock: `%H:%M`
-- Waybar right modules: tray expander, audio, bluetooth, network, CPU, memory
+- Waybar right modules: tray expander, audio, bluetooth, network, CPU, GPU, memory
+- btop default boxes include `gpu0 gpu1` (hybrid iGPU+dGPU systems can expose both slots without manual toggles)
+- Moonrise Zellij `o11y` panes are marked `exclude_from_sync=true` to avoid mirrored input fan-out
 - Keyring + sync support: `services.gnome.gnome-keyring.enable = true`
 - GNOME Online Accounts helper command:
 
