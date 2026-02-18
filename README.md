@@ -78,7 +78,9 @@ Package scope is intentionally split:
     - shared baseline: `modules/shared/packages.nix`
     - OS-specific additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
   - Local package note:
-    - `pi` is currently sourced from `pkgs/pi-coding-agent/default.nix` (upstream `badlogic/pi-mono`), since it is not yet in `nixpkgs`.
+    - `pi` is currently sourced from `pkgs/pi-coding-agent/package.nix` (upstream `badlogic/pi-mono`), since it is not yet in `nixpkgs`.
+    - `pkgs/pi-coding-agent/` is extraction-ready and includes its own `flake.nix`, updater, and scaffold helper (`pkgs/pi-coding-agent/scripts/scaffold-standalone.sh` + `pkgs/pi-coding-agent/EXTRACTION.md`).
+    - Refresh local pi package pin + hashes via `just update-pi` (or `just update-pi 0.53.0`).
 - Host-specific hardware/system modules:
   - Keep hardware and boot choices in host files (for example `hosts/omega/configuration.nix`).
 
@@ -186,6 +188,8 @@ Default behavior:
   - `Hyper + <key>`: focus/switch to app window if present, otherwise launch.
   - `Hyper + Shift + <same key>`: launch a new window/instance for that app.
   - `Hyper + F` targets GNOME Calendar (`gnome-calendar`) on workspace `8`.
+- Activation requests are followed across workspaces (`misc.focus_on_activate = true`)
+  so opening/activating an app window jumps to the workspace containing it.
 - Brave context split is declarative and profile-safe:
   - `brave-personal` uses `~/.config/BraveSoftware/Brave-Browser`.
   - `brave-work` uses `~/.config/BraveSoftware/Brave-Browser-Work`.
@@ -252,6 +256,10 @@ gnome-online-accounts-settings
   - `user.signingKey = ~/.ssh/id_ed25519.pub`
   - `gpg.ssh.program = ssh-keygen`
   - `gpg.ssh.allowedSignersFile = ~/.ssh/allowed_signers`
+  - push safety defaults for branch workflows:
+    - `push.default = current`
+    - `push.autoSetupRemote = true`
+    - `branch.autoSetupMerge = simple`
 
 In 1Password desktop app, enable SSH agent integration:
 
