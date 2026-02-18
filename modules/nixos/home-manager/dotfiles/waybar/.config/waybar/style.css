@@ -43,6 +43,7 @@
 #network,
 #bluetooth,
 #cpu,
+#custom-gpu,
 #memory {
     font-family:
         "Symbols Nerd Font Mono", "JetBrainsMono Nerd Font", "IBM Plex Sans";
@@ -60,6 +61,7 @@
 #bluetooth,
 #network,
 #cpu,
+#custom-gpu,
 #memory {
     margin-right: 14px;
     padding: 0 2px;
@@ -67,6 +69,7 @@
 }
 
 #cpu,
+#custom-gpu,
 #memory {
     min-width: 64px;
 }

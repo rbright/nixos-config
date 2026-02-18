@@ -123,6 +123,13 @@
     "tooltip": true,
     "tooltip-format": "CPU usage: {usage}%\\nCores: {cores}"
   },
+  "custom/gpu": {
+    "exec": "~/.config/waybar/scripts/gpu-usage.sh",
+    "return-type": "json",
+    "format": "{} 󰢮",
+    "tooltip": true,
+    "interval": 3
+  },
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,
