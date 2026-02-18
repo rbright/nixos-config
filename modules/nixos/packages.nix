@@ -56,6 +56,7 @@ in
   # Utilities
   _1password-cli # Command-line client for 1Password
   _1password-gui # Desktop GUI for 1Password
+  ffmpeg # Multimedia toolkit (includes ffplay)
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton
   realvnc-vnc-viewer # Remote desktop viewing application
