@@ -10,6 +10,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    koko = {
+      url = "github:rbright/koko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vicinaeExtensions = {
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +33,7 @@
     {
       codexCliNix,
       home-manager,
+      koko,
       vicinaeExtensions,
       nixosModules,
       nixpkgs,
@@ -49,10 +54,12 @@
         };
         modules = [
           home-manager.nixosModules.home-manager
+          koko.nixosModules.default
           {
             nixpkgs.overlays = [
               codexCliNix.overlays.default
             ];
+            programs.koko.enable = true;
           }
           sharedModules.outPath
           nixosModules.outPath

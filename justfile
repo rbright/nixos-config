@@ -114,12 +114,12 @@ build host=default_host:
 # Install nix configuration
 [group('nix')]
 install host=default_host:
-    just switch {{ host }}
+    @just switch {{ host }}
 
 # Switch the active host configuration
 [group('nix')]
 switch host=default_host:
-    if [[ "{{ host }}" == "lambda" ]]; then \
+    @if [[ "{{ host }}" == "lambda" ]]; then \
       rm -f ./result; \
       nix build '{{ macos_flake }}#darwinConfigurations.lambda.system' && \
       sudo ./result/sw/bin/darwin-rebuild switch --flake '{{ macos_flake }}#lambda'; \
