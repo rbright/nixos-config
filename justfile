@@ -86,7 +86,7 @@ update-flake flake host=default_host:
       exit 1; \
     fi
 
-# Update local pi-coding-agent package version and hashes
+# Update legacy local pi-coding-agent fallback package version and hashes
 [group('nix')]
 update-pi version="":
     if [[ -n "{{ version }}" ]]; then \

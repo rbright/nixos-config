@@ -106,7 +106,7 @@ Success looks like:
 | NixOS modules | `modules/nixos/` |
 | NixOS Home Manager wiring | `modules/nixos/home-manager.nix` |
 | NixOS dotfile declarations | `modules/nixos/home-manager/dotfiles.nix` + `modules/nixos/home-manager/dotfiles/` |
-| Local `pi` package | `pkgs/pi-coding-agent/package.nix` |
+| `pi-agent` package source | `github:rbright/nix-pi-agent` (wired in `hosts/omega/flake.nix`) |
 
 Host outputs:
 
@@ -120,10 +120,10 @@ Host outputs:
 - User packages (`home.packages`): daily CLI/GUI tools
   - shared baseline: `modules/shared/packages.nix`
   - OS additions: `modules/macos/packages.nix`, `modules/nixos/packages.nix`
-- Local `pi` package workflow:
-  - package: `pkgs/pi-coding-agent/package.nix`
-  - update: `just update-pi` or `just update-pi 0.53.0`
-  - standalone packaging docs: `pkgs/pi-coding-agent/README.md`
+- `pi-agent` package workflow:
+  - source repository: `https://github.com/rbright/nix-pi-agent`
+  - flake input wiring: `hosts/omega/flake.nix` (`inputs.nixPiAgent`)
+  - package consumption: `modules/nixos/packages.nix`
 
 ### NixOS dotfiles scope
 
@@ -355,8 +355,9 @@ llm logs --follow
 
 ## Additional Documentation
 
-- Local `pi` package guide: `pkgs/pi-coding-agent/README.md`
-- Standalone extraction checklist: `pkgs/pi-coding-agent/EXTRACTION.md`
+- `pi-agent` package repository: `https://github.com/rbright/nix-pi-agent`
+- Legacy local package guide: `pkgs/pi-coding-agent/README.md`
+- Legacy extraction checklist: `pkgs/pi-coding-agent/EXTRACTION.md`
 
 ## Directory Structure
 
