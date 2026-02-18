@@ -15,6 +15,7 @@ in
     packages =
       with pkgs;
       [
+        # wl-clipboard is provided by the shared user package set in modules/nixos/packages.nix.
         btop
         blueman
         evolution-data-server
@@ -32,7 +33,6 @@ in
         pavucontrol
         slurp
         waybar
-        wl-clipboard
       ]
       ++ [
         gnomeOnlineAccountsSettings

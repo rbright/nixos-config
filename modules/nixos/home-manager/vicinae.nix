@@ -41,6 +41,7 @@
       };
 
       # Keep clipboard history pinned in root for quicker access.
+      # This reads the same compositor clipboard that `wl-copy` / `wl-paste` use.
       favorites = [ "clipboard:history" ];
     };
 

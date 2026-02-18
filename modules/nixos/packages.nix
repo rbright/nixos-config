@@ -73,4 +73,5 @@ in
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton
   realvnc-vnc-viewer # Remote desktop viewing application
+  wl-clipboard # Wayland clipboard CLI (`wl-copy`/`wl-paste`) shared by Hypr/Vicinae workflows
 ]
