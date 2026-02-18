@@ -72,7 +72,13 @@ check_bind() {
     --arg dispatcher "$dispatcher" \
     --arg arg "$arg" \
     '
-      any(.[]; .key == $key and .modmask == $modmask and .dispatcher == $dispatcher and (.arg // "") == $arg)
+      any(
+        .[];
+        .key == $key
+        and .modmask == $modmask
+        and .dispatcher == $dispatcher
+        and (((.arg // "") | gsub("\\s+"; "")) == ($arg | gsub("\\s+"; "")))
+      )
     ' <<<"$binds_json" >/dev/null; then
     ok "$label"
   else
@@ -203,8 +209,9 @@ main() {
   binds_json="$(hyprctl -j binds 2>/dev/null || echo '[]')"
 
   # Mod masks in Hyprland:
-  #   8 = ALT, 9 = ALT+SHIFT, 32 = MOD3 (Hyper), 33 = MOD3+SHIFT,
-  #   64 = SUPER, 65 = SUPER+SHIFT.
+  #   4 = CTRL, 8 = ALT, 9 = ALT+SHIFT, 32 = MOD3 (Hyper),
+  #   33 = MOD3+SHIFT, 64 = SUPER, 65 = SUPER+SHIFT.
+  local ctrl_modmask=4
   local alt_modmask=8
   local alt_shift_modmask=9
   local hyper_modmask=32
@@ -214,18 +221,22 @@ main() {
 
   check_exec_bind "$binds_json" "B" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus brave" "Hyper+B focus bind present"
   check_exec_bind "$binds_json" "C" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus zed" "Hyper+C focus bind present"
+  check_exec_bind "$binds_json" "L" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus-only linear" "Hyper+L focus-only bind present"
   check_exec_bind "$binds_json" "M" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus messages" "Hyper+M focus bind present"
+  check_exec_bind "$binds_json" "U" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus cider" "Hyper+U focus bind present"
   check_exec_bind "$binds_json" "Z" "$hyper_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh focus terminal" "Hyper+Z focus bind present"
 
   check_exec_bind "$binds_json" "B" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch brave" "Hyper+Shift+B launch bind present"
   check_exec_bind "$binds_json" "C" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch zed" "Hyper+Shift+C launch bind present"
+  check_exec_bind "$binds_json" "L" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch linear" "Hyper+Shift+L launch bind present"
   check_exec_bind "$binds_json" "M" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch messages" "Hyper+Shift+M launch bind present"
+  check_exec_bind "$binds_json" "U" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch cider" "Hyper+Shift+U launch bind present"
   check_exec_bind "$binds_json" "Z" "$hyper_shift_modmask" "sh ~/.config/hypr/scripts/app-dispatch.sh launch terminal" "Hyper+Shift+Z launch bind present"
 
   check_bind "$binds_json" "1" "$alt_modmask" "workspace" "1" "Alt+1 workspace bind present"
   check_bind "$binds_json" "1" "$alt_shift_modmask" "movetoworkspace" "1" "Alt+Shift+1 move-to-workspace bind present"
 
-  check_exec_bind "$binds_json" "SPACE" "$super_modmask" "wofi --show drun" "Super+Space launcher bind present"
+  check_exec_bind "$binds_json" "SPACE" "$ctrl_modmask" "vicinae toggle" "Ctrl+Space launcher bind present"
   check_bind "$binds_json" "H" "$super_modmask" "movefocus" "l" "Super+H movefocus bind present"
   check_bind "$binds_json" "H" "$super_shift_modmask" "movewindow" "l" "Super+Shift+H movewindow bind present"
   check_bind "$binds_json" "BRACKETLEFT" "$super_modmask" "sendshortcut" "CTRL SHIFT,TAB" "Super+[ tab-left bind present"

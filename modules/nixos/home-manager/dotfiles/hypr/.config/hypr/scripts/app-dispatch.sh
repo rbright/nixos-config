@@ -2,7 +2,7 @@
 set -eu
 
 usage() {
-  echo "Usage: $0 <focus|launch> <app-key>" >&2
+  echo "Usage: $0 <focus|focus-only|launch> <app-key>" >&2
   exit 2
 }
 
@@ -27,6 +27,10 @@ case "$app" in
     class_regex='^(org\.gnome\.Calendar|gnome-calendar|calendar|Calendar)$'
     launch_cmd='gnome-calendar'
     target_workspace='8'
+    ;;
+  cider)
+    class_regex='^(cider|Cider|cider-2|cider2|com\.ciderapp\.Cider)$'
+    launch_cmd='cider-2 || cider'
     ;;
   discord)
     class_regex='^(Discord|discord)$'
@@ -86,7 +90,7 @@ case "$app" in
   vscode)
     class_regex='^(com\.microsoft\.VSCode|Code|code)$'
     launch_cmd='code --new-window'
-    target_workspace='9'
+    target_workspace='2'
     ;;
   zed)
     class_regex='^(dev\.zed\.Zed|Zed|zed)$'
@@ -151,6 +155,9 @@ focus_existing() {
 case "$mode" in
   focus)
     focus_existing || launch_app
+    ;;
+  focus-only)
+    focus_existing || true
     ;;
   launch)
     launch_app

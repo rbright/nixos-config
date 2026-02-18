@@ -187,8 +187,10 @@ gnome-online-accounts-settings
 | `SUPER + Shift + 3/4/5` | Full save / region save / region to clipboard screenshot |
 | `ALT + 1..0` | Switch workspace |
 | `ALT + Shift + 1..0` | Move window to workspace |
-| `Hyper + <key>` | Focus app (or launch if missing) |
-| `Hyper + Shift + <key>` | Launch new app instance |
+| `Hyper + <key>` | Focus app (or launch if missing), except Linear |
+| `Hyper + L` | Focus existing Linear window only |
+| `Hyper + U` | Focus Cider (or launch if missing) |
+| `Hyper + Shift + <key>` | Launch new app instance (including `Hyper + Shift + L` for Linear) |
 | `SUPER + [` / `SUPER + ]` | Send browser/editor tab back/forward shortcuts |
 
 **Verification commands**
@@ -338,10 +340,13 @@ llm logs --follow
 
 - **`just build lambda` fails on Linux with `required system ... aarch64-darwin`**
   - Expected when not on macOS/Darwin builder.
-- **`just hypr-smoke` reports launcher/tab bind failures**
-  - The script currently checks `SUPER + SPACE` and strict `sendshortcut` args.
-  - Current config uses `CTRL + SPACE` and runtime-normalized `sendshortcut` args.
-  - Use the script’s manual E2E checklist section for runtime confirmation.
+- **`just hypr-smoke` reports bind mismatches**
+  - Ensure the active Home Manager generation is applied first:
+    ```sh
+    just switch omega
+    hyprctl reload
+    ```
+  - Re-run `just hypr-smoke`; if it still fails, use the script’s manual E2E checklist section for runtime confirmation.
 - **NFS mount does not resolve**
   - Verify export path from UniFi host:
     ```sh
