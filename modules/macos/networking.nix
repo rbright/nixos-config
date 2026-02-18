@@ -17,12 +17,6 @@ _: {
       "Thunderbolt Bridge"
     ];
 
-    # Set DNS servers
-    dns = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-
     # Enable Wake-on-LAN
     wakeOnLan = {
       enable = true;
