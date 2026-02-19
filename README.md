@@ -195,7 +195,7 @@ Omega defaults currently pin sotto to:
 
 - `audio.input = Elgato Wave 3 Mono`
 - `asr.model = parakeet-1.1b-en-US-asr-streaming`
-- `paste.shortcut = CTRL,V`, `clipboard_cmd = wl-copy --trim-newline`, `paste_cmd = ""`
+- `paste.shortcut = CTRL,V`, `clipboard_cmd = wl-copy --trim-newline`, `paste_cmd = sh /home/rbright/.config/hypr/scripts/macos-copy-paste.sh paste`
 - `indicator.backend = desktop` with `indicator.desktop_app_name = sotto-indicator`
 - indicator cue WAVs from `~/Downloads`:
   - `toggle_on.wav` (recording start)
