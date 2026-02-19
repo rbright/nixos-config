@@ -12,7 +12,10 @@
 
   hardware = {
     enableRedistributableFirmware = true;
-    graphics.enable = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
 
     # RTX 50-series requires the open NVIDIA kernel module path.
     nvidia = {

@@ -103,6 +103,17 @@ check_exec_bind_any_modmask() {
   fi
 }
 
+check_no_submap_binds() {
+  local binds_json="$1"
+  local banned_submap="$2"
+  local label="$3"
+  if jq -e --arg submap "$banned_submap" 'any(.[]; (.submap // "") == $submap)' <<<"$binds_json" >/dev/null; then
+    fail "$label"
+  else
+    ok "$label"
+  fi
+}
+
 print_manual_checklist() {
   cat <<'EOF'
 
@@ -118,8 +129,10 @@ Manual E2E Checklist
 9. Press Super+H/J/K/L and confirm focus moves left/down/up/right.
 10. Press Super+Shift+H/J/K/L and confirm active window moves left/down/up/right.
 11. Press Super+[ and Super+] in Brave and Zed and confirm previous/next tab navigation.
-12. Press Ctrl+Alt+Super+L and confirm Hyprlock opens.
-13. Confirm both monitors always show `cat-waves-mocha.png`.
+12. Press Super+Space (or Alt+Space) to start dictation (`sotto toggle`) and Super+Shift+Space (or Alt+Shift+Space) to cancel (`sotto cancel`).
+13. Confirm no keymap/submap switch occurs during dictation controls.
+14. Press Ctrl+Alt+Super+L and confirm Hyprlock opens.
+15. Confirm both monitors always show `cat-waves-mocha.png`.
 
 Useful runtime inspection commands:
 - `hyprctl -j activewindow | jq '{class, title, workspace: .workspace.name}'`
@@ -243,6 +256,13 @@ main() {
   check_bind "$binds_json" "BRACKETRIGHT" "$super_modmask" "sendshortcut" "CTRL,TAB" "Super+] tab-right bind present"
   check_bind "$binds_json" "Q" "$super_modmask" "killactive" "" "Super+Q close-window bind present"
   check_exec_bind_any_modmask "$binds_json" "L" "hyprlock" "Ctrl+Alt+Super+L lock bind present"
+
+  # Sotto dictation controls (must not use submaps).
+  check_exec_bind "$binds_json" "SPACE" "$super_modmask" "sotto toggle" "Super+Space sotto toggle bind present"
+  check_exec_bind "$binds_json" "SPACE" "$alt_modmask" "sotto toggle" "Alt+Space sotto toggle bind present"
+  check_exec_bind "$binds_json" "SPACE" "$super_shift_modmask" "sotto cancel" "Super+Shift+Space sotto cancel bind present"
+  check_exec_bind "$binds_json" "SPACE" "$alt_shift_modmask" "sotto cancel" "Alt+Shift+Space sotto cancel bind present"
+  check_no_submap_binds "$binds_json" "sotto" "No sotto submap binds are active"
 
   echo
   printf 'Summary: %s pass, %s warn, %s fail\n' "$pass_count" "$warn_count" "$fail_count"

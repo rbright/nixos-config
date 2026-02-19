@@ -70,6 +70,7 @@ in
   _1password-gui # Desktop GUI for 1Password
   btopWithNvml # Wrapped btop binary to expose NVIDIA NVML via /run/opengl-driver/lib
   ffmpeg # Multimedia toolkit (includes ffplay)
+  mpv # Lightweight, scriptable media player
   localsend # Cross-platform file sharing over local network
   proton-pass # Password manager by Proton
   realvnc-vnc-viewer # Remote desktop viewing application

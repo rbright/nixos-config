@@ -18,6 +18,14 @@
       url = "github:rbright/nix-pi-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    riva = {
+      url = "path:/home/rbright/Projects/riva";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sotto = {
+      url = "path:/home/rbright/Projects/sotto";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vicinaeExtensions = {
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,6 +47,8 @@
       home-manager,
       koko,
       nixPiAgent,
+      riva,
+      sotto,
       vicinaeExtensions,
       nixosModules,
       nixpkgs,
@@ -71,6 +81,8 @@
           }
           sharedModules.outPath
           nixosModules.outPath
+          riva.nixosModules.default
+          sotto.nixosModules.default
           ./default.nix
         ];
       };

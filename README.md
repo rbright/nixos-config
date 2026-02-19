@@ -147,6 +147,63 @@ cd /home/rbright/Projects/nixos-config
 just switch omega
 ```
 
+## Speech-to-Text (Omega): Riva NIM + sotto
+
+This repo now wires local speech-to-text on `omega` via:
+
+- `services.rivaNim` (from local flake input `path:/home/rbright/Projects/riva`)
+- `programs.sotto.enable` (from local flake input `path:/home/rbright/Projects/sotto`)
+
+Authoritative files:
+
+- `hosts/omega/speech.nix`
+- `modules/nixos/docker.nix` (NVIDIA container toolkit enablement)
+- `modules/nixos/home-manager/dotfiles/sotto/.config/sotto/config.conf`
+
+Secret requirement (not stored in git):
+
+```sh
+install -d -m 700 "$HOME/.config/riva"
+cat > "$HOME/.config/riva/riva-nim.env" <<'EOF'
+NGC_API_KEY=YOUR_KEY
+EOF
+chmod 600 "$HOME/.config/riva/riva-nim.env"
+```
+
+Current omega host config points `services.rivaNim.envFile` to:
+
+- `/home/rbright/.config/riva/riva-nim.env`
+
+When the env file is missing, `docker-riva-nim.service` is skipped by design.
+
+Quick verify:
+
+```sh
+just build omega
+just switch omega
+
+cd /home/rbright/Projects/riva
+just gpu-smoke
+just up
+just health          # default 120s; first cold start may need longer (e.g. `just health 900 5`)
+
+sotto doctor
+```
+
+Omega defaults currently pin sotto to:
+
+- `audio.input = Elgato Wave 3 Mono`
+- `asr.model = parakeet-1.1b-en-US-asr-streaming`
+- `paste.shortcut = CTRL,V`, `clipboard_cmd = wl-copy --trim-newline`, `paste_cmd = ""`
+- `indicator.backend = desktop` with `indicator.desktop_app_name = sotto-indicator`
+- indicator cue WAVs from `~/Downloads`:
+  - `toggle_on.wav` (recording start)
+  - `toggle_off.wav` (recording stop)
+  - `complete.wav` (transcription copied)
+  - `cancel.wav` (recording cancelled)
+- debug artifacts disabled by default (`debug.audio_dump = false`, `debug.grpc_dump = false`).
+- Mako override for `sotto-indicator` app-name anchors indicator to top-center with larger, high-contrast styling.
+
 ## Omega Runtime Runbooks (Optional Depth)
 
 <details>

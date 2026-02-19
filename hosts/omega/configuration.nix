@@ -4,6 +4,7 @@ _: {
     ./boot.nix
     ./hardware-configuration.nix
     ./nas.nix
+    ./speech.nix
     ./thunderbolt.nix
     ./video.nix
   ];
