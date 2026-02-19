@@ -13,7 +13,7 @@ let
     }).fhs;
 
   # External package source of truth.
-  piAgent = nixPiAgent.packages.${pkgs.system}.pi-agent;
+  piAgent = nixPiAgent.packages.${pkgs.stdenv.hostPlatform.system}.pi-agent;
 
   # Ensure btop can load NVIDIA NVML on NixOS hybrid/dGPU systems.
   btopWithNvml = lib.hiPrio (
