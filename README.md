@@ -176,19 +176,20 @@ Current omega host config points `services.rivaNim.envFile` to:
 
 When the env file is missing, `docker-riva-nim.service` is skipped by design.
 
-Quick verify:
+Quick verify (service path):
 
 ```sh
 just build omega
 just switch omega
 
-cd /home/rbright/Projects/riva
-just gpu-smoke
-just up
-just health          # default 120s; first cold start may need longer (e.g. `just health 900 5`)
+systemctl is-enabled docker-riva-nim.service
+systemctl is-active docker-riva-nim.service
+curl -fsS http://127.0.0.1:9000/v1/health/ready
 
 sotto doctor
 ```
+
+Manual `just up` from `/home/rbright/Projects/riva` is still available for debugging, but normal `omega` use should rely on the `docker-riva-nim.service` unit.
 
 Omega defaults currently pin sotto to:
 
@@ -202,7 +203,7 @@ Omega defaults currently pin sotto to:
   - `complete.wav` (transcription copied)
   - `cancel.wav` (recording cancelled)
 - debug artifacts disabled by default (`debug.audio_dump = false`, `debug.grpc_dump = false`).
-- Mako override for `sotto-indicator` app-name anchors indicator to top-center with larger, high-contrast styling.
+- Mako override for `sotto-indicator` app-name anchors indicator to top-center with compact, high-contrast styling.
 
 ## Omega Runtime Runbooks (Optional Depth)
 
