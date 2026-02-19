@@ -209,8 +209,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1771470866,
-        "narHash": "sha256-M7LqKKIUn2lbk7G0OpJjW/TungAOd5/aDIpBk9qO2oU=",
+        "lastModified": 1771532336,
+        "narHash": "sha256-6usCwhocac+Z+xQQPVWVUtqGdf4VQBiCcowDmCMci8U=",
         "path": "/home/rbright/Projects/riva",
         "type": "path"
       },
@@ -253,8 +253,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1771490136,
-        "narHash": "sha256-2DhZoY2DFdoH/3DVwFEiVnhDsUAIknoSwp27/ruTNIs=",
+        "lastModified": 1771532416,
+        "narHash": "sha256-ZLnqGvtSb46oFhoTxekF2j0Zi9wXQDnuLYaQwyyAz3M=",
         "path": "/home/rbright/Projects/sotto",
         "type": "path"
       },
