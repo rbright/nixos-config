@@ -11,6 +11,8 @@ This directory contains `nix-darwin` modules consumed by `hosts/lambda/flake.nix
 - `dock/`: dock defaults and declarative entries.
 - `homebrew/`: brew/cask/tap/MAS declarations.
 - `home-manager.nix`: Home Manager wiring for the macOS user.
+- `files.nix`: macOS `home.file` overlay (merged with shared dotfiles mapping).
+- `dotfiles/`: macOS-only dotfile source tree.
 - `packages.nix`: macOS-specific user packages.
 - Remaining `*.nix`: focused system preferences (keyboard, finder, security, networking, etc.).
 
@@ -19,7 +21,7 @@ This directory contains `nix-darwin` modules consumed by `hosts/lambda/flake.nix
 - Add/remove Homebrew packages: `homebrew/brews.nix`, `homebrew/casks.nix`
 - Change Dock items: `dock/entries/default.nix`
 - Add macOS-only packages: `packages.nix`
-- Adjust user-level files managed by Home Manager: `files.nix`
+- Adjust user-level files managed by Home Manager: `files.nix`, `dotfiles/`
 
 ## Verification
 

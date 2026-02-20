@@ -10,6 +10,8 @@
 - `nix.nix`: shared Nix settings (flakes, substituters, trusted keys).
 - `fonts.nix`: shared font package set.
 - `packages.nix`: shared user package baseline.
+- `home-manager/dotfiles.nix`: shared Home Manager `home.file` map consumed by both hosts.
+- `home-manager/dotfiles/`: shared dotfile source tree for cross-OS configs.
 
 ## When to Edit Here
 

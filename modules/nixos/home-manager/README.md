@@ -7,7 +7,7 @@ This directory defines the Home Manager layer for `omega` (user-level packages, 
 ## Authoritative Files
 
 - `../home-manager.nix`: top-level Home Manager wiring and import list
-- `dotfiles.nix`: symlink map for vendored dotfiles in `dotfiles/`
+- `dotfiles.nix`: NixOS-only `home.file` overlay merged with shared dotfiles mapping
 - Feature modules:
   - `appearance.nix`
   - `brave-profiles.nix`
@@ -19,18 +19,10 @@ This directory defines the Home Manager layer for `omega` (user-level packages, 
 
 ## Dotfiles Scope
 
-`dotfiles.nix` maps tracked files from `dotfiles/` into `$HOME`.
+- Shared cross-OS files are sourced from `modules/shared/home-manager/dotfiles/`.
+- NixOS-only files are sourced from `modules/nixos/home-manager/dotfiles/` and merged by `dotfiles.nix`.
 
-If you keep editor dotfiles externally (for example via GNU Stow), use a portable workflow:
-
-```sh
-cd <dotfiles-repo-root>
-STOW_FLAGS="-nv" just install <host>
-just install <host>
-
-cd <nixos-config-repo-root>
-just switch omega
-```
+`neovim` and `zed` remain intentionally external to this repository and are managed independently of Nix.
 
 ## User-Service Runbooks
 

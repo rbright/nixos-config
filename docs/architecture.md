@@ -47,11 +47,14 @@ Each host has its own `flake.nix` and `flake.lock` so dependency updates can be 
 | Command behavior             | `justfile`                       |
 | macOS host output            | `hosts/lambda/flake.nix`         |
 | NixOS host output            | `hosts/omega/flake.nix`          |
-| Shared package/tool baseline | `modules/shared/packages.nix`    |
-| macOS system behavior        | `modules/macos/`                 |
-| NixOS system behavior        | `modules/nixos/`                 |
-| Omega Home Manager wiring    | `modules/nixos/home-manager.nix` |
-| Omega program modules        | `modules/nixos/programs/`        |
+| Shared package/tool baseline | `modules/shared/packages.nix`              |
+| Shared Home Manager dotfiles | `modules/shared/home-manager/dotfiles/`    |
+| macOS system behavior        | `modules/macos/`                           |
+| macOS Home Manager files     | `modules/macos/files.nix`                  |
+| NixOS system behavior        | `modules/nixos/`                           |
+| Omega Home Manager wiring    | `modules/nixos/home-manager.nix`           |
+| Omega Home Manager overlay   | `modules/nixos/home-manager/dotfiles.nix`  |
+| Omega program modules        | `modules/nixos/programs/`                  |
 
 ## Local Path Inputs
 

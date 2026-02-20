@@ -2,20 +2,21 @@
 
 ## Purpose
 
-This subtree stores dotfiles that are deployed through Home Manager via `../dotfiles.nix`.
+This subtree stores NixOS-only dotfiles deployed through Home Manager via `../dotfiles.nix`.
 
 ## How It Is Wired
 
 - Source of truth mapping: `../dotfiles.nix`
-- Runtime target: files are linked into `$HOME` (for example `~/.config/hypr`, `~/.config/waybar`, `~/.zshrc`, etc.)
+- Runtime target: files are linked into `$HOME` (for example `~/.config/hypr`, `~/.config/waybar`, etc.)
 
 ## Directory Highlights
 
 - `hypr/`: Hyprland compositor config and scripts
 - `waybar/`: Waybar modules, style, and helper scripts
 - `mako/`: notification daemon config
-- `zsh/`, `nushell/`, `tmux/`, `wezterm/`, `ghostty/`: shell and terminal tooling
 - `sotto/`: speech-to-text client config
+
+Shared shell/terminal dotfiles now live under `modules/shared/home-manager/dotfiles/`.
 
 ## Editing Workflow
 
