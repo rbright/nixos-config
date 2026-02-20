@@ -71,9 +71,9 @@ case "$app" in
     launch_cmd='env GTK_THEME=catppuccin-mocha-blue-standard:dark GTK_APPLICATION_PREFER_DARK_THEME=1 slack'
     target_workspace='7'
     ;;
-  tableplus)
-    class_regex='^(TablePlus|tableplus)$'
-    launch_cmd='tableplus'
+  datagrip)
+    class_regex='^(jetbrains-datagrip|datagrip|DataGrip)$'
+    launch_cmd='datagrip'
     target_workspace='3'
     ;;
   terminal)
