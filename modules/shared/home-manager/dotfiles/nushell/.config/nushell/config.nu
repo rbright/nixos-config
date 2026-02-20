@@ -286,17 +286,20 @@ source config/functions.nu
 # Projects
 ################################################################################
 
-source config/projects.nu
+# Optional local project helpers are intentionally not sourced from this repo.
 
 ################################################################################
 # Shell Integration
 ################################################################################
 
 # Atuin
-source ~/.local/share/atuin/init.nu
+# Generated at runtime when Atuin is available.
+do -i { source ~/.local/share/atuin/init.nu }
 
 # Carapace
-source ~/.cache/carapace/init.nu
+# Generated at runtime by env.nu.
+do -i { source ~/.cache/carapace/init.nu }
 
 # Zoxide
-source ~/.zoxide.nu
+# Generated at runtime by env.nu.
+do -i { source ~/.zoxide.nu }
