@@ -76,24 +76,6 @@ case "$active_class" in
     ;;
 esac
 
-# Zed with vim_mode enabled can treat CTRL+C/V differently; use explicit
-# SUPER bindings in Zed instead.
-is_zed=0
-case "$active_class" in
-  *dev.zed.zed* | *zed*)
-    is_zed=1
-    ;;
-esac
-
-if [ "$is_zed" -eq 1 ]; then
-  if [ "$action" = "copy" ]; then
-    hyprctl --quiet dispatch sendshortcut "SUPER,C,address:$active_addr" >/dev/null 2>&1 || true
-  else
-    hyprctl --quiet dispatch sendshortcut "SUPER,V,address:$active_addr" >/dev/null 2>&1 || true
-  fi
-  exit 0
-fi
-
 if [ "$action" = "copy" ]; then
   if [ "$is_terminal" -eq 1 ]; then
     hyprctl --quiet dispatch sendshortcut "CTRL SHIFT,C,address:$active_addr" >/dev/null 2>&1 || true

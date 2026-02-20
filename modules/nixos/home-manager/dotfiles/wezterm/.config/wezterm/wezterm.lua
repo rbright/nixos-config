@@ -48,6 +48,10 @@ local keys = {
     -- Preserve Meta+Enter semantics so terminal apps can map it to newline actions.
     { key = "Enter", mods = "ALT",   action = wezterm.action.SendString("\x1b\r") },
     { key = "Enter", mods = "SUPER", action = wezterm.action.SendString("\x1b\r") },
+
+    -- Linux terminal clipboard shortcuts.
+    { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+    { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
 }
 
 config.keys = keys
