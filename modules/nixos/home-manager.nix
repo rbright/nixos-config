@@ -24,6 +24,7 @@
         imports = [
           ./home-manager/appearance.nix
           ./home-manager/brave-profiles.nix
+          ./home-manager/gcsfuse.nix
           ./home-manager/hyprland.nix
           ./home-manager/rclone.nix
           ./home-manager/thunar.nix
