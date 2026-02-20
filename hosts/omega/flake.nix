@@ -30,6 +30,10 @@
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    waybarAgentUsage = {
+      url = "path:/home/rbright/Projects/waybar-modules/waybar-agent-usage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixosModules = {
       flake = false;
       url = "path:../../modules/nixos";
@@ -50,6 +54,7 @@
       riva,
       sotto,
       vicinaeExtensions,
+      waybarAgentUsage,
       nixosModules,
       nixpkgs,
       sharedModules,
@@ -68,6 +73,7 @@
           inherit
             nixPiAgent
             vicinaeExtensions
+            waybarAgentUsage
             ;
         };
         modules = [

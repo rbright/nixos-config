@@ -144,6 +144,22 @@
       "copy_local": "~/.config/waybar/scripts/gcp-sql-tunnel.sh copy-local"
     }
   },
+  "custom/codex-usage": {
+    "exec": "waybar-agent-usage codex",
+    "return-type": "json",
+    "interval": 60,
+    "on-click": "xdg-open https://chatgpt.com/codex/settings/usage",
+    "on-click-right": "sh -c 'if command -v wezterm >/dev/null 2>&1; then wezterm start -- bash -lc \"codex login\"; elif command -v ghostty >/dev/null 2>&1; then ghostty -e bash -lc \"codex login\"; else notify-send \"Codex\" \"Run: codex login\"; fi'",
+    "tooltip": true
+  },
+  "custom/claude-usage": {
+    "exec": "waybar-agent-usage claude",
+    "return-type": "json",
+    "interval": 60,
+    "on-click": "xdg-open https://console.anthropic.com/settings/billing",
+    "on-click-right": "sh -c 'if command -v wezterm >/dev/null 2>&1; then wezterm start -- bash -lc \"claude login || claude\"; elif command -v ghostty >/dev/null 2>&1; then ghostty -e bash -lc \"claude login || claude\"; else notify-send \"Claude\" \"Run: claude login\"; fi'",
+    "tooltip": true
+  },
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,

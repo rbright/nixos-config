@@ -17,6 +17,8 @@
   "modules-right": [
     "group/tray-expander",
     "custom/gcp-sql-tunnel",
+    "custom/codex-usage",
+    "custom/claude-usage",
     "pulseaudio",
     "bluetooth",
     "network",

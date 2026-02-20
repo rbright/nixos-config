@@ -227,7 +227,7 @@ Omega defaults currently pin sotto to:
 - Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
 - Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
 - Waybar center clock: `%H:%M`
-- Waybar right modules: tray expander, GCP SQL tunnel, audio, bluetooth, network, CPU, GPU, memory
+- Waybar right modules: tray expander, GCP SQL tunnel, Codex usage, Claude usage, audio, bluetooth, network, CPU, GPU, memory
 - btop default boxes include `gpu0 gpu1` (hybrid iGPU+dGPU systems can expose both slots without manual toggles)
 - Moonrise Zellij `o11y` panes are marked `exclude_from_sync=true` to avoid mirrored input fan-out
 - Keyring + sync support: `services.gnome.gnome-keyring.enable = true`
@@ -260,6 +260,57 @@ EOF
 
 Menu actions: **Start Tunnel**, **Stop Tunnel**, **Reset Tunnel**, **Open Logs**, **Copy Local Connection**.
 If auth expires, run `gcloud auth login` and retry start.
+
+**Waybar Codex + Claude usage applets**
+
+- Binary: `waybar-agent-usage` (packaged via `waybarAgentUsage` flake input in `hosts/omega/flake.nix`)
+- Modules:
+  - `custom/codex-usage`
+  - `custom/claude-usage`
+- Bar display: provider icon + weekly remaining percentage.
+- Tooltip display:
+  - session remaining + reset
+  - weekly remaining + reset
+  - today token/cost usage
+  - last 30 days token/cost usage
+  - Claude extra usage spend (when available)
+- Click behavior:
+  - Left-click Codex: opens `https://chatgpt.com/codex/settings/usage`
+  - Left-click Claude: opens `https://console.anthropic.com/settings/billing`
+  - Right-click Codex: opens terminal login flow (`codex login`)
+  - Right-click Claude: opens terminal login flow (`claude login` with `claude` fallback)
+
+**Auth storage design (no repo secrets)**
+
+- Codex auth source: `~/.codex/auth.json` (or `$WAYBAR_AI_CODEX_AUTH_FILE`)
+  - Reads OAuth/API token material from Codex CLI-managed auth file.
+  - Refreshes token via OpenAI OAuth endpoint when needed, then writes updated token data back to the same auth file.
+- Claude auth source: `~/.claude/.credentials.json` (or `$WAYBAR_AI_CLAUDE_CREDENTIALS_FILE`)
+  - Reads OAuth token material from Claude CLI-managed credentials file.
+  - Refreshes via Claude OAuth token endpoint when needed, then writes updated token data back to that credentials file.
+- Token/cost local usage source:
+  - Codex: `~/.codex/sessions` + `~/.codex/archived_sessions`
+  - Claude: `~/.config/claude/projects` + `~/.claude/projects`
+- Runtime state/cache path: `${XDG_STATE_HOME:-~/.local/state}/waybar/ai-usage/`
+
+Optional local overrides file (not tracked). Defaults use Font Awesome brand glyphs (`openai`/`claude`) with Nerd Font fallback:
+
+```sh
+cat > ~/.config/waybar/ai-usage.env <<'EOF'
+# Optional icon overrides (defaults: Font Awesome OpenAI/Claude)
+WAYBAR_AI_CODEX_ICON=
+WAYBAR_AI_CLAUDE_ICON=
+
+# Optional credential path overrides
+# WAYBAR_AI_CODEX_AUTH_FILE=/home/$USER/.codex/auth.json
+# WAYBAR_AI_CLAUDE_CREDENTIALS_FILE=/home/$USER/.claude/.credentials.json
+
+# Optional tuning
+# WAYBAR_AI_TIMEOUT_SECONDS=15
+# WAYBAR_AI_CACHE_TTL_SECONDS=75
+EOF
+chmod 600 ~/.config/waybar/ai-usage.env
+```
 
 **High-signal keybinds**
 

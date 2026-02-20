@@ -52,6 +52,13 @@
     font-size: 18px;
 }
 
+#custom-codex-usage,
+#custom-claude-usage {
+    font-family:
+        "Font Awesome 7 Brands", "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", "IBM Plex Sans";
+    font-size: 18px;
+}
+
 #custom-nixicon {
     margin-right: 12px;
     padding-right: 2px;
@@ -65,6 +72,8 @@
 #cpu,
 #custom-gpu,
 #custom-gcp-sql-tunnel,
+#custom-codex-usage,
+#custom-claude-usage,
 #memory {
     margin-right: 14px;
     padding: 0 2px;
@@ -79,6 +88,11 @@
 
 #custom-gcp-sql-tunnel {
     min-width: 26px;
+}
+
+#custom-codex-usage,
+#custom-claude-usage {
+    min-width: 74px;
 }
 
 #custom-expand-icon {
@@ -132,5 +146,29 @@ tooltip {
 }
 
 #custom-gcp-sql-tunnel.error {
+    color: @danger;
+}
+
+#custom-codex-usage.normal,
+#custom-claude-usage.normal {
+    color: @accent;
+}
+
+#custom-codex-usage.warning,
+#custom-claude-usage.warning {
+    color: @foreground;
+}
+
+#custom-codex-usage.unknown,
+#custom-claude-usage.unknown,
+#custom-codex-usage.stale,
+#custom-claude-usage.stale {
+    color: @muted;
+}
+
+#custom-codex-usage.critical,
+#custom-claude-usage.critical,
+#custom-codex-usage.error,
+#custom-claude-usage.error {
     color: @danger;
 }

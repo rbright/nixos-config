@@ -1,6 +1,7 @@
 {
   pkgs,
   nixPiAgent,
+  waybarAgentUsage,
   ...
 }:
 with pkgs;
@@ -12,8 +13,9 @@ let
       commandLineArgs = "--password-store=gnome-libsecret";
     }).fhs;
 
-  # External package source of truth.
+  # External package sources of truth.
   piAgent = nixPiAgent.packages.${pkgs.stdenv.hostPlatform.system}.pi-agent;
+  waybarAgentUsageBin = waybarAgentUsage.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   # Ensure btop can load NVIDIA NVML on NixOS hybrid/dGPU systems.
   btopWithNvml = lib.hiPrio (
@@ -43,6 +45,7 @@ in
   jetbrains.datagrip # Database IDE from JetBrains
   lazygit # Simple terminal UI for git commands
   piAgent # Minimal terminal coding harness for agentic engineering workflows
+  waybarAgentUsageBin # Standalone Codex/Claude Waybar usage module backend
   prek # Fast pre-commit hook runner and config manager
   postman # API development and testing platform
   proxyman # Web debugging proxy

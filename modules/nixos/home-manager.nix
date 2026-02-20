@@ -2,6 +2,7 @@
   user,
   nixPiAgent,
   vicinaeExtensions,
+  waybarAgentUsage,
   ...
 }:
 {
@@ -36,7 +37,12 @@
           enableNixpkgsReleaseCheck = false;
           packages =
             (pkgs.callPackage ../shared/packages.nix { })
-            ++ (pkgs.callPackage ./packages.nix { inherit nixPiAgent; });
+            ++ (pkgs.callPackage ./packages.nix {
+              inherit
+                nixPiAgent
+                waybarAgentUsage
+                ;
+            });
           stateVersion = "25.11";
         };
 

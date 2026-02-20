@@ -230,7 +230,8 @@
         "riva": "riva",
         "sharedModules": "sharedModules",
         "sotto": "sotto",
-        "vicinaeExtensions": "vicinaeExtensions"
+        "vicinaeExtensions": "vicinaeExtensions",
+        "waybarAgentUsage": "waybarAgentUsage"
       }
     },
     "sharedModules": {
@@ -398,6 +399,23 @@
         "owner": "vicinaehq",
         "repo": "extensions",
         "type": "github"
+      }
+    },
+    "waybarAgentUsage": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771571616,
+        "narHash": "sha256-8rVi5J84sLxW6/anbwSZCPVa8pYIpNw4R0xp7ort9f4=",
+        "path": "/home/rbright/Projects/waybar-modules/waybar-agent-usage",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/rbright/Projects/waybar-modules/waybar-agent-usage",
+        "type": "path"
       }
     }
   },
