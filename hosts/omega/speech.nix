@@ -16,4 +16,17 @@ _: {
     httpPort = 9000;
     healthPath = "/v1/health/ready";
   };
+
+  # NVIDIA's default startup uses `riva-deploy -f`, which rebuilds engines on each start.
+  virtualisation.oci-containers.containers.riva-nim = {
+    entrypoint = "/bin/bash";
+    cmd = [
+      "-lc"
+      ''
+        set -euo pipefail
+        sed -i 's/riva-deploy -f /riva-deploy /g' /opt/nim/inference.py
+        exec /opt/nim/start_server.sh
+      ''
+    ];
+  };
 }
