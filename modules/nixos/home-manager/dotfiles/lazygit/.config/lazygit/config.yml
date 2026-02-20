@@ -1,0 +1,31 @@
+# Lazygit v0.59.0
+# Source baseline: ~/.config/lazygit/config.yml (empty when captured).
+# Keep this file to explicit, high-value overrides only.
+
+gui:
+  # Faster filtering in large repo/worktree lists.
+  filterMode: fuzzy
+
+  # Better branch/worktree situational awareness.
+  statusPanelView: allBranchesLog
+  showDivergenceFromBaseBranch: arrowAndNumber
+
+  # Worktree-heavy flow: skip extra branch-switch confirmation.
+  skipSwitchWorktreeOnCheckoutWarning: true
+
+  # Reduce UI noise for daily use.
+  showRandomTip: false
+
+  # Side-by-side diff view for larger reviews.
+  splitDiff: always
+
+git:
+  # Keep tracking branches current after fetch, including feature branches.
+  autoForwardBranches: allBranches
+
+  # Bubble active branches to the top.
+  localBranchSortOrder: recency
+  remoteBranchSortOrder: date
+
+# Hide onboarding/update popups once configured.
+disableStartupPopups: true

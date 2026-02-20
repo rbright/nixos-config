@@ -38,6 +38,9 @@ in
     # hypr
     ".config/hypr" = recursiveSource (dotfilesRoot + "/hypr/.config/hypr");
 
+    # lazygit
+    ".config/lazygit/config.yml".source = dotfilesRoot + "/lazygit/.config/lazygit/config.yml";
+
     # mako
     ".config/mako/config".source = dotfilesRoot + "/mako/.config/mako/config";
 
