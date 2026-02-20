@@ -226,6 +226,7 @@ Omega defaults currently pin sotto to:
 
 - Launcher: `vicinae toggle` (bound to `CTRL + SPACE`)
 - Clipboard CLI: `wl-copy` / `wl-paste` from `modules/nixos/packages.nix`, shared with Vicinae history + Hypr screenshot copy flows
+- Clipboard shortcuts: GUI apps use `CTRL + C/V`; terminals use `CTRL + SHIFT + C/V`
 - File manager: Thunar (`SUPER + E`)
 - Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
 - Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
@@ -269,7 +270,7 @@ If auth expires, run `gcloud auth login` and retry start.
 | Shortcut | Action |
 |---|---|
 | `CTRL + SPACE` | Open Vicinae launcher |
-| `ALT + SUPER + C` | Open Vicinae clipboard history |
+| `ALT + SUPER + H` | Open Vicinae clipboard history |
 | `CTRL + ALT + SUPER + E` | Open Vicinae emoji search |
 | `SUPER + Shift + 3/4/5` | Full save / region save / region to clipboard screenshot |
 | `ALT + 1..0` | Switch workspace |
