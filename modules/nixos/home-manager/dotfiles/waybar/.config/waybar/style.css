@@ -1,6 +1,7 @@
 @import "themes/catppuccin.css";
 @define-color accent #89b4fa;
 @define-color muted #585b70;
+@define-color danger #f38ba8;
 
 * {
     background-color: @background;
@@ -44,6 +45,7 @@
 #bluetooth,
 #cpu,
 #custom-gpu,
+#custom-gcp-sql-tunnel,
 #memory {
     font-family:
         "Symbols Nerd Font Mono", "JetBrainsMono Nerd Font", "IBM Plex Sans";
@@ -62,6 +64,7 @@
 #network,
 #cpu,
 #custom-gpu,
+#custom-gcp-sql-tunnel,
 #memory {
     margin-right: 14px;
     padding: 0 2px;
@@ -72,6 +75,10 @@
 #custom-gpu,
 #memory {
     min-width: 64px;
+}
+
+#custom-gcp-sql-tunnel {
+    min-width: 26px;
 }
 
 #custom-expand-icon {
@@ -111,6 +118,19 @@ tooltip {
 
 #network.disconnected,
 #bluetooth.disabled,
-#bluetooth.off {
+#bluetooth.off,
+#custom-gcp-sql-tunnel.disconnected {
     color: @muted;
+}
+
+#custom-gcp-sql-tunnel.connected {
+    color: @accent;
+}
+
+#custom-gcp-sql-tunnel.starting {
+    color: @foreground;
+}
+
+#custom-gcp-sql-tunnel.error {
+    color: @danger;
 }

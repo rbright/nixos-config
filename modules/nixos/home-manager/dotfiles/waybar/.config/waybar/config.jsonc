@@ -16,6 +16,7 @@
   ],
   "modules-right": [
     "group/tray-expander",
+    "custom/gcp-sql-tunnel",
     "pulseaudio",
     "bluetooth",
     "network",

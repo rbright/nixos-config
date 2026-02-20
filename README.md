@@ -230,7 +230,7 @@ Omega defaults currently pin sotto to:
 - Terminals: WezTerm (`SUPER + RETURN`) + Ghostty (`SUPER + grave`)
 - Workspace model: persistent `1..10`; `1..8` on main monitor, `9..10` on secondary
 - Waybar center clock: `%H:%M`
-- Waybar right modules: tray expander, audio, bluetooth, network, CPU, GPU, memory
+- Waybar right modules: tray expander, GCP SQL tunnel, audio, bluetooth, network, CPU, GPU, memory
 - btop default boxes include `gpu0 gpu1` (hybrid iGPU+dGPU systems can expose both slots without manual toggles)
 - Moonrise Zellij `o11y` panes are marked `exclude_from_sync=true` to avoid mirrored input fan-out
 - Keyring + sync support: `services.gnome.gnome-keyring.enable = true`
@@ -239,6 +239,30 @@ Omega defaults currently pin sotto to:
 ```sh
 gnome-online-accounts-settings
 ```
+
+**Waybar GCP SQL tunnel applet**
+
+- Script: `modules/nixos/home-manager/dotfiles/waybar/.config/waybar/scripts/gcp-sql-tunnel.sh`
+- Runtime state/log path: `${XDG_STATE_HOME:-~/.local/state}/waybar/gcp-sql-tunnel/`
+- Local config file (not tracked): `~/.config/waybar/gcp-sql-tunnel.env`
+- Required config keys: `DB_PRIVATE_IP`, `BASTION_INSTANCE`, `BASTION_ZONE`
+- Optional keys: `LOCAL_PORT` (default `15432`), `REMOTE_PORT` (default `5432`), `GCLOUD_PATH`
+
+Example env file:
+
+```sh
+cat > ~/.config/waybar/gcp-sql-tunnel.env <<'EOF'
+DB_PRIVATE_IP=10.0.0.10
+BASTION_INSTANCE=example-bastion
+BASTION_ZONE=us-central1-a
+LOCAL_PORT=15432
+REMOTE_PORT=5432
+# GCLOUD_PATH=/run/current-system/sw/bin/gcloud
+EOF
+```
+
+Menu actions: **Start Tunnel**, **Stop Tunnel**, **Reset Tunnel**, **Open Logs**, **Copy Local Connection**.
+If auth expires, run `gcloud auth login` and retry start.
 
 **High-signal keybinds**
 

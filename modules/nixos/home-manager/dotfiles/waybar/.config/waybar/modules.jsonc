@@ -130,6 +130,20 @@
     "tooltip": true,
     "interval": 3
   },
+  "custom/gcp-sql-tunnel": {
+    "exec": "~/.config/waybar/scripts/gcp-sql-tunnel.sh status",
+    "return-type": "json",
+    "interval": 3,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/menus/gcp-sql-tunnel.xml",
+    "menu-actions": {
+      "start": "~/.config/waybar/scripts/gcp-sql-tunnel.sh start",
+      "stop": "~/.config/waybar/scripts/gcp-sql-tunnel.sh stop",
+      "restart": "~/.config/waybar/scripts/gcp-sql-tunnel.sh restart",
+      "open_log": "~/.config/waybar/scripts/gcp-sql-tunnel.sh open-log",
+      "copy_local": "~/.config/waybar/scripts/gcp-sql-tunnel.sh copy-local"
+    }
+  },
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,

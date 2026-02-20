@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+      <object class="GtkMenuItem" id="start">
+        <property name="label">Start Tunnel</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="stop">
+        <property name="label">Stop Tunnel</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="restart">
+        <property name="label">Reset Tunnel</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separator1" />
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="open_log">
+        <property name="label">Open Logs</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="copy_local">
+        <property name="label">Copy Local Connection</property>
+      </object>
+    </child>
+  </object>
+</interface>
