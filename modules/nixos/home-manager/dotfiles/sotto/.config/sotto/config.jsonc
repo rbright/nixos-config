@@ -18,6 +18,7 @@
     "shortcut": "CTRL,V"
   },
   "clipboard_cmd": "wl-copy --trim-newline",
+  "paste_cmd": "sh /home/rbright/.config/hypr/scripts/macos-copy-paste.sh paste",
 
   "asr": {
     "automatic_punctuation": true,
