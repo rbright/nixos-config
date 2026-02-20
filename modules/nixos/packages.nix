@@ -41,6 +41,7 @@ in
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   jetbrains.datagrip # Database IDE from JetBrains
+  lazygit # Simple terminal UI for git commands
   piAgent # Minimal terminal coding harness for agentic engineering workflows
   prek # Fast pre-commit hook runner and config manager
   postman # API development and testing platform
