@@ -158,7 +158,7 @@ Authoritative files:
 
 - `hosts/omega/speech.nix`
 - `modules/nixos/docker.nix` (NVIDIA container toolkit enablement)
-- `modules/nixos/home-manager/dotfiles/sotto/.config/sotto/config.conf`
+- `modules/nixos/home-manager/dotfiles/sotto/.config/sotto/config.jsonc`
 
 Secret requirement (not stored in git):
 
@@ -197,13 +197,9 @@ Omega defaults currently pin sotto to:
 
 - `audio.input = Elgato Wave 3 Mono`
 - `asr.model = parakeet-1.1b-en-US-asr-streaming`
-- `paste.shortcut = CTRL,V`, `clipboard_cmd = wl-copy --trim-newline`, `paste_cmd = sh /home/rbright/.config/hypr/scripts/macos-copy-paste.sh paste`
+- `paste.shortcut = CTRL,V`, `clipboard_cmd = wl-copy --trim-newline` (no custom paste script override)
 - `indicator.backend = desktop` with `indicator.desktop_app_name = sotto-indicator`
-- indicator cue WAVs from `~/Downloads`:
-  - `toggle_on.wav` (recording start)
-  - `toggle_off.wav` (recording stop)
-  - `complete.wav` (transcription copied)
-  - `cancel.wav` (recording cancelled)
+- indicator cues/text are application-owned in the sotto binary (embedded cue assets + English locale catalog)
 - debug artifacts disabled by default (`debug.audio_dump = false`, `debug.grpc_dump = false`).
 - Mako override for `sotto-indicator` app-name anchors indicator to top-center with compact, high-contrast styling.
 

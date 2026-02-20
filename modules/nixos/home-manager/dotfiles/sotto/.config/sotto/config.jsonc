@@ -1,0 +1,59 @@
+{
+  // Riva endpoints
+  "riva": {
+    "grpc": "127.0.0.1:50051",
+    "http": "127.0.0.1:9000",
+    "health_path": "/v1/health/ready"
+  },
+
+  // Audio device selection
+  "audio": {
+    "input": "Elgato Wave 3 Mono",
+    "fallback": "default"
+  },
+
+  // Output behavior
+  "paste": {
+    "enable": true,
+    "shortcut": "CTRL,V"
+  },
+  "clipboard_cmd": "wl-copy --trim-newline",
+
+  "asr": {
+    "automatic_punctuation": true,
+    "language_code": "en-US",
+    "model": "parakeet-1.1b-en-US-asr-streaming"
+  },
+
+  "transcript": {
+    "trailing_space": true
+  },
+
+  // Indicator (text + cue assets are app-owned)
+  "indicator": {
+    "enable": true,
+    "backend": "desktop",
+    "desktop_app_name": "sotto-indicator",
+    "sound_enable": true,
+    "height": 28,
+    "error_timeout_ms": 1600
+  },
+
+  // Vocabulary boosting
+  "vocab": {
+    "global": ["internal"],
+    "max_phrases": 1024,
+    "sets": {
+      "internal": {
+        "boost": 14,
+        "phrases": ["Sotto", "Hyprland", "Parakeet", "Riva"]
+      }
+    }
+  },
+
+  // Debug artifacts (keep off for normal use)
+  "debug": {
+    "audio_dump": false,
+    "grpc_dump": false
+  }
+}

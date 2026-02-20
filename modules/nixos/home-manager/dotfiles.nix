@@ -57,7 +57,7 @@ in
     ".config/starship.toml".source = dotfilesRoot + "/starship/.config/starship.toml";
 
     # sotto
-    ".config/sotto/config.conf".source = dotfilesRoot + "/sotto/.config/sotto/config.conf";
+    ".config/sotto/config.jsonc".source = dotfilesRoot + "/sotto/.config/sotto/config.jsonc";
 
     # tmux
     ".config/tmux/tmux.conf".source = dotfilesRoot + "/tmux/.config/tmux/tmux.conf";
