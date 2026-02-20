@@ -38,13 +38,13 @@ in
   bun # Fast JavaScript runtime, package manager, and bundler
   claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
   codex # Lightweight coding agent that runs in your terminal
-  piAgent # Minimal terminal coding harness for agentic engineering workflows
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
+  jetbrains.datagrip # Database IDE from JetBrains
+  piAgent # Minimal terminal coding harness for agentic engineering workflows
   prek # Fast pre-commit hook runner and config manager
   postman # API development and testing platform
   proxyman # Web debugging proxy
-  tableplus # Cross-platform database management tool
   uv # Extremely fast Python package installer and resolver, written in Rust
   vscodeWithKeyring # VS Code in FHS mode with libsecret-backed credential storage
   zed-editor # High-performance, multiplayer code editor from the creators of Atom and Tree-sitter
