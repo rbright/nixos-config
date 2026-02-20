@@ -72,12 +72,13 @@
         };
         modules = [
           home-manager.nixosModules.home-manager
-          koko.nixosModules.default
           {
             nixpkgs.overlays = [
               codexCliNix.overlays.default
             ];
-            programs.koko.enable = true;
+            environment.systemPackages = [
+              koko.packages.${pkgs.stdenv.hostPlatform.system}.koko
+            ];
           }
           sharedModules.outPath
           nixosModules.outPath
