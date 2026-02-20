@@ -191,6 +191,8 @@ sotto doctor
 
 Manual `just up` from `/home/rbright/Projects/riva` is still available for debugging, but normal `omega` use should rely on the `docker-riva-nim.service` unit.
 
+`hosts/omega/speech.nix` also overrides the container entrypoint to remove `riva-deploy -f` from `/opt/nim/inference.py` at startup. This keeps first boot behavior intact, but allows warm restarts to reuse `/var/lib/riva-nim/models` instead of forcing full TensorRT rebuilds each reboot.
+
 Omega defaults currently pin sotto to:
 
 - `audio.input = Elgato Wave 3 Mono`
