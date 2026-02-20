@@ -387,6 +387,49 @@ Success looks like: `rclone-gdrive.service` is active and `~/GoogleDrive` is mou
 </details>
 
 <details>
+<summary><strong>Google Cloud Storage via gcsfuse (`omega`)</strong></summary>
+
+**Authoritative files**:
+
+- `modules/nixos/packages.nix`
+- `modules/nixos/home-manager/gcsfuse.nix`
+
+One-time setup:
+
+```sh
+mkdir -p ~/.config/gcsfuse
+cat > ~/.config/gcsfuse/gcs-bucket.env <<'EOF'
+GCS_BUCKET=fp-state-downloads
+# Optional: set this to use a service-account key file.
+# GCS_KEY_FILE=/home/rbright/.config/gcloud/your-service-account.json
+EOF
+chmod 600 ~/.config/gcsfuse/gcs-bucket.env
+```
+
+If you are using user credentials instead of `GCS_KEY_FILE`, run:
+
+```sh
+gcloud auth application-default login
+gcloud auth application-default set-quota-project bankstatementanalyzer-427201
+```
+
+Apply + test:
+
+```sh
+just switch omega
+systemctl --user daemon-reload
+systemctl --user enable --now gcsfuse-bucket.service
+systemctl --user status gcsfuse-bucket.service --no-pager
+findmnt ~/fp-state-downloads -o TARGET,SOURCE,FSTYPE,OPTIONS
+ls ~/fp-state-downloads
+thunar ~/fp-state-downloads
+```
+
+Success looks like: `gcsfuse-bucket.service` is active, `findmnt` shows `fuse.gcsfuse`, `~/fp-state-downloads` lists bucket contents, and Thunar shows **State Downloads** in Places.
+
+</details>
+
+<details>
 <summary><strong>llama.cpp service + helpers (`omega`)</strong></summary>
 
 **Authoritative file**: `modules/nixos/llama-cpp.nix`
@@ -442,6 +485,14 @@ llm logs --follow
   - Update `hosts/omega/nas.nix` if UniFi export path changed.
 - **`rclone-gdrive.service` does not start**
   - Confirm config exists at `~/.config/rclone/rclone.conf` and includes remote `gdrive`.
+- **`gcsfuse-bucket.service` does not start**
+  - Confirm `~/.config/gcsfuse/gcs-bucket.env` exists and sets `GCS_BUCKET`.
+  - If not using `GCS_KEY_FILE`, run `gcloud auth application-default login` and retry.
+  - Check logs: `journalctl --user -u gcsfuse-bucket.service -n 100 --no-pager`.
+- **Thunar does not show the State Downloads shortcut in Places**
+  - Confirm bookmark exists in `~/.config/gtk-3.0/bookmarks`:
+    `file:///home/rbright/fp-state-downloads State Downloads`
+  - Restart Thunar after updating bookmarks.
 - **`just lint` fails on warnings**
   - `statix` warnings are treated as failures in the current lint recipe.
 
