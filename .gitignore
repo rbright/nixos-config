@@ -15,3 +15,6 @@ SESSION.md
 # Python
 **/__pycache__
 **/.pyc
+
+# Local runtime state
+modules/shared/home-manager/dotfiles/tmux/.config/tmux/plugins/
