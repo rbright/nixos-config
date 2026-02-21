@@ -10,7 +10,7 @@ def llm-base-url [] { "http://127.0.0.1:11434" }
 
 def llm-model-aliases [] {
     {
-        mistral: "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q6_K.gguf",
+        mistral: "Mistral-7B-Instruct-v0.3-Q6_K.gguf",
         qwen: "Qwen_Qwen3-32B-Q6_K"
         qwenc: "Qwen3-Coder-30B-A3B-Instruct-Q6_K"
     }
@@ -169,16 +169,23 @@ def "llm download" [
 
 def "llm list" [] {
     let aliases = (llm-model-aliases)
-    let default_name = (llm-default-model-name)
+    let default_model_id = (try { llm-default-model } catch { null })
+    let default_model_norm = if $default_model_id == null {
+        ""
+    } else {
+        llm-normalize-model-name $default_model_id
+    }
 
     llm-query-models
     | each { |model|
         let model_id = ($model | get -o id | default "")
+        let model_norm = (llm-normalize-model-name $model_id)
         let matched_alias = (
             $aliases
             | transpose alias target
             | where { |row|
-                (llm-normalize-model-name $row.target) == (llm-normalize-model-name $model_id)
+                let target_norm = (llm-normalize-model-name $row.target)
+                ($target_norm == $model_norm) or ($target_norm | str contains $model_norm) or ($model_norm | str contains $target_norm)
             }
             | get -o 0.alias
             | default ""
@@ -187,7 +194,7 @@ def "llm list" [] {
         {
             id: $model_id
             alias: $matched_alias
-            default: ($matched_alias == $default_name)
+            default: ($default_model_norm != "" and $model_norm == $default_model_norm)
             owned_by: ($model | get -o owned_by | default "")
             object: ($model | get -o object | default "")
         }

@@ -89,6 +89,9 @@ alias hf="hyperfine"
 # Kubernetes
 alias k="kubectl"
 
+# lazygit
+alias lg="lazygit"
+
 # Neovim
 alias v="nvim"
 alias vim="nvim"
