@@ -24,6 +24,14 @@ let
       exec ${btop}/bin/btop "$@"
     ''
   );
+
+  # Enable chromium/electron syncobj explicit sync to reduce NVIDIA flicker.
+  slackWithSyncobj = slack.overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      substituteInPlace $out/bin/slack \
+        --replace-fail "WaylandWindowDecorations,WebRTCPipeWireCapturer" "WaylandWindowDecorations,WebRTCPipeWireCapturer,WaylandLinuxDrmSyncobj"
+    '';
+  });
 in
 [
   # Browsers
@@ -62,7 +70,7 @@ in
 
   # Communication Tools
   discord # Chat and messaging platform
-  slack # Team communication and collaboration platform
+  slackWithSyncobj # Team communication client with Wayland explicit-sync flag for NVIDIA
   zoom-us # Video conferencing and webinar platform
 
   # Finance Tools

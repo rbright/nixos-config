@@ -11,7 +11,10 @@ let
       profile_path="''${XDG_CONFIG_HOME:-$HOME/.config}/BraveSoftware/${userDataDir}"
       mkdir -p "$profile_path"
 
-      exec ${pkgs.brave}/bin/brave --user-data-dir="$profile_path" "$@"
+      exec ${pkgs.brave}/bin/brave \
+        --user-data-dir="$profile_path" \
+        --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations,WaylandLinuxDrmSyncobj \
+        "$@"
     '';
 
   bravePersonal = mkBraveProfileLauncher {
