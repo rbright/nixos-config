@@ -8,7 +8,7 @@ This directory contains NixOS modules consumed by `hosts/omega/flake.nix`.
 
 - `default.nix`: imports the NixOS module set.
 - `home-manager.nix`: wires Home Manager for the primary user.
-- `programs/`: program-specific modules (Git, 1Password, Firefox, Thunar).
+- `programs/`: program-specific modules (Git, 1Password, Firefox, Thunderbird, Thunar).
 
 ## Core Module Areas
 

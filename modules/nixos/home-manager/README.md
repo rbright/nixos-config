@@ -15,6 +15,7 @@ This directory defines the Home Manager layer for `omega` (user-level packages, 
   - `hyprland.nix`
   - `rclone.nix`
   - `thunar.nix`
+  - `thunderbird.nix`
   - `vicinae.nix`
 
 ## Dotfiles Scope
@@ -92,5 +93,29 @@ just switch omega
 hyprctl -j configerrors | jq .
 just hypr-smoke
 ```
+
+### Thunderbird theme wiring
+
+`thunderbird.nix` links repo-managed CSS into the default Thunderbird profile
+(`Default=1` in `~/.thunderbird/profiles.ini`) during Home Manager activation.
+
+Apply + verify:
+
+```sh
+just switch omega
+ls -l "$HOME/.thunderbird"/*/chrome/userChrome.css
+ls -l "$HOME/.thunderbird"/*/chrome/userContent.css
+```
+
+### Vicinae app visibility and in-app keybinds
+
+`vicinae.nix` sets launcher behavior via `programs.vicinae.settings`.
+
+Examples in this repo:
+
+- Hide an app entry from root search via `settings.providers.applications.entrypoints.<app-id>.enabled = false`.
+- Set in-app shortcuts via `settings.keybinds` (these are Vicinae UI shortcuts, not global Hyprland binds).
+
+To find an app entrypoint ID, use the desktop ID without `.desktop` (for example `brave-browser`).
 
 For dotfile subtree details, see [`dotfiles/README.md`](dotfiles/README.md).

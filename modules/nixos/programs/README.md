@@ -9,6 +9,7 @@ This directory contains focused NixOS program modules imported by `modules/nixos
 - `git.nix`: Git defaults, aliases, and SSH-signing config.
 - `one-password.nix`: 1Password CLI/GUI enablement.
 - `firefox.nix`: Firefox enablement.
+- `thunderbird.nix`: Thunderbird defaults (preferences/policies).
 - `thunar.nix`: Thunar + plugins + desktop service integration.
 - `default.nix`: import list.
 
@@ -16,9 +17,19 @@ This directory contains focused NixOS program modules imported by `modules/nixos
 
 - Update Git aliasing/signing behavior: `git.nix`
 - Adjust password manager integration: `one-password.nix`
+- Tune Thunderbird preferences/policies: `thunderbird.nix`
 - Tune file manager defaults/bookmarks: `thunar.nix`
 
 ## Workflow Notes
+
+### Thunderbird preferences source-of-truth
+
+`thunderbird.nix` sets `programs.thunderbird.preferencesStatus = "locked"` so
+managed `about:config` preferences stay in sync with Nix and are not edited in-app.
+
+To add another Thunderbird preference, append it under:
+
+- `modules/nixos/programs/thunderbird.nix` → `programs.thunderbird.preferences`
 
 ### 1Password SSH agent + Git signing
 
