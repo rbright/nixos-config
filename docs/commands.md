@@ -53,6 +53,24 @@ Success looks like:
 
 > Requires a live Hyprland session.
 
+## Desktop Utilities
+
+### `just vicinae-apps [search]`
+
+Lists discoverable Vicinae application entrypoint IDs and app names using `.desktop` files from your XDG application paths.
+
+- No argument: prints full list.
+- Optional `search`: case-insensitive substring filter on ID or app name.
+
+Examples:
+
+```sh
+just vicinae-apps
+just vicinae-apps brave
+```
+
+Use the ID from the first column in `programs.vicinae.settings.providers.applications.entrypoints.<id>`.
+
 ## Host Lifecycle Commands
 
 ### Build

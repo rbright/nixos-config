@@ -41,6 +41,14 @@ systemctl status llama-cpp.service --no-pager
 curl -s http://127.0.0.1:11434/v1/models | jq .
 ```
 
+Default `llm` alias target: `Mistral-7B-Instruct-v0.3-Q6_K.gguf`.
+
+```sh
+llm download 'https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q6_K.gguf?download=true' --name Mistral-7B-Instruct-v0.3-Q6_K.gguf
+llm restart
+llm list
+```
+
 ## Verification
 
 ```sh

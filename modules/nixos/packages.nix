@@ -55,8 +55,6 @@ in
   piAgent # Minimal terminal coding harness for agentic engineering workflows
   waybarAgentUsageBin # Standalone Codex/Claude Waybar usage module backend
   prek # Fast pre-commit hook runner and config manager
-  postman # API development and testing platform
-  proxyman # Web debugging proxy
   uv # Extremely fast Python package installer and resolver, written in Rust
   vscodeWithKeyring # VS Code in FHS mode with libsecret-backed credential storage
   zed-editor # High-performance, multiplayer code editor from the creators of Atom and Tree-sitter

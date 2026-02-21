@@ -9,16 +9,16 @@
   "height": 40,
   "modules-left": [
     "custom/nixicon",
-    "hyprland/workspaces"
+    "hyprland/workspaces",
+    "cpu",
+    "custom/gpu",
+    "memory"
   ],
   "modules-center": [
     "clock"
   ],
   "modules-right": [
     "group/tray-expander",
-    "cpu",
-    "custom/gpu",
-    "memory",
     "custom/codex-usage",
     "custom/claude-usage",
     "custom/gcp-sql-tunnel",

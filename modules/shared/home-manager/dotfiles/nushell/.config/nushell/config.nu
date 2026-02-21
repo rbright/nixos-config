@@ -286,7 +286,8 @@ source config/functions.nu
 # Projects
 ################################################################################
 
-# Optional local project helpers are intentionally not sourced from this repo.
+# Keep project-local helpers optional so host-specific variants can stay gitignored.
+source config/projects.nu
 
 ################################################################################
 # Shell Integration

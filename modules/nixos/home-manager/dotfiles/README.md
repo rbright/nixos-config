@@ -18,6 +18,20 @@ This subtree stores NixOS-only dotfiles deployed through Home Manager via `../do
 
 Shared shell/terminal dotfiles now live under `modules/shared/home-manager/dotfiles/`.
 
+## Hyprland Shortcut Notes
+
+- `Hyper+B`: focus personal Brave (`Hyper+Shift+B` launches a new personal window).
+- `Hyper+V`: focus work Brave profile (`Hyper+Shift+V` launches a new work window).
+- `Hyper+R`: focus VS Code (`Hyper+Shift+R` launches a new window).
+- `Ctrl+Alt+Super+V`: compact multiline clipboard commands to one line, then paste.
+- `Super+T`: open Vicinae Todoist "Create Task" command.
+
+Trim helper script usage:
+
+```sh
+sh ~/.config/hypr/scripts/trim-multiline-command.sh [compact|paste|print]
+```
+
 ## Editing Workflow
 
 1. Edit files under this subtree.

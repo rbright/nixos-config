@@ -64,6 +64,7 @@ Run `just --list` for the authoritative command list.
 | Check formatting only                 | `just fmt-check`                              |
 | Lint Nix files                        | `just lint`                                   |
 | Hyprland runtime smoke test (`omega`) | `just hypr-smoke`                             |
+| Vicinae app entrypoint IDs            | `just vicinae-apps [search]`                  |
 
 For command semantics, arguments, and expected results, see [`docs/commands.md`](docs/commands.md).
 

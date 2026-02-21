@@ -58,6 +58,11 @@ lint:
 hypr-smoke:
     bash ./scripts/hypr-smoke-test.sh
 
+# List Vicinae application entrypoint IDs (optionally filtered by a search term)
+[group('desktop')]
+vicinae-apps search="":
+    bash ./scripts/vicinae-apps.sh "{{ search }}"
+
 # ------------------------------------------------------------------------------
 # Flake
 # ------------------------------------------------------------------------------

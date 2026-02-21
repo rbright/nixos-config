@@ -4,6 +4,7 @@ let
     {
       name,
       userDataDir,
+      profileDirectory,
     }:
     pkgs.writeShellScriptBin name ''
       set -eu
@@ -13,6 +14,7 @@ let
 
       exec ${pkgs.brave}/bin/brave \
         --user-data-dir="$profile_path" \
+        --profile-directory="${profileDirectory}" \
         --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations,WaylandLinuxDrmSyncobj \
         "$@"
     '';
@@ -20,11 +22,13 @@ let
   bravePersonal = mkBraveProfileLauncher {
     name = "brave-personal";
     userDataDir = "Brave-Browser";
+    profileDirectory = "Default";
   };
 
   braveWork = mkBraveProfileLauncher {
     name = "brave-work";
-    userDataDir = "Brave-Browser-Work";
+    userDataDir = "Brave-Browser";
+    profileDirectory = "Profile 1";
   };
 in
 {

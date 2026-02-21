@@ -16,6 +16,15 @@ in
 
     # Start in router mode and serve GGUF models from this directory.
     modelsDir = "/var/lib/llama-cpp/models";
+
+    # Keep VRAM usage predictable: only one model stays loaded at a time,
+    # and unload after an idle period.
+    extraFlags = [
+      "--models-max"
+      "1"
+      "--sleep-idle-seconds"
+      "900"
+    ];
   };
 
   systemd.services.llama-cpp.preStart = ''
