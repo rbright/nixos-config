@@ -14,13 +14,21 @@ app="${2:-}"
 
 class_regex=""
 title_regex=""
+cmdline_regex=""
 launch_cmd=""
 target_workspace=""
 
 case "$app" in
   brave)
     class_regex='^(brave-browser|Brave-browser)$'
+    cmdline_regex='--profile-directory=Default'
     launch_cmd='brave-personal --new-window'
+    target_workspace='1'
+    ;;
+  brave-work)
+    class_regex='^(brave-browser|Brave-browser)$'
+    cmdline_regex='--profile-directory=Profile 1'
+    launch_cmd='brave-work --new-window'
     target_workspace='1'
     ;;
   calendar)
@@ -113,9 +121,9 @@ launch_app() {
 }
 
 focus_existing() {
-  client="$(
+  clients="$(
     hyprctl -j clients \
-      | jq -re \
+      | jq -ce \
         --arg class "$class_regex" \
         --arg title "$title_regex" \
         '
@@ -134,13 +142,36 @@ focus_existing() {
             | {
                 address: (.address // ""),
                 workspace_id: (.workspace.id // 0),
-                focus_history: (.focusHistoryID // 999999)
+                focus_history: (.focusHistoryID // 999999),
+                pid: (.pid // null)
               }
           ]
           | sort_by(.focus_history)
-          | .[0]
         '
   )" || return 1
+
+  if [ -n "$cmdline_regex" ]; then
+    client="$(
+      printf '%s' "$clients" \
+        | jq -c '.[]' \
+        | while IFS= read -r candidate; do
+            pid="$(printf '%s' "$candidate" | jq -r '.pid')"
+            [ -n "$pid" ] || continue
+            [ "$pid" != "null" ] || continue
+
+            cmdline="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null || true)"
+            printf '%s' "$cmdline" | grep -Eiq -- "$cmdline_regex" || continue
+
+            printf '%s\n' "$candidate"
+            break
+          done
+    )"
+  else
+    client="$(printf '%s' "$clients" | jq -ce '.[0]' 2>/dev/null || true)"
+  fi
+
+  [ -n "$client" ] || return 1
+  [ "$client" != "null" ] || return 1
 
   address="$(printf '%s' "$client" | jq -r '.address')"
   workspace_id="$(printf '%s' "$client" | jq -r '.workspace_id')"
