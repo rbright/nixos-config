@@ -52,6 +52,16 @@ local keys = {
     -- Linux terminal clipboard shortcuts.
     { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
     { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+
+    -- Reserve SUPER+T for compositor-level shortcuts; use CTRL+T for new tabs.
+    { key = "t", mods = "CTRL",       action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+    { key = "t", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+    { key = "t", mods = "SUPER",      action = wezterm.action.DisableDefaultAssignment },
+    { key = "t", mods = "SUPER|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+
+    -- Reserve SUPER+W for compositor-level shortcuts; keep CTRL+SHIFT+W for closing tabs.
+    { key = "w", mods = "SUPER",      action = wezterm.action.DisableDefaultAssignment },
+    { key = "w", mods = "SUPER|SHIFT", action = wezterm.action.DisableDefaultAssignment },
 }
 
 config.keys = keys
