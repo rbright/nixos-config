@@ -1,0 +1,102 @@
+/*
+ * Thunderbird UI theme: Catppuccin Mocha (Blue accent)
+ * Keep in sync with Hyprland/Waybar colors from this repo.
+ */
+
+:root {
+  color-scheme: dark !important;
+
+  --tb-bg: #1e1e2e;
+  --tb-bg-elevated: #181825;
+  --tb-surface: #313244;
+  --tb-text: #cdd6f4;
+  --tb-subtext: #bac2de;
+  --tb-accent: #89b4fa;
+
+  --lwt-accent-color: var(--tb-bg) !important;
+  --lwt-text-color: var(--tb-text) !important;
+
+  --toolbar-bgcolor: var(--tb-bg) !important;
+  --toolbar-color: var(--tb-text) !important;
+  --toolbar-field-background-color: var(--tb-bg-elevated) !important;
+  --toolbar-field-color: var(--tb-text) !important;
+  --toolbar-field-border-color: var(--tb-surface) !important;
+
+  --sidebar-background-color: var(--tb-bg-elevated) !important;
+  --sidebar-text-color: var(--tb-text) !important;
+  --sidebar-border-color: var(--tb-surface) !important;
+
+  --chrome-content-separator-color: var(--tb-surface) !important;
+  --lwt-selected-tab-background-color: var(--tb-surface) !important;
+  --tab-selected-textcolor: var(--tb-text) !important;
+  --focus-outline-color: var(--tb-accent) !important;
+
+  --tree-selected-bgcolor: rgba(137, 180, 250, 0.24) !important;
+  --tree-selected-color: var(--tb-text) !important;
+}
+
+:root,
+window,
+menupopup,
+menuitem,
+menu,
+toolbar,
+toolbarbutton,
+button,
+textbox,
+input,
+select,
+textarea,
+tree,
+richlistbox,
+richlistitem {
+  font-family: "IBM Plex Sans" !important;
+}
+
+#messengerWindow,
+#navigation-toolbox,
+#unifiedToolbar,
+#spacesToolbar,
+#folderPaneHeaderBar,
+#threadPaneHeaderBar,
+#quick-filter-bar,
+#today-pane-panel,
+#messagepanebox {
+  background-color: var(--tb-bg) !important;
+  color: var(--tb-text) !important;
+}
+
+#folderPane,
+#threadPane,
+#folderTree,
+#threadTree {
+  background-color: var(--tb-bg-elevated) !important;
+  color: var(--tb-text) !important;
+  border-color: var(--tb-surface) !important;
+}
+
+.tabmail-tab {
+  color: var(--tb-subtext) !important;
+}
+
+.tabmail-tab[selected="true"],
+.tabmail-tab[visuallyselected="true"] {
+  background-color: var(--tb-surface) !important;
+  color: var(--tb-text) !important;
+  border-radius: 8px !important;
+}
+
+#folderTree treechildren::-moz-tree-row(selected),
+#threadTree treechildren::-moz-tree-row(selected) {
+  background-color: rgba(137, 180, 250, 0.24) !important;
+}
+
+#folderTree treechildren::-moz-tree-cell-text(selected),
+#threadTree treechildren::-moz-tree-cell-text(selected) {
+  color: var(--tb-text) !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--tb-accent) !important;
+  outline-offset: 1px !important;
+}

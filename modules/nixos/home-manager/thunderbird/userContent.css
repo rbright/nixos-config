@@ -1,0 +1,30 @@
+/*
+ * Style Thunderbird internal content pages (Settings, Account pages, etc)
+ * to match Catppuccin Mocha + IBM Plex Sans.
+ */
+
+@-moz-document url-prefix("about:"), url-prefix("chrome://messenger/content/") {
+  :root {
+    color-scheme: dark !important;
+
+    --in-content-page-background: #1e1e2e !important;
+    --in-content-page-color: #cdd6f4 !important;
+
+    --in-content-box-background: #181825 !important;
+    --in-content-box-border-color: #313244 !important;
+
+    --in-content-primary-button-background: #89b4fa !important;
+    --in-content-primary-button-background-hover: #74c7ec !important;
+    --in-content-primary-button-text-color: #1e1e2e !important;
+  }
+
+  body,
+  input,
+  select,
+  textarea,
+  button,
+  label,
+  description {
+    font-family: "IBM Plex Sans" !important;
+  }
+}

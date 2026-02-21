@@ -54,6 +54,7 @@ in
       XCURSOR_SIZE = "24";
       HYPRCURSOR_THEME = "catppuccin-mocha-blue-cursors";
       HYPRCURSOR_SIZE = "24";
+      MOZ_ENABLE_WAYLAND = "1";
     };
   };
 

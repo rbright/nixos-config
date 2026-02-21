@@ -31,7 +31,7 @@
       cursor-theme = "catppuccin-mocha-blue-cursors";
       cursor-size = 24;
       text-scaling-factor = 1.0;
-      font-name = "Inter 11";
+      font-name = "IBM Plex Sans 11";
     };
   };
 }
