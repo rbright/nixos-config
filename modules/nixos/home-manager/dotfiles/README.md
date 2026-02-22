@@ -65,6 +65,7 @@ After editing Waybar files, apply with `just switch omega`.
 - `Ctrl+Alt+Super+V`: compact multiline clipboard commands to one line, then paste.
 - `Alt+Super+C`: open Vicinae clipboard history.
 - `Super+T`: open Vicinae Todoist "Create Task" command.
+- OBS Studio windows are assigned to workspace `9` (secondary monitor default) to keep browser/code/terminal workspaces clear.
 
 Trim helper script usage:
 
