@@ -17,6 +17,11 @@ This directory contains NixOS modules consumed by `hosts/omega/flake.nix`.
 - Services: `llama-cpp.nix`
 - Home Manager user layer: `home-manager/*.nix`
 
+## Networking Defaults
+
+- `networking.nix` enables NetworkManager and configures Cloudflare DNS resolvers for NixOS hosts.
+- macOS DNS behavior is managed separately in `modules/macos/networking.nix`.
+
 ## Related Guides
 
 - Home Manager layer: [`home-manager/README.md`](home-manager/README.md)
