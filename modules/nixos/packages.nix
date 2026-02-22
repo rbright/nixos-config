@@ -63,6 +63,8 @@ in
   # Productivity Tools
   calibre # E-book management and conversion tool
   cider-2 # Apple Music client for Linux
+  libreoffice # Office suite (includes Writer/Word equivalent and Calc/Excel equivalent)
+  obs-studio # Screen recording/streaming suite (best Loom replacement baseline on NixOS)
   obsidian # Powerful knowledge base that works on top of a local folder of plain text Markdown files
   sunsama # Digital daily planner that helps you feel calm and stay focused
 
