@@ -18,6 +18,45 @@ This subtree stores NixOS-only dotfiles deployed through Home Manager via `../do
 
 Shared shell/terminal dotfiles now live under `modules/shared/home-manager/dotfiles/`.
 
+## Waybar: Linear notifications + GitHub pull-requests menus
+
+Waybar includes two dropdown modules inspired by Raycast menu-bar commands.
+
+Implementation source of truth now lives in standalone Go repos:
+
+- `/home/rbright/Projects/waybar-modules/waybar-linear` (`waybar-linear` binary)
+- `/home/rbright/Projects/waybar-modules/waybar-github` (`waybar-github` binary)
+
+Waybar modules:
+
+- `custom/linear-notifications` (unread Linear notifications)
+- `custom/github-pull-requests` (open GitHub pull requests involving you)
+
+Behavior:
+
+- Click icon to open a dropdown menu with individual items
+- Click an item in the dropdown to open it in the browser
+- Linear menu includes `Mark All as Read`
+
+Optional runtime config files (not committed):
+
+- `~/.config/waybar/linear-notifications.env`
+  - `LINEAR_API_KEY=<linear-personal-api-key>`
+  - `MAX_ITEMS=<menu-item-count>` (optional, default `8`, max `12`)
+- `~/.config/waybar/github-pull-requests.env`
+  - `GITHUB_TOKEN=<github-token>` (optional)
+  - `PR_QUERY=<github-search-query>` (optional; default `is:open is:pr involves:@me archived:false sort:updated-desc`)
+  - `MAX_ITEMS=<menu-item-count>` (optional, default `8`, max `12`)
+
+Preferred GitHub auth path is OAuth/device login via:
+
+```sh
+gh auth login
+gh auth status -h github.com
+```
+
+After editing Waybar files, apply with `just switch omega`.
+
 ## Hyprland Shortcut Notes
 
 - `Hyper+B`: focus personal Brave (`Hyper+Shift+B` launches a new personal window).

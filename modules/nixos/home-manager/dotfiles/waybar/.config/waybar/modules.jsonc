@@ -160,6 +160,57 @@
     "on-click-right": "sh -c 'if command -v wezterm >/dev/null 2>&1; then wezterm start -- bash -lc \"claude login || claude\"; elif command -v ghostty >/dev/null 2>&1; then ghostty -e bash -lc \"claude login || claude\"; else notify-send \"Claude\" \"Run: claude login\"; fi'",
     "tooltip": true
   },
+  "custom/linear-notifications": {
+    "exec": "waybar-linear status",
+    "return-type": "json",
+    "format": " {}",
+    "interval": 60,
+    "menu": "on-click",
+    "menu-file": "~/.local/state/waybar/menus/linear-notifications.xml",
+    "menu-actions": {
+      "open_inbox": "waybar-linear open-inbox",
+      "mark_all_read": "waybar-linear mark-all-read",
+      "refresh": "waybar-linear refresh",
+      "open_1": "waybar-linear open-item 1",
+      "open_2": "waybar-linear open-item 2",
+      "open_3": "waybar-linear open-item 3",
+      "open_4": "waybar-linear open-item 4",
+      "open_5": "waybar-linear open-item 5",
+      "open_6": "waybar-linear open-item 6",
+      "open_7": "waybar-linear open-item 7",
+      "open_8": "waybar-linear open-item 8",
+      "open_9": "waybar-linear open-item 9",
+      "open_10": "waybar-linear open-item 10",
+      "open_11": "waybar-linear open-item 11",
+      "open_12": "waybar-linear open-item 12"
+    },
+    "tooltip": true
+  },
+  "custom/github-pull-requests": {
+    "exec": "waybar-github status",
+    "return-type": "json",
+    "format": " {}",
+    "interval": 60,
+    "menu": "on-click",
+    "menu-file": "~/.local/state/waybar/menus/github-pull-requests.xml",
+    "menu-actions": {
+      "open_dashboard": "waybar-github open-dashboard",
+      "refresh": "waybar-github refresh",
+      "open_1": "waybar-github open-item 1",
+      "open_2": "waybar-github open-item 2",
+      "open_3": "waybar-github open-item 3",
+      "open_4": "waybar-github open-item 4",
+      "open_5": "waybar-github open-item 5",
+      "open_6": "waybar-github open-item 6",
+      "open_7": "waybar-github open-item 7",
+      "open_8": "waybar-github open-item 8",
+      "open_9": "waybar-github open-item 9",
+      "open_10": "waybar-github open-item 10",
+      "open_11": "waybar-github open-item 11",
+      "open_12": "waybar-github open-item 12"
+    },
+    "tooltip": true
+  },
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,

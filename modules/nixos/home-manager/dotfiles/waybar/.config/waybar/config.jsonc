@@ -21,6 +21,8 @@
     "group/tray-expander",
     "custom/codex-usage",
     "custom/claude-usage",
+    "custom/linear-notifications",
+    "custom/github-pull-requests",
     "custom/gcp-sql-tunnel",
     "pulseaudio",
     "bluetooth",
