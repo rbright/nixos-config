@@ -11,11 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     koko = {
-      url = "github:rbright/koko";
+      url = "path:/home/rbright/Projects/koko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixPiAgent = {
-      url = "github:rbright/nix-pi-agent";
+      url = "path:/home/rbright/Projects/nix-packages/nix-pi-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     riva = {

@@ -139,17 +139,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1771518989,
-        "narHash": "sha256-KZbhPEND0JvZGeKlUiLqnriQKblX6tFqT+/8cZHobTM=",
-        "owner": "rbright",
-        "repo": "koko",
-        "rev": "0a152203acaafa691854f5f68c236393e37869f0",
-        "type": "github"
+        "lastModified": 1771606664,
+        "narHash": "sha256-At+Mlar5e64geL/8hNA7dg30l47iZDJYWV5ohggHj3U=",
+        "path": "/home/rbright/Projects/koko",
+        "type": "path"
       },
       "original": {
-        "owner": "rbright",
-        "repo": "koko",
-        "type": "github"
+        "path": "/home/rbright/Projects/koko",
+        "type": "path"
       }
     },
     "nixPiAgent": {
@@ -160,17 +157,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1771566426,
-        "narHash": "sha256-3qDvV4Zvges8jtW50N3lOapFGgh0f3gSH03pS4mqMRE=",
-        "owner": "rbright",
-        "repo": "nix-pi-agent",
-        "rev": "829d47eb8f474538073984eeeab14d6a9ca2b53a",
-        "type": "github"
+        "lastModified": 1771566579,
+        "narHash": "sha256-FriYx+OcG3PhTPWgiizuHwnex2S1rFys10VFPvAKAek=",
+        "path": "/home/rbright/Projects/nix-packages/nix-pi-agent",
+        "type": "path"
       },
       "original": {
-        "owner": "rbright",
-        "repo": "nix-pi-agent",
-        "type": "github"
+        "path": "/home/rbright/Projects/nix-packages/nix-pi-agent",
+        "type": "path"
       }
     },
     "nixosModules": {
