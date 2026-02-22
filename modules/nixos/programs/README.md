@@ -9,6 +9,7 @@ This directory contains focused NixOS program modules imported by `modules/nixos
 - `git.nix`: Git defaults, aliases, and SSH-signing config.
 - `one-password.nix`: 1Password CLI/GUI enablement.
 - `firefox.nix`: Firefox enablement.
+- `obs-studio.nix`: OBS Studio enablement (NVIDIA acceleration, Wayland plugins, virtual camera).
 - `thunderbird.nix`: Thunderbird defaults (preferences/policies).
 - `thunar.nix`: Thunar + plugins + desktop service integration.
 - `default.nix`: import list.
@@ -17,6 +18,7 @@ This directory contains focused NixOS program modules imported by `modules/nixos
 
 - Update Git aliasing/signing behavior: `git.nix`
 - Adjust password manager integration: `one-password.nix`
+- Tune OBS Studio plugin/virtual-camera behavior: `obs-studio.nix`
 - Tune Thunderbird preferences/policies: `thunderbird.nix`
 - Tune file manager defaults/bookmarks: `thunar.nix`
 
