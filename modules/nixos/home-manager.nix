@@ -1,8 +1,11 @@
 {
   user,
+  nixCodex,
   nixPiAgent,
   vicinaeExtensions,
   waybarAgentUsage,
+  waybarGithub,
+  waybarLinear,
   ...
 }:
 {
@@ -40,8 +43,11 @@
             (pkgs.callPackage ../shared/packages.nix { })
             ++ (pkgs.callPackage ./packages.nix {
               inherit
+                nixCodex
                 nixPiAgent
                 waybarAgentUsage
+                waybarGithub
+                waybarLinear
                 ;
             });
           stateVersion = "25.11";

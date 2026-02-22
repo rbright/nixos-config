@@ -2,8 +2,8 @@
   description = "Configuration for managed hosts";
 
   inputs = {
-    codexCliNix = {
-      url = "github:sadjow/codex-cli-nix";
+    nixCodex = {
+      url = "path:/home/rbright/Projects/nix-packages/nix-codex";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -34,6 +34,14 @@
       url = "path:/home/rbright/Projects/waybar-modules/waybar-agent-usage";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    waybarGithub = {
+      url = "path:/home/rbright/Projects/waybar-modules/waybar-github";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    waybarLinear = {
+      url = "path:/home/rbright/Projects/waybar-modules/waybar-linear";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixosModules = {
       flake = false;
       url = "path:../../modules/nixos";
@@ -47,7 +55,7 @@
 
   outputs =
     {
-      codexCliNix,
+      nixCodex,
       home-manager,
       koko,
       nixPiAgent,
@@ -55,6 +63,8 @@
       sotto,
       vicinaeExtensions,
       waybarAgentUsage,
+      waybarGithub,
+      waybarLinear,
       nixosModules,
       nixpkgs,
       sharedModules,
@@ -71,17 +81,17 @@
           hostName = "omega";
           user = "rbright";
           inherit
+            nixCodex
             nixPiAgent
             vicinaeExtensions
             waybarAgentUsage
+            waybarGithub
+            waybarLinear
             ;
         };
         modules = [
           home-manager.nixosModules.home-manager
           {
-            nixpkgs.overlays = [
-              codexCliNix.overlays.default
-            ];
             environment.systemPackages = [
               koko.packages.${pkgs.stdenv.hostPlatform.system}.koko
             ];

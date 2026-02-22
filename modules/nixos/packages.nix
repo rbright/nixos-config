@@ -1,7 +1,10 @@
 {
   pkgs,
+  nixCodex,
   nixPiAgent,
   waybarAgentUsage,
+  waybarGithub,
+  waybarLinear,
   ...
 }:
 with pkgs;
@@ -15,7 +18,10 @@ let
 
   # External package sources of truth.
   piAgent = nixPiAgent.packages.${pkgs.stdenv.hostPlatform.system}.pi-agent;
+  codexCli = nixCodex.packages.${pkgs.stdenv.hostPlatform.system}.codex;
   waybarAgentUsageBin = waybarAgentUsage.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  waybarGithubBin = waybarGithub.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  waybarLinearBin = waybarLinear.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   # Ensure btop can load NVIDIA NVML on NixOS hybrid/dGPU systems.
   btopWithNvml = lib.hiPrio (
@@ -47,13 +53,15 @@ in
   atlas # Manage your database schema as code
   bun # Fast JavaScript runtime, package manager, and bundler
   claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
-  codex # Lightweight coding agent that runs in your terminal
+  codexCli # Lightweight coding agent that runs in your terminal
   figma-linux # Desktop client for Figma on Linux
   gcc # GNU C compiler toolchain (needed for building native Neovim plugins)
   jetbrains.datagrip # Database IDE from JetBrains
   lazygit # Simple terminal UI for git commands
   piAgent # Minimal terminal coding harness for agentic engineering workflows
   waybarAgentUsageBin # Standalone Codex/Claude Waybar usage module backend
+  waybarGithubBin # Standalone GitHub PR dropdown Waybar backend
+  waybarLinearBin # Standalone Linear notifications dropdown Waybar backend
   prek # Fast pre-commit hook runner and config manager
   uv # Extremely fast Python package installer and resolver, written in Rust
   vscodeWithKeyring # VS Code in FHS mode with libsecret-backed credential storage
@@ -64,7 +72,6 @@ in
   calibre # E-book management and conversion tool
   cider-2 # Apple Music client for Linux
   libreoffice # Office suite (includes Writer/Word equivalent and Calc/Excel equivalent)
-  obs-studio # Screen recording/streaming suite (best Loom replacement baseline on NixOS)
   obsidian # Powerful knowledge base that works on top of a local folder of plain text Markdown files
   sunsama # Digital daily planner that helps you feel calm and stay focused
 

@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "codexCliNix": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770927256,
-        "narHash": "sha256-R/RoNtWU8LHFUK5nGRIewLipM8Dgme9YNHLxzGIXDfM=",
-        "owner": "sadjow",
-        "repo": "codex-cli-nix",
-        "rev": "00619f4aa35f3c027a866ec7c51105ccbb49e3ef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sadjow",
-        "repo": "codex-cli-nix",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -133,7 +112,7 @@
     },
     "koko": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -146,6 +125,24 @@
       },
       "original": {
         "path": "/home/rbright/Projects/koko",
+        "type": "path"
+      }
+    },
+    "nixCodex": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771738379,
+        "narHash": "sha256-C//M03SYFChlpeopjNcJKfCuazedbmP1YG6CuZhs+UE=",
+        "path": "/home/rbright/Projects/nix-packages/nix-codex",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/rbright/Projects/nix-packages/nix-codex",
         "type": "path"
       }
     },
@@ -215,9 +212,9 @@
     },
     "root": {
       "inputs": {
-        "codexCliNix": "codexCliNix",
         "home-manager": "home-manager",
         "koko": "koko",
+        "nixCodex": "nixCodex",
         "nixPiAgent": "nixPiAgent",
         "nixosModules": "nixosModules",
         "nixpkgs": "nixpkgs",
@@ -225,7 +222,9 @@
         "sharedModules": "sharedModules",
         "sotto": "sotto",
         "vicinaeExtensions": "vicinaeExtensions",
-        "waybarAgentUsage": "waybarAgentUsage"
+        "waybarAgentUsage": "waybarAgentUsage",
+        "waybarGithub": "waybarGithub",
+        "waybarLinear": "waybarLinear"
       }
     },
     "sharedModules": {
@@ -409,6 +408,40 @@
       },
       "original": {
         "path": "/home/rbright/Projects/waybar-modules/waybar-agent-usage",
+        "type": "path"
+      }
+    },
+    "waybarGithub": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771774354,
+        "narHash": "sha256-Tf1nQ+7A5Dcn7JHNatNVgLvNh2PM3o/pqwjFN6ZRiCY=",
+        "path": "/home/rbright/Projects/waybar-modules/waybar-github",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/rbright/Projects/waybar-modules/waybar-github",
+        "type": "path"
+      }
+    },
+    "waybarLinear": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771774354,
+        "narHash": "sha256-GCoG887P9m4yuvXM0tjmozSfjyYFnis0wU/AnDcKCWI=",
+        "path": "/home/rbright/Projects/waybar-modules/waybar-linear",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/rbright/Projects/waybar-modules/waybar-linear",
         "type": "path"
       }
     }
