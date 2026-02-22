@@ -24,6 +24,7 @@ Shared shell/terminal dotfiles now live under `modules/shared/home-manager/dotfi
 - `Hyper+V`: focus work Brave profile (`Hyper+Shift+V` launches a new work window).
 - `Hyper+R`: focus VS Code (`Hyper+Shift+R` launches a new window).
 - `Ctrl+Alt+Super+V`: compact multiline clipboard commands to one line, then paste.
+- `Alt+Super+C`: open Vicinae clipboard history.
 - `Super+T`: open Vicinae Todoist "Create Task" command.
 
 Trim helper script usage:
